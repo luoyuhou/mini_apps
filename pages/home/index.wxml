@@ -1,2 +1,25 @@
 <!--pages/home/index.wxml-->
-<text>pages/home/index.wxml</text>
+<view class='page-body'>
+ <view wx:for="{{data}}" wx:key="{{item.id}}">
+  <view class='home--item'>
+    <view class='home--item-profile'>
+      <view class='home--item-profile-img'>
+        <image class='home--item-profile-avatar' src='{{item.avatar}}'></image>
+      </view>
+      <view>
+        <view class='home--item-profile-name'>{{item.username}}</view>
+        <view class='home--item-profile-level'>钻1</view>
+      </view>
+      <view class='home--item-profile-message'>{{item.message}}</view>
+    </view>
+    <view>
+      <video class='w-100' src='{{item.url}}'></video>
+    </view>
+      <view class='flex home--item-good'>
+        <image data-id="{{item.id}}" class='home--item-good-img' src='../../static/img/good_on.png' bindtap="uncheckedGood" wx:if="{{item.meChecked}}"></image>
+        <image data-id="{{item.id}}" bindtap="checkedGood" class='home--item-good-img' src='../../static/img/good.png' wx:else></image>
+      <text class='home--item-good-text' wx:if="{{item.good}}">+{{item.good}}</text>
+      </view>
+  </view>
+</view>
+</view>

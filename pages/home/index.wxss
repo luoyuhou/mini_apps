@@ -1,1 +1,45 @@
 /* pages/home/index.wxss */
+.home--item {
+  margin-top: 10rpx;
+  padding: 10rpx 0rpx;
+  border-bottom: 1rpx solid #ccc;
+}
+.home--item-profile {
+  display: flex;
+  justify-content: flex-start;
+}
+.home--item-profile view {
+  margin: 5rpx;
+}
+.home--item-profile-avatar {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 100%;
+  vertical-align: center;
+  border: 1rpx solid #bbb;
+  margin-top: 15rpx;
+}
+.home--item-profile-name {
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+.home--item-profile-level {
+  color: gold;
+  border: 1px solid gold;
+  font-size: 0.4rem;
+  text-align: center;
+  border-radius: 15rpx;
+}
+.home--item-profile-message {
+  font-size: 0.8rem;
+  padding-top: 8rpx;
+}
+.home--item-good-img {
+  width: 50rpx;
+  height: 50rpx;
+}
+.home--item-good-text {
+  font-size: 0.6rem;
+  line-height: 1.3rem;
+}
+

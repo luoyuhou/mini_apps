@@ -1,2 +1,29 @@
 <!--pages/me/index.wxml-->
-<text>pages/me/index.wxml</text>
+<view class="me--page">
+  <view class="me--page-header">
+    <view class="me--page-header-history">
+      <canvas style="width: 100%; height: 210px;" canvas-id="myHistory" binderror="canvasIdErrorCallback"></canvas>
+      <view class="me--page-header-profile">
+      <view>
+        <image class="me--page-header-profile-img" src="../../static/img/profile.png"></image>
+      </view>
+      <view>hello</view>
+    </view>
+    </view>
+  </view>
+  <view class="me--page-body">
+    <view class="me--page-row-item flex flex-justify-between">
+      <text>查看历史战绩</text>
+      <text>></text>
+    </view>
+    <view class="me--page-row-item flex flex-justify-between">
+      <text>游戏动态创作</text>
+      <text>></text>
+    </view>
+    <view class="me--page-row-item flex flex-justify-between">
+      <text>更多服务</text>
+      <text>></text>
+    </view>
+  </view>
+</view>
+

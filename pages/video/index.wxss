@@ -1,1 +1,40 @@
 /* pages/video/index.wxss */
+.video--item {
+  margin-top: 10rpx;
+  padding: 10rpx 0rpx;
+  border-bottom: 1rpx solid #ccc;
+}
+.video--item-video {
+  position: relative;
+}
+.video--item-visitor {
+  position: absolute;
+  font-size: 0.8rem;
+  right: 0rpx;
+  top: 0rpx;
+  background: #ccc;
+  color: #fff;
+  opacity: 0.8;
+  padding: 0 5rpx;
+}
+.video--item-share-box {
+  position: absolute;
+  left: 5rpx;
+  top: 0rpx;
+  background: transparent;
+}
+.video--item-share-box-img {
+  width: 50rpx;
+  height: 50rpx;
+}
+.video--item-comment{
+  width: 90rpx;
+  text-align: right;
+}
+.video--item-comment-img {
+  width: 40rpx;
+  height: 40rpx;
+}
+.video--item-comment-text {
+  font-size: 0.5rem;
+}

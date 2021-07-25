@@ -1,2 +1,17 @@
 <!--pages/strategy/index.wxml-->
-<text>pages/strategy/index.wxml</text>
+<wxs module="dateFormat" src="../../utils/filters.wxs"></wxs>
+<view class="strategy--page">
+    <view wx:for="{{data}}" wx:key="{{item.id}}" class="strategy--page-item" wx:key="*this">
+       <view class="row-center">
+            <text class="strategy--page-item-category">{{item.category}}</text>
+        </view>
+       <view wx:for="{{item.child}}" wx:for-item="row" wx:key="*this">
+           <view class="strategy--page-item-title">{{row.title}}</view>
+           <view class="strategy--page-item-description">{{row.description}}</view>
+           <view class="strategy--page-item-files">
+            <image class="strategy--page-item-img" wx:for="{{row.files}}" wx:for-item="url" wx:key="*this" src="{{url}}"></image>
+           </view>
+           <view class="strategy--page-item-date">{{dateFormat(row.createDate)}}</view>
+       </view>
+    </view>
+</view>

@@ -1,0 +1,15 @@
+import { monent } from './moment.js'
+moment.locale('en', {
+  longDateFormat: {
+    l: "YYYY-MM-DD",
+    L: "YYYY-MM-DD HH:mm:ss",
+  }
+});
+
+const dateFormat = (date) => {
+    return moment(date).format();
+}
+
+module.exports = {
+    dateFormat:dateFormat
+  }

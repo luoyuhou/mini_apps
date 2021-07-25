@@ -3,7 +3,8 @@
     "pages/home/index",
     "pages/video/index",
     "pages/strategy/index",
-    "pages/me/index"
+    "pages/me/index",
+    "pages/video/thread/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -43,5 +44,6 @@
     "request": 10000,
     "downloadFile": 10000
   },
-  "debug": true
+  "debug": true,
+  "sitemapLocation": "sitemap.json"
 }

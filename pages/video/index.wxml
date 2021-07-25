@@ -1,2 +1,23 @@
 <!--pages/video/index.wxml-->
-<text>pages/video/index.wxml</text>
+<view class='page-body'>
+ <view wx:for="{{data}}" wx:key="{{item.id}}">
+  <view class='video--item'>
+    <view class='video--item-video'>
+      <video class='w-100' src="{{item.src}}"></video>
+      <text class='video--item-visitor'>播放量：{{item.visitor | 0}}</text>
+      <view class='video--item-share-box'>
+        <image data-url="{{item.src}}" class='video--item-share-box-img' src='../../static/img/share.png' bindtap=''></image>
+      </view>
+    </view>
+    <view class='flex flex-justify-between'>
+      <view>{{item.description}}</view>
+      <view class='video--item-comment'>
+        <view>
+          <navigator url='./thread/index'><image class='video--item-comment-img' src='../../static/img/comment.png'></image></navigator>
+        </view>
+        <view class='video--item-comment-text'>{{item.amount | 0}}</view>
+      </view>
+    </view>
+  </view>
+</view>
+</view>
