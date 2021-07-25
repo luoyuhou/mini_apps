@@ -1,6 +1,6 @@
 <!--pages/home/index.wxml-->
 <view class='page-body'>
- <view wx:for="{{data}}" wx:key="{{item.id}}">
+ <view wx:for="{{data}}" wx:key="*this">
   <view class='home--item'>
     <view class='home--item-profile'>
       <view class='home--item-profile-img'>

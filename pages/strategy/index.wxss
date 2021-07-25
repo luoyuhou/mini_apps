@@ -34,5 +34,9 @@
     margin: 0 0.5%;
 }
 .strategy--page-item-date {
+    margin: 5rpx 0;
     color: #bbb;
+}
+.strategy--page-item-child {
+    border-bottom: 1px solid #ccc;
 }

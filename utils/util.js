@@ -1,3 +1,16 @@
+import moment from 'moment';
+
+moment.locale('en', {
+  longDateFormat: {
+    l: "YYYY-MM-DD",
+    L: "YYYY-MM-DD HH:mm:ss",
+  }
+});
+
+const formatDate = date => {
+  return moment(date).format();
+}
+
 const formatTime = date => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
@@ -31,3 +44,4 @@ module.exports = {
   formatTime: formatTime,
   fetch: fetch
 }
+exports.formatDate = formatDate;
