@@ -9,11 +9,11 @@
   module.exports.format = format
 </wxs>
 <view class="strategy--page">
-    <view wx:for="{{data}}" wx:key="{{item.id}}" class="strategy--page-item" wx:key="*this">
+    <view wx:for="{{data}}" wx:key="{{item.id}}" class="strategy--page-item" wx:key="unique">
        <view class="row-center">
             <text class="strategy--page-item-category">{{item.category}}</text>
         </view>
-       <view class="strategy--page-item-child" wx:for="{{item.child}}" wx:for-item="row" wx:key="*this">
+       <view class="strategy--page-item-child" wx:for="{{item.child}}" wx:for-item="row" wx:key="unique">
            <view class="strategy--page-item-title">{{row.title}}</view>
            <view class="strategy--page-item-description">{{row.description}}</view>
            <view class="strategy--page-item-files">

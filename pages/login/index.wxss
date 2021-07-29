@@ -1,0 +1,25 @@
+/* pages/login/index.wxss */
+ .profile--page > view.container {
+     padding: 250rpx 0;
+ }
+
+ .profile--page-userinfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+ }
+ 
+ .profile--page-userinfo-avatar {
+   width: 128rpx;
+   height: 128rpx;
+   margin: 20rpx;
+   border-radius: 50%;
+ }
+ 
+ .profile--page-userinfo-nickname {
+   color: #aaa;
+ }
+
+ button {
+     width: 100px;
+ }

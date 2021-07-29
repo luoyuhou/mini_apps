@@ -1,49 +1,51 @@
 {
-  "pages": [
-    "pages/home/index",
-    "pages/video/index",
-    "pages/strategy/index",
-    "pages/me/index",
-    "pages/video/thread/index"
-  ],
-  "window": {
-    "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle": "black"
-  },
-  "tabBar": {
-    "list": [
-      {
-        "selectedIconPath": "static/img/home_on.png",
-        "iconPath": "static/img/home.png",
-        "pagePath": "pages/home/index",
-        "text": "首页"
-      },
-      {
-        "selectedIconPath": "static/img/video_on.png",
-        "iconPath": "static/img/video.png",
-        "pagePath": "pages/video/index",
-        "text": "视频"
-      },
-      {
-        "selectedIconPath": "static/img/new_on.png",
-        "iconPath": "static/img/new.png",
-        "pagePath": "pages/strategy/index",
-        "text": "最新资讯"
-      },
-      {
-        "selectedIconPath": "static/img/me_on.png",
-        "iconPath": "static/img/me.png",
-        "pagePath": "pages/me/index",
-        "text": "我的"
-      }
-    ]
-  },
-  "networkTimeout": {
-    "request": 10000,
-    "downloadFile": 10000
-  },
-  "debug": true,
-  "sitemapLocation": "sitemap.json"
+    "pages": [
+        "pages/profile/index",
+        "pages/login/index",
+        "pages/home/index",
+        "pages/video/index",
+        "pages/strategy/index",
+        "pages/me/index",
+        "pages/video/thread/index"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "WeChat",
+        "navigationBarTextStyle": "black"
+    },
+    "tabBar": {
+        "list": [
+            {
+                "selectedIconPath": "static/img/home_on.png",
+                "iconPath": "static/img/home.png",
+                "pagePath": "pages/home/index",
+                "text": "首页"
+            },
+            {
+                "selectedIconPath": "static/img/video_on.png",
+                "iconPath": "static/img/video.png",
+                "pagePath": "pages/video/index",
+                "text": "视频"
+            },
+            {
+                "selectedIconPath": "static/img/new_on.png",
+                "iconPath": "static/img/new.png",
+                "pagePath": "pages/strategy/index",
+                "text": "最新资讯"
+            },
+            {
+                "selectedIconPath": "static/img/me_on.png",
+                "iconPath": "static/img/me.png",
+                "pagePath": "pages/me/index",
+                "text": "我的"
+            }
+        ]
+    },
+    "networkTimeout": {
+        "request": 10000,
+        "downloadFile": 10000
+    },
+    "debug": true,
+    "sitemapLocation": "sitemap.json"
 }

@@ -1,0 +1,29 @@
+<!--pages/profile/index.wxml-->
+<view class="fill-page">
+    <view class="profile--page">
+        <form catchsubmit="onsubmit">
+            <view class="row-center">
+                <image class="profile--page-avatar" src="{{profile.avatar || '../../static/img/profile.png'}}" bindtap="onChangeProflieAvatar"></image>
+            </view>
+            <view class="profile--page-from-controller" wx:for="{{columns}}" wx:key="unique">
+                <label for="{{item.name}}">{{item.label}}</label><i wx:if="{{item.required}}" class="required-label-mark" />
+                <view>
+                    <input type="{{item.type}}" id="{{item.name}}" name="{{item.name}}" value="{{profile[item.name]}}" bindinput="onInputChange" />
+                </view>
+            </view>
+            <view class="profile--page-from-controller">
+                <label for="gender">性别</label>
+                <view>
+                    <radio-group class="flex" bindchange="radioChange" style="justify-content: space-evenly;">
+                        <label class="radio" wx:for-items="{{genderColumns}}" wx:key="unique">
+                            <radio value="{{item.value}}" checked="{{item.value == profile['gender']}}"/>{{item.name}}
+                        </label>
+                    </radio-group>
+                </view>
+            </view>
+            <view class="profile--page-submit">
+                <button type="primary" form-type="submit">提交</button>
+            </view>
+        </form>
+    </view>
+</view>

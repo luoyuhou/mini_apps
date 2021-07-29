@@ -36,3 +36,17 @@ view, text {
   justify-content: space-between;
 }
 
+.fill-page {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: #eee;
+}
+
+.required-label-mark::after {
+  content: "*";
+  color: red;
+  margin-left: 1px;
+}

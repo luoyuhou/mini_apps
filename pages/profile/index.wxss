@@ -1,0 +1,23 @@
+/* pages/profile/index.wxss */
+.profile--page {
+    padding: 5px 10px;
+}
+
+.profile--page-from-controller {
+    margin-bottom: 10px;
+}
+
+.profile--page-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+}
+
+.profile--page input {
+    background: #fff;
+}
+
+.profile--page-submit {
+    margin-top: 30px;
+}

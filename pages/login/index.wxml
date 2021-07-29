@@ -1,0 +1,12 @@
+<!--pages/login/index.wxml-->
+<view class="fill-page">
+    <view class="container">
+        <view class="profile--page-userinfo">
+            <open-data type='userAvatarUrl'></open-data>
+            <open-data type='userNickName' style='margin-top:50rpx;'></open-data>
+        </view>
+        <view>
+            <button open-type='getUserInfo' type='primary' bindgetuserinfo="onLogin">登陆</button>
+        </view>
+    </view>
+</view>
