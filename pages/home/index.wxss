@@ -1,45 +1,94 @@
 /* pages/home/index.wxss */
-.home--item {
-  margin-top: 10rpx;
-  padding: 10rpx 0rpx;
-  border-bottom: 1rpx solid #ccc;
-}
-.home--item-profile {
-  display: flex;
-  justify-content: flex-start;
-}
-.home--item-profile view {
-  margin: 5rpx;
-}
-.home--item-profile-avatar {
-  width: 60rpx;
-  height: 60rpx;
-  border-radius: 100%;
-  vertical-align: center;
-  border: 1rpx solid #bbb;
-  margin-top: 15rpx;
-}
-.home--item-profile-name {
-  font-weight: bold;
-  font-size: 0.9rem;
-}
-.home--item-profile-level {
-  color: gold;
-  border: 1px solid gold;
-  font-size: 0.4rem;
+.home--page {
   text-align: center;
-  border-radius: 15rpx;
 }
-.home--item-profile-message {
-  font-size: 0.8rem;
-  padding-top: 8rpx;
+.home--page-header {
+  width: 100%;
+  margin-top: 10px;
 }
-.home--item-good-img {
-  width: 50rpx;
-  height: 50rpx;
+.home--page-header-car {
+  width: 95%;
+  height: 50vw;
+  margin: 0 auto;
 }
-.home--item-good-text {
-  font-size: 0.6rem;
-  line-height: 1.3rem;
+.home--page-body {
+  
+}
+.home--page-body-profile {
+  width: 95%;
+  height: 200px;
+  border: 1px solid gold;
+  margin: 5px auto;
+  background: #3c3f41ff;
+}
+.home--page-body-profile-section-1 {
+  margin: 15px;
+  padding: 10px;
+  background: gray;
+  border-radius: 10px;
+}
+.home--page-body-profile-avatar {
+  width: 70px;
+  height: 70px;
+  border: 1px solid #ccc;
+}
+.home--page-body-profile-text {
+  flex-direction: column;
+  margin-left: 10px;
+  justify-content: space-around;
+}
+.home--page-body-profile-nickname {
+  font-size: 1.1rem;
+  font-weight: bolder;
 }
 
+.home--page-body-profile-level {
+  font-size: 0.9rem;
+}
+.home--page-body-profile-text view {
+  color: #fff;
+  text-align: left;
+}
+view.home--page-body-profile-bio {
+  font-size: 0.5rem;
+  color: #3c3f41ff;
+}
+.home--page-body-profile-section-2 {
+  padding: 0 25px;
+  justify-content: space-between;
+}
+.home--page-body-profile-time {
+  flex-direction: column;
+  justify-content: space-around;
+}
+.home--page-body-profile-time {
+  font-size: 0.9rem;
+  color: #fff;
+}
+.home--page-body-profile-time view:nth-child(1) {
+  color: goldenrod;
+}
+.home--page-body-profile-recharge {
+  background: gold;
+  width: 100px;
+}
+.home--page-footer {
+  margin-top: 5px;
+  
+}
+.home--page-footer view {
+  width: 95%;
+  margin: 0 auto;
+  background: gold;
+  justify-content: space-between;
+}
+.home--page-footer-scan {
+  padding: 0 10px;
+  font-size: 1.2rem;
+  text-align: left;
+  line-height: 2.5;
+}
+.home--page-footer-scan-img {
+  width: 50px;
+  height: 50px;
+}

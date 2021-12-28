@@ -1,0 +1,74 @@
+/* pages/order/index.wxss */
+.order--page {
+    padding: 5px;
+}
+
+.order--page-container {
+    /* background-color: #fff; */
+}
+
+.order--page-title {
+    font-weight: bold;
+    line-height: 2;
+    background-color: #fff;
+}
+
+.order--page-list {
+    margin: 5px 0;
+}
+
+.order--page-list-item {
+    flex: 1;
+    border-radius: 5px;
+    text-align: center;
+    background-color: #fff;
+    margin: 0 1px;
+    position: relative;
+    height: 100px;
+    padding-top: 30px;
+    overflow: hidden;
+}
+.order--page-list-item-amount {
+    font-size: 1.2rem;
+    font-weight: bolder;
+    color: green;
+}
+
+.order--page-list-item.active {
+    border: 1px solid green;
+}
+
+.order--page-list-item-label {
+    font-size: 0.4rem;
+    line-height: 1.5;
+    background:orange;
+    position:absolute;
+    right: 0px;
+    top: 0px;
+    z-Index:2;
+    padding:0 2em;
+    -webkit-transform-origin:left bottom;
+    -moz-transform-origin:left bottom;
+    transform-origin:left bottom;
+    -webkit-transform:translate(29.29%,-100%) rotate(45deg);
+    -moz-transform:translate(29.29%,-100%) rotate(45deg);
+    transform:translate(29.29%,-100%) rotate(45deg);
+    text-indent:0;
+}
+
+.order--page-dashboard {
+    background-color: #fff;
+}
+
+.order--page-dashboard-panel {
+    padding: 5px;
+}
+
+.order--page-dashboard-panel text:last-child {
+    margin-left: 5px;
+    font-weight: bolder;
+}
+
+.order--page-submit {
+    margin-top: 5rem;
+}

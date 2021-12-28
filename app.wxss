@@ -16,7 +16,6 @@ view, text {
 
 .page-body {
   padding: 30rpx;
-  /* background: red; */
 }
 
 .row-center {
@@ -49,4 +48,101 @@ view, text {
   content: "*";
   color: red;
   margin-left: 1px;
+}
+view, text, image {
+  box-sizing: border-box;
+}
+.top-nav {
+  display: flex;
+  border-bottom: 1px solid #e6d9af;
+}
+.top-nav-name {
+  flex: 1;
+  text-align: center;
+  background: #eee;
+  color: #2b2e33;
+  padding: 18rpx 0;
+  font-size: 30rpx;
+}
+.top-nav-hover {
+  color: #f5a623;
+  font-weight: bolder;
+  background: #fff;
+}
+.todo {
+  height: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.todo::after {
+  content: "开发中，敬请期待...";
+}
+.two-nav {
+  display: flex;
+}
+.two-nav-name {
+  flex: 1;
+  border: 1px solid #f5a623;
+  padding: 12px 0;
+  text-align: center;
+}
+.two-nav-hover {
+  background: #f5a623;
+  color: #fff;
+}
+
+.table {
+  border: 0px solid darkgray;
+}
+.tr {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  height: 3rem;
+  align-items: center;
+}
+.td {
+    width:40%;
+    justify-content: center;
+    text-align: center;
+}
+.bg-w{
+  background: snow;
+}
+.bg-g{
+  background: #E6F3F9;
+}
+.th {
+  width: 40%;
+  justify-content: center;
+  background: #f5a623;
+  color: #fff;
+  display: flex;
+  height: 3rem;
+  align-items: center;
+}
+.not-found, .data-loading {
+  background: #fff;
+  display: flex;
+  height: 48px;
+  justify-content: center;
+  align-items: center;
+}
+.not-found::after {
+  content: '暂无数据！';
+  color: #ccc;
+}
+.navigation {
+  height: 36px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5px;
+  background: #eee;
+  border-bottom: 1px solid #ddd;
+}
+.data-loading::after {
+  content: 'loading...';
+  color: #ccc;
 }

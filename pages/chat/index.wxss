@@ -1,0 +1,48 @@
+/* pages/chat/index.wxss */
+.chat--page {
+    padding: 5px;
+    font-size: 0.8rem;
+    height: 100vh;
+}
+.flex-align-right {
+    flex-direction: row-reverse;
+    justify-items: right;
+}
+.chat--page-context-containor {
+    height: 70vh;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+}
+.chat--page-context-item {
+    margin: 5px;
+    padding: 5px;
+    vertical-align: middle;
+}
+.chat--page-context-user {
+    width: 3rem;
+    background-color: green;
+    padding: 5px;
+    border-radius: 10px;
+}
+.chat--page-context-item-msg {
+    background-color: #eee;
+    padding: 2px;
+    border-radius: 5px;
+    margin: 0 2px;
+}
+.chat--page-context-item-msg-date {
+    color: #ccc;
+    font-size: 0.4rem;
+}
+.chat--page-section {
+    height: 25vh;
+    margin-top: 5px;
+}
+.chat--page-send-context {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    height: 75%;
+    width: 100%;
+    background-color: #fff;
+}

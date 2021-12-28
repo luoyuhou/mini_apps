@@ -1,12 +1,16 @@
 {
     "pages": [
-        "pages/profile/index",
         "pages/login/index",
+        "pages/refund/index",
         "pages/home/index",
         "pages/video/index",
         "pages/strategy/index",
         "pages/me/index",
-        "pages/video/thread/index"
+        "pages/video/thread/index",
+        "pages/profile/index",
+        "pages/order/index",
+        "pages/recharge/index",
+        "pages/chat/index"
     ],
     "window": {
         "backgroundTextStyle": "light",
@@ -23,16 +27,10 @@
                 "text": "首页"
             },
             {
-                "selectedIconPath": "static/img/video_on.png",
-                "iconPath": "static/img/video.png",
-                "pagePath": "pages/video/index",
-                "text": "视频"
-            },
-            {
                 "selectedIconPath": "static/img/new_on.png",
                 "iconPath": "static/img/new.png",
                 "pagePath": "pages/strategy/index",
-                "text": "最新资讯"
+                "text": "比赛信息"
             },
             {
                 "selectedIconPath": "static/img/me_on.png",

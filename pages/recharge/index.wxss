@@ -1,0 +1,20 @@
+/* pages/recharge/index.wxss */
+.recharge--page {
+    width: 95%;
+    margin: 10px auto;
+}
+.recharge--page-body {
+    padding-top: 2px;
+}
+
+.recharge--page-item {
+    background: #fff;
+    margin-bottom: 2px;
+    padding: 5px 0;
+}
+
+.recharge--page-item view {
+    display: flex;
+    padding: 0 5px;
+    justify-content: space-between;
+}

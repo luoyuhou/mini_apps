@@ -1,4 +1,6 @@
 // pages/profile/index.js
+const app = getApp();
+const fetch = require('../../utils/util.js').fetch;
 Page({
 
     /**
@@ -18,17 +20,15 @@ Page({
             { name: "男", value: 1, checked: true },
             { name: '女', value: 0}
         ],
-        profile: {
-            avatar: '',
-            gender: 1,
-        }
+        profile: {},
+        baseUrl: "",
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad: function (options) {
-
+    onLoad: function () {
+        
     },
 
     /**
@@ -41,8 +41,11 @@ Page({
     /**
      * 生命周期函数--监听页面显示
      */
-    onShow: function () {
-
+    onShow: function (options) {
+        this.setData({
+            profile: app.globalData.userInfo,
+            baseUrl: app.globalData.baseApiUrl,
+        })
     },
 
     /**
@@ -129,11 +132,25 @@ Page({
         }
         if ((profile.password || profile.confirm) && profile.password !== profile.confirm) {
             wx.showToast({
-              title: '两次密码不一致',
+                icon: "none",
+                title: '两次密码不一致',
             })
             return;
         }
-        console.log('profile', this.data.profile);
-        
+        fetch({
+          url: `${app.globalData.baseApiUrl}/user/profile`,
+          method: 'PUT',
+          data: this.data.profile
+        }).then((data) => {
+            console.log('bind profile', data); 
+            wx.showToast({
+                title: "更新成功",
+            })
+            app.globalData.userInfo = data;
+        }).catch((err) => {
+            wx.showToast({
+              title: err,
+            })
+        });
     }
 })

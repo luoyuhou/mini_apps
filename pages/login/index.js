@@ -1,6 +1,6 @@
 // pages/login/index.js
 const app = getApp();
-
+const fetch = require('../../utils/util').fetch;
 Page({
     
     /**
@@ -14,7 +14,18 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-
+        fetch({
+            url: `${app.globalData.baseApiUrl}/user/login`,
+            method: "HEAD"
+        }).then((user) => {
+            console.log("user", user);
+            app.globalData.userInfo = user;
+            wx.switchTab({
+                url: '../home/index',
+            })
+            return;
+        })
+        .catch(() => {})
     },
 
     /**
@@ -72,47 +83,22 @@ Page({
             success: res => {
                 // 发送 res.code 到后台换取 openId, sessionKey, unionId
                 var code = res.code;
-                if(res.code){
-                    wx.request({
-                        url: `${app.globalData.baseApiUrl}/user/wxlogin?code=${code}`,
-                        success: function (res) {
-                            console.log('res===', res.data);
-                            let data = res.data;
-                            if (data instanceof String) {
-                                wx.showToast({
-                                title: '登陆失败',
-                                icon: 'error',
-                                duration: 2000,
-                                })
-                                return;
-                            }
-                            if (!data.code) {
-                                wx.showToast({
-                                    title: data.msg,
-                                    icon: 'error',
-                                    duration: 1000,
-                                })
-                                return;
-                            }
-                            if (data.code === 1) {
-                                wx.redirectTo({
-                                url: '../home/index',
-                                })
-                                return;
-                            }
-                            if (data.code === 301) {
-                                wx.navigateTo({
-                                    url: '../profile/index',
-                                });
-                                return;
-                            }
-                            wx.showToast({
-                            title: 'error',
-                            msg: '请重试!'
-                            })
-                        }
+                console.log('code', code);
+                res.code && fetch({
+                    url: `${app.globalData.baseApiUrl}/user/wxlogin?code=${code}`,
+                }).then((data) => {
+                    console.log('wxlogin data', data);
+                        app.globalData.userInfo = data.data;
+                        wx.switchTab({
+                            url: '../home/index',
+                        })
+                        return;
+                }).catch((err) => {
+                    wx.showToast({
+                        icon: "error",
+                        title: err || "请重试!"
                     })
-                }
+                })
             }
         })
     }

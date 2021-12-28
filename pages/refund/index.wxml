@@ -1,0 +1,38 @@
+<!--pages/refund/index.wxml-->
+<wxs src="../../utils/filter.wxs" module="filter" />
+<view class="fill-page">
+  <view class="refund--page">
+    <!-- 导航 -->
+    <view class='top-nav'>
+      <view class="top-nav-name {{item.index == pageIndex ? 'top-nav-hover':''}}" wx:for="{{pages}}" wx:key="unique" id='{{item.index}}' catchtap='onSlidePage'>
+        {{item.name}}
+      </view>
+    </view>
+
+    <!-- body -->
+    <view class="refund--page-body">
+        <view wx:if="{{loading}}">
+            <view class="data-loading"></view>
+        </view>
+        <view wx:elif="{{data[pageIndex].length == 0 && !loading}}">
+            <view class="not-found"></view>
+        </view>
+        <view wx:else>
+            <view wx:for="{{data[pageIndex]}}" wx:key="unique" class="refund--page-item">
+                <view>
+                    <view>退款金额</view>
+                    <view>{{item.money / 100}}元</view>
+                </view>
+                <view>
+                    <view>退款状态</view>
+                    <view><rich-text nodes="{{filter.formatState(item.state)}}"></rich-text></view>
+                </view>
+                <view>
+                    <view>订单创建时间</view>
+                    <view>{{filter.formatTime(item.createtime, 'Y-M-D h:m:s')}}</view>
+                </view>
+            </view>
+        </view>
+    </view>
+  </view>
+</view>

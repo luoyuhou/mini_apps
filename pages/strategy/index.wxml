@@ -1,25 +1,64 @@
 <!--pages/strategy/index.wxml-->
-<wxs module="m1">
-  function format(ts) {
-    var d = getDate(ts)
-    return [d.getFullYear(), d.getMonth()+1, d.getDate()].join('-')
-      + ' '
-      + [d.getHours(), d.getMinutes(), d.getSeconds()].join(':')
-  }
-  module.exports.format = format
-</wxs>
-<view class="strategy--page">
-    <view wx:for="{{data}}" wx:key="{{item.id}}" class="strategy--page-item" wx:key="unique">
-       <view class="row-center">
-            <text class="strategy--page-item-category">{{item.category}}</text>
-        </view>
-       <view class="strategy--page-item-child" wx:for="{{item.child}}" wx:for-item="row" wx:key="unique">
-           <view class="strategy--page-item-title">{{row.title}}</view>
-           <view class="strategy--page-item-description">{{row.description}}</view>
-           <view class="strategy--page-item-files">
-            <image class="strategy--page-item-img" wx:for="{{row.files}}" wx:for-item="url" wx:key="*this" src="{{url}}"></image>
-           </view>
-           <view class="strategy--page-item-date">{{m1.format(row.createDate)}}</view>
-       </view>
+<view class="fill-page">
+  <view class="strategy--page">
+    <!-- 导航 -->
+    <view class='top-nav'>
+      <view class="top-nav-name {{item.index == pageIndex ? 'top-nav-hover':''}}" wx:for="{{pages}}" wx:key="unique" id='{{item.index}}' catchtap='onSlidePage'>
+        {{item.name}}
+      </view>
     </view>
+
+    <!-- body -->
+    <view class="strategy--page-body">
+      <!-- page1 -->
+      <view hidden='{{pageIndex!=0}}'>
+        <!-- 二级 nav -->
+        <view class='two-nav'>
+          <view class="two-nav-name {{item.index == gameInfoIndex ? 'two-nav-hover':''}}" wx:for="{{gameInfos}}" wx:key="unique" id='{{item.index}}' catchtap='onSlide'>
+            {{item.name}}
+          </view>
+        </view>
+        <view class="strategy--page-child-body">
+          <!-- 二级 page1 -->
+          <view hidden="{{gameInfoIndex!=0}}">
+            <view class="table">
+              <view class="tr bg-w">
+                <view class="th" wx:for="{{tableColumn1}}" wx:key="unique">{{item}}</view>
+              </view>
+              <block wx:for="{{table1}}" wx:key="unique">
+                <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+                  <view class="td" wx:for="{{item}}" wx:for-item="value" wx:key="unique">{{value}}</view>
+                </view>
+                <view class="tr" wx:else>
+                  <view class="td" wx:for="{{item}}" wx:for-item="value" wx:key="unique">{{value}}</view>
+                </view>
+              </block>
+            </view>
+            <view class="not-found" hidden="{{table1.length}}"></view>
+          </view>
+          <!-- 二级 page2 -->
+          <view hidden="{{gameInfoIndex!=1}}">
+            <view class="table">
+              <view class="tr bg-w">
+                <view class="th" wx:for="{{tableColumn2}}" wx:key="unique">{{item}}</view>
+              </view>
+              <block wx:for="{{table2}}" wx:key="unique">
+                <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+                  <view class="td" wx:for="{{item}}" wx:for-item="value" wx:key="unique">{{value}}</view>
+                </view>
+                <view class="tr" wx:else>
+                  <view class="td" wx:for="{{item}}" wx:for-item="value" wx:key="unique">{{value}}</view>
+                </view>
+              </block>
+            </view>
+            <view class="not-found" hidden="{{table2.length}}"></view>
+          </view>
+          <!-- 二级 page3 -->
+          <view hidden="{{gameInfoIndex!=2}}" class="todo"></view>
+        </view>
+      </view>
+      <!-- page2 -->
+      <view hidden='{{pageIndex!=1}}' class="todo"></view>
+    </view>
+  </view>
 </view>

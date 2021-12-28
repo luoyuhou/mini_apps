@@ -1,0 +1,65 @@
+var formatNumber = function(n){
+    n = n.toString()
+    return n[1] ? n : '0' + n
+  }
+
+var formatTime = function (number, format) {
+    var formateArr = ['Y', 'M', 'D', 'h', 'm', 's'];
+    var returnArr = [];
+  
+    var date = getDate(number * 1000);
+    returnArr.push(date.getFullYear());
+    returnArr.push(formatNumber(date.getMonth() + 1));
+    returnArr.push(formatNumber(date.getDate()));
+  
+    returnArr.push(formatNumber(date.getHours()));
+    returnArr.push(formatNumber(date.getMinutes()));
+    returnArr.push(formatNumber(date.getSeconds()));
+  
+    returnArr.forEach(function(item,index) {
+      format = format.replace(formateArr[index], item);
+    })
+    return format;
+}
+
+var formatState = function (state) {
+    switch(state) {
+        case 0:
+            return '<strong style="color: orange">待处理</strong>';
+        case 1:
+            return '<strong style="color: green">已完成</strong>';
+        case 2:
+            return '<strong style="color: red">已拒绝</strong>';
+        case -1:
+            return '<strong style="color: gray">取消</strong>';
+        // defualt:
+        //     return '<span>unknow</span>';
+    }
+}
+
+var getLevelName = function(level) {
+    switch(level) {
+        case 1:
+            return "黑铁";
+        case 2:
+            return "青铜";
+        case 3:
+            return "白银";
+        case 4:
+            return "黄金";
+        case 5:
+            return "钻石";
+        case 5:
+            return "星耀";
+        case 6:
+            return "王者";
+        default:
+            return "菜鸟";
+    }
+}
+
+module.exports = { 
+    formatTime: formatTime,
+    formatState: formatState,
+    getLevelName: getLevelName,
+};

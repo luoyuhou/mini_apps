@@ -1,42 +1,13 @@
 /* pages/strategy/index.wxss */
 .strategy--page {
+    width: 95%;
+    margin: 10px auto;
+    background: #fff;
+}
 
+.strategy--page-body {
+    padding-top: 2px;
 }
-.strategy--page-item{
-    margin: 20rpx;
-    padding: 10rpx;
-    border: 1px solid #ddd;
-    -webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
-    -moz-box-shadow: 0 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
-    -o-box-shadow:0 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
-}
-.strategy--page-item-category {
-    font-size: 1rem;
-    font-weight: bolder;
-    padding: 15rpx 50rpx;
-    border-bottom: 1px solid #ccc;
-}
-.strategy--page-item-title {
-    font-weight: bold;
-    padding: 10rpx 0;
-}
-.strategy--page-item-description {
-    text-indent: 2em;
-}
-.strategy--page-item-files {
-    width: 100%;
-}
-.strategy--page-item-img {
-    width: 32%;
-    height: 200rpx;
-    border-radius: 10px;
-    margin: 0 0.5%;
-}
-.strategy--page-item-date {
-    margin: 5rpx 0;
-    color: #bbb;
-}
-.strategy--page-item-child {
-    border-bottom: 1px solid #ccc;
+.strategy--page-child-body {
+    margin-top: 2px;
 }

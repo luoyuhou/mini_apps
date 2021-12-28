@@ -1,0 +1,20 @@
+/* pages/refund/index.wxss */
+.refund--page {
+    width: 95%;
+    margin: 10px auto;
+}
+.refund--page-body {
+    padding-top: 2px;
+}
+
+.refund--page-item {
+    background: #fff;
+    margin-bottom: 2px;
+    padding: 5px 0;
+}
+
+.refund--page-item view {
+    display: flex;
+    padding: 0 5px;
+    justify-content: space-between;
+}

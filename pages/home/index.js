@@ -1,4 +1,6 @@
 // pages/home/index.js
+const app = getApp();
+const fetch = require('../../utils/util').fetch;
 Page({
 
   /**
@@ -6,14 +8,16 @@ Page({
    */
   data: {
     index: 0,
-    data: []
+    data: [],
+    profile: {},
+    baseUrl: "",
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.loadData();
+    
   },
 
   /**
@@ -27,7 +31,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    console.log("home page app", app);
+    this.setData({
+      profile: app.globalData.userInfo,
+      baseUrl: app.globalData.baseApiUrl
+    })
+    this.loadData();
+    console.log("======profile", this.data)
   },
 
   /**
@@ -80,25 +90,24 @@ Page({
     })
   },
 
-  checkedGood: function(e) {
-    const id = e.currentTarget.dataset.id;
-    this.data.data.forEach(v => {
-      if(v.id === id) {
-        v.good = v.good ? v.good + 1: 1;
-        v.meChecked = true;
+  onTriggleScan: function() {
+    console.log('----------');
+    wx.scanCode({
+      // onlyFromCamera: true,
+      success: (res) => {
+        console.log('scan res', res);
+        fetch({
+          url: `${this.data.baseUrl}/user/scanloginweb?code=${res.result}`
+        }).then((res) => {
+          console.log('res', res);
+        })
       }
     })
-    this.setData({data: this.data.data});
   },
 
-  uncheckedGood: function(e) {
-    const id = e.currentTarget.dataset.id;
-    this.data.data.forEach(v => {
-      if (v.id === id) {
-        v.good = v.good ? v.good - 1 : 0;
-        v.meChecked = false;
-      }
+  onRecharge: function() {
+    wx.navigateTo({
+      url: '../order/index',
     })
-    this.setData({ data: this.data.data });
-  }
+  },
 })

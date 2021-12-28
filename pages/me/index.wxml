@@ -1,28 +1,51 @@
 <!--pages/me/index.wxml-->
-<view class="me--page">
-  <view class="me--page-header">
-    <view class="me--page-header-history">
-      <canvas style="width: 100%; height: 210px;" canvas-id="myHistory" binderror="canvasIdErrorCallback"></canvas>
-      <view class="me--page-header-profile">
-      <view>
-        <image class="me--page-header-profile-img" src="../../static/img/profile.png"></image>
+<view class="fill-page">
+  <view class="me--page">
+    <!-- 导航 -->
+    <view class='top-nav'>
+      <view class="top-nav-name {{item.index == pageIndex ? 'top-nav-hover':''}}" wx:for="{{pages}}" wx:key="unique" id='{{item.index}}' catchtap='onSlidePage'>
+        {{item.name}}
       </view>
-      <view>hello</view>
     </view>
-    </view>
-  </view>
-  <view class="me--page-body">
-    <view class="me--page-row-item flex flex-justify-between">
-      <text>查看历史战绩</text>
-      <text>></text>
-    </view>
-    <view class="me--page-row-item flex flex-justify-between">
-      <text>游戏动态创作</text>
-      <text>></text>
-    </view>
-    <view class="me--page-row-item flex flex-justify-between">
-      <text>更多服务</text>
-      <text>></text>
+
+    <!-- body -->
+    <view class="me--page-body">
+      <!-- page1 -->
+      <view hidden='{{pageIndex!=0}}'>
+        <view class="todo"></view>
+      </view>
+      <!-- page2 -->
+      <view hidden='{{pageIndex!=1}}'>
+        <view class="table">
+          <view class="tr bg-w">
+            <view class="th" wx:for="{{accountColumn}}" wx:key="unique">{{item}}</view>
+          </view>
+          <block wx:for="{{accountTable}}" wx:key="unique">
+            <view class="tr bg-g">
+              <view class="td" wx:for="{{item}}" wx:for-item="value" wx:key="unique">{{value | 0}}</view>
+            </view>
+          </block>
+        </view>
+
+        <view style="margin-top: 5px">
+          <view class="navigation" wx:for="{{accountNavigation}}" wx:key="unique">
+            <navigator url="{{item.url}}">{{item.name}}</navigator>
+            <text>></text>
+          </view>
+        </view>
+      </view>
+      <!-- page3 -->
+      <view hidden='{{pageIndex!=2}}'>
+        <view class="todo"></view>
+      </view>
+      <!-- page4 -->
+      <view hidden='{{pageIndex!=3}}'>
+        <view class="todo"></view>
+      </view>
+      <!-- page5 -->
+      <view hidden='{{pageIndex!=4}}'>
+        <view class="todo"></view>
+      </view>
     </view>
   </view>
 </view>

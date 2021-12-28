@@ -1,45 +1,9 @@
 /* pages/me/index.wxss */
 .me--page {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: #ddd;
-}
-.me--page-header {
-    width: 100%;
-}
-.me--page-header-history {
-    width: 100%;
-    margin-top: 50px;
-    padding: 55px 0 0;
-    border-top: 1px solid #cccccc;
-    border-bottom: 1px solid #cccccc;
-    position: relative;
-    background: #fff;
-}
-.me--page-header-profile {
-    position: absolute;
-    top: -45px;
-    width: 100%;
-    text-align: center;
-}
-.me--page-header-profile-img {
-    width: 80px;
-    height: 80px;
-    border: 1px solid #ccc;
-    border-radius: 100%;
-    background: #fff;
+    width: 95%;
+    margin: 10px auto;
 }
 .me--page-body {
-    /* padding-bottom: 20rpx; */
-}
-.me--page-row-item {
-    padding: 5rpx 10rpx;
-    margin-top: 20rpx;
     background: #fff;
-}
-.me--page-row-item text:nth-child(2) {
-    color: #aaa;
+    padding-top: 2px;
 }

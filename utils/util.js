@@ -22,17 +22,50 @@ const formatTime = date => {
   return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 }
 
-const fetch = (url, method, payload, success, fail) => {
-  wx.request({
-    url,
-    method,
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    data: payload,
-    success,
-    fail
+const fetch = ({ url, method, data }) => {
+  console.log('url=', url);
+  // let token = wx.getStorageSync('userToken');
+  const sid = wx.getStorageSync('koa.sid');
+  const sig = wx.getStorageSync('koa.sid.sig');
+  console.log("cookie======", `koa.sid=${sid}; koa.sid.sig=${sig}`);
+  // console.log('fetch token', token);
+  console.log('fetch data', data);
+  return new Promise((resolve, reject) => {
+    wx.request({
+      url,
+      method,
+      header: {
+        'content-type': 'Application/json',
+        // 'no-redirect': true,
+        'cookie': `koa.sid=${sid}; koa.sid.sig=${sig}`,
+      },
+      data: data,
+      success: (res) => {
+        console.log('fetch success', res);
+        if (res.statusCode !== 200) {
+          reject(res.data);
+        }
+        if (res && Array.isArray(res.cookies) && res.cookies.length) {
+          res.cookies.forEach((str) => {
+            const cookieInfo = str.split(";");
+            const key = cookieInfo[0].split("=");
+            wx.setStorageSync(key[0], key[1])
+          })
+        }
+        resolve(res.data);
+      },
+      fail: (e) => {
+        console.log('error', e.message);
+        reject(e.message);
+      },
+      complete: (com) => {
+        console.log("complete", com);
+      }
+    }).onHeadersReceived((result) => {
+      console.log("header received", result);
+      console.log('location', result.header.location)
     })
+  })
 }
 
 const formatNumber = n => {

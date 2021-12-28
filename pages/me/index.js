@@ -1,4 +1,6 @@
 // pages/me/index.js
+const app = getApp();
+const fetch = require('../../utils/util').fetch;
 const wxCharts = require('../../utils/wxcharts.js');
 Page({
 
@@ -6,7 +8,20 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    pageIndex: 0,
+    pages: [
+      { name: "好友", index: 0 },
+      { name: "账户余额", index: 1 },
+      { name: "比赛时长", index: 2 },
+      { name: "用户等级", index: 3 },
+      { name: "客户中心", index: 4 },
+    ],
+    accountColumn: ['现金余额', '赠送余额', '总余额'],
+    accountTable: [['100', '20', '120']],
+    accountNavigation: [
+      { name: '消费记录', url: '' },
+      { name: '退款', url: '' }
+    ]
   },
 
   /**
@@ -65,48 +80,53 @@ Page({
 
   },
 
+  onSlidePage: function(e) {
+    this.setData({
+      pageIndex: e.currentTarget.id
+    })
+  },
 
-getMothElectro:function(){
-  var windowWidth = 320;
-  try {
-    var res = wx.getSystemInfoSync();
-    windowWidth = res.windowWidth;
-  } catch (e) {
-    console.error('getSystemInfoSync failed!');
-  }
-  new wxCharts({ //当月用电折线图配置
-    canvasId: 'myHistory',
-    type: 'line',
-    categories: ['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8', 'S9', 'S10', 'S11', 'S12', 'S13', 'S14', 'S15'], //categories X轴
-    animation: true,
-    // background: '#f5f5f5',
-    series: [{
-      name: '赛季段位',
-      //data: yuesimulationData.data,
-      data: [1, 6, 9, 1, 0, 2, 9, 2, 8, 6, 0, 9, 8, 0, 3],
-      format: function (val, name) {
-        console.log('val', val, 'name', name);
-        return val;
-      }
-    }],
-    xAxis: {
-      disableGrid: true
-    },
-    yAxis: {
-      title: '',
-      format: function (val) {
-        return val;
-      },
-      max: 20,
-      min: 0
-    },
-    width: windowWidth,
-    height: 200,
-    dataLabel: false,
-    dataPointShape: true,
-    extra: {
-      lineStyle: 'curve'
+  getMothElectro:function(){
+    var windowWidth = 320;
+    try {
+      var res = wx.getSystemInfoSync();
+      windowWidth = res.windowWidth;
+    } catch (e) {
+      console.error('getSystemInfoSync failed!');
     }
-  });
-}
+    new wxCharts({ //当月用电折线图配置
+      canvasId: 'myHistory',
+      type: 'line',
+      categories: ['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8', 'S9', 'S10', 'S11', 'S12', 'S13', 'S14', 'S15'], //categories X轴
+      animation: true,
+      // background: '#f5f5f5',
+      series: [{
+        name: '赛季段位',
+        //data: yuesimulationData.data,
+        data: [1, 6, 9, 1, 0, 2, 9, 2, 8, 6, 0, 9, 8, 0, 3],
+        format: function (val, name) {
+          console.log('val', val, 'name', name);
+          return val;
+        }
+      }],
+      xAxis: {
+        disableGrid: true
+      },
+      yAxis: {
+        title: '',
+        format: function (val) {
+          return val;
+        },
+        max: 20,
+        min: 0
+      },
+      width: windowWidth,
+      height: 200,
+      dataLabel: false,
+      dataPointShape: true,
+      extra: {
+        lineStyle: 'curve'
+      }
+    });
+  }
 })

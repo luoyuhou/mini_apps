@@ -1,0 +1,25 @@
+<!--pages/order/index.wxml-->
+<view class="fill-page">
+    <view class="order--page">
+        <view class="order--page-container">
+            <view class="row-center order--page-title">请选择充值金额</view>
+            <view class="order--page-list flex">
+                <view wx:for="{{list}}" wx:key="unique" class="order--page-list-item {{index == listIndex ? 'active':''}}" id="{{index}}" bindtap="onChooseItem">
+                    <view class="order--page-list-item-amount">{{item.amount / 100}}</view>
+                    <view class="order--page-list-item-money">{{item.money / 100}}元</view>
+                    <view class="order--page-list-item-label" wx:if="{{item.discount > 0 && item.discount % 100 != 0}}">{{item.discount / 100 }}折</view>
+                    <view class="order--page-list-item-label" wx:if="{{item.discount > 0 && item.discount % 100 == 0}}">{{item.discount / 100 }}.0折</view>
+                </view>
+            </view>
+            <view class="order--page-dashboard">
+                <view class="order--page-dashboard-panel">
+                    <text>需要支付的金额:</text><text>{{list[listIndex] && list[listIndex]['money'] / 100 || 0 }}元</text>
+                </view>
+            </view>
+            <view class="order--page-submit">
+                    <button type="primary" bindtap="onOrder" disabled="{{listIndex == -1}}">立即下单</button>
+                </view>
+        </view>
+    </view>
+</view>
+

@@ -1,0 +1,30 @@
+<!--pages/chat/index.wxml-->
+<wxs src="../../utils/filter.wxs" module="filter" />
+<view class="chat--page fill-page">
+    <scroll-view scroll-y class="chat--page-context-containor">
+        <view wx:for="{{list}}" wx:key="*this">
+            <view wx:if="{{item.isMe}}">
+                <view class="chat--page-context-item flex flex-align-right">
+                <view class="chat--page-context-user">{{item.username}}</view>
+                <view class="chat--page-context-item-msg">
+                    <view>{{item.message}}</view>
+                    <view class="chat--page-context-item-msg-date">{{item.date}}</view>
+                </view>
+            </view>
+            </view>
+            <view wx:else="true">
+                <view class="chat--page-context-item flex">
+                <view class="chat--page-context-user">{{item.username}}</view>
+                <view class="chat--page-context-item-msg">
+                    <view>{{item.message}}</view>
+                    <view class="chat--page-context-item-msg-date">{{item.date}}</view>
+                </view>
+                </view>
+            </view>
+        </view>
+    </scroll-view>
+    <view class="chat--page-section">
+        <textarea class="chat--page-send-context" placeholder="请输入..." name="message" show-confirm-bar bindinput="inputMsg" value="{{message}}" />
+        <button type="primary" bindtap="chat">发送</button>
+    </view>
+</view>

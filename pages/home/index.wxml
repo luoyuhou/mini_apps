@@ -1,25 +1,37 @@
 <!--pages/home/index.wxml-->
-<view class='page-body'>
- <view wx:for="{{data}}" wx:key="unique">
-  <view class='home--item'>
-    <view class='home--item-profile'>
-      <view class='home--item-profile-img'>
-        <image class='home--item-profile-avatar' src='{{item.avatar}}'></image>
-      </view>
-      <view>
-        <view class='home--item-profile-name'>{{item.username}}</view>
-        <view class='home--item-profile-level'>钻1</view>
-      </view>
-      <view class='home--item-profile-message'>{{item.message}}</view>
-    </view>
-    <view>
-      <video class='w-100' src='{{item.url}}'></video>
-    </view>
-      <view class='flex home--item-good'>
-        <image data-id="{{item.id}}" class='home--item-good-img' src='../../static/img/good_on.png' bindtap="uncheckedGood" wx:if="{{item.meChecked}}"></image>
-        <image data-id="{{item.id}}" bindtap="checkedGood" class='home--item-good-img' src='../../static/img/good.png' wx:else></image>
-      <text class='home--item-good-text' wx:if="{{item.good}}">+{{item.good}}</text>
-      </view>
+<wxs src="../../utils/filter.wxs" module="filter" />
+<view class='home--page fill-page'>
+  <view class="home--page-header">
+    <image class="home--page-header-car" src="{{cartpath || '../../static/img/car.jpg'}}"></image>
   </view>
-</view>
+  <view class="home--page-body">
+    <view class="home--page-body-profile">
+      <view class="home--page-body-profile-section-1 flex">
+        <navigator url="../profile/index">
+          <image class="home--page-body-profile-avatar" src="{{profile.avatar || '../../static/img/profile.png'}}"></image>
+        </navigator>
+        <view class="home--page-body-profile-text flex">
+          <view class="home--page-body-profile-nickname">{{profile.nickname}}</view>
+          <view class="home--page-body-profile-bio">{{profile.bio || '此人很懒，什么也没留下...'}}</view>
+          <view class="home--page-body-profile-level">{{filter.getLevelName(profile.level)}}玩家</view>
+        </view>
+      </view>
+      <view class="flex home--page-body-profile-section-2">
+        <view class="flex home--page-body-profile-time">
+          <view>账户剩余</view>
+          <view>{{profile.money}} 元</view>
+        </view>
+        <view>
+          <button class="home--page-body-profile-recharge" bindtap="onRecharge">充值</button>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="home--page-footer">
+    <view class="flex" bindtap="onTriggleScan">
+      <view class=home--page-footer-scan">扫码，开始游戏</view>
+      <image class="home--page-footer-scan-img" src="../../static/img/scan-code.png"></image>
+    </view>
+    <navigator url="../chat/index">聊天</navigator>
+  </view>
 </view>

@@ -8,7 +8,7 @@
             <view class="profile--page-from-controller" wx:for="{{columns}}" wx:key="unique">
                 <label for="{{item.name}}">{{item.label}}</label><i wx:if="{{item.required}}" class="required-label-mark" />
                 <view>
-                    <input type="{{item.type}}" id="{{item.name}}" name="{{item.name}}" value="{{profile[item.name]}}" bindinput="onInputChange" />
+                    <input type="{{item.type}}" id="{{item.name}}" name="{{item.name}}" value="{{profile[item.name] || ''}}" bindinput="onInputChange" />
                 </view>
             </view>
             <view class="profile--page-from-controller">

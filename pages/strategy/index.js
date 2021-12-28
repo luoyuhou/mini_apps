@@ -6,6 +6,25 @@ Page({
    */
   data: {
     index: 0,
+    pageIndex: 0,
+    gameInfoIndex: 0,
+    pages: [
+      { name: "个人比赛信息", index: 0 },
+      { name: "全国圈速榜", index: 1 }
+    ],
+    gameInfos: [
+      { name: "生涯模式圈速", index: 0 },
+      { name: "个人计时圈速", index: 1 },
+      { name: "店内联机成绩", index: 2 }
+    ],
+    tableColumn1: ['模式', '难度', '参赛人数', '成绩', '耗时', '比赛时间'],
+    table1: [
+     ['炼狱模式', '简单', 12, '第一名', "4分5秒", '2021/08/08 01:30:30'],
+     ['炼狱模式', '中等', 12, '第三名', "4分5秒", '2021/08/08 01:30:30'],
+     ['炼狱模式', '困难', 12, '第五名', "4分5秒", '2021/08/08 01:30:30'],
+    ],
+    tableColumn2: ['模式', '难度', '成绩', '耗时', '比赛时间'],
+    table2: [],
     data: []
   },
 
@@ -63,6 +82,19 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  onSlidePage: function(e) {
+    console.log(e)
+    this.setData({
+      pageIndex: e.currentTarget.id
+    })
+  },
+
+  onSlide: function(e) {
+    this.setData({
+      gameInfoIndex: e.currentTarget.id
+    })
   },
 
   loadData: function () {
