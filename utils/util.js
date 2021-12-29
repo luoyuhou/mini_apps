@@ -36,7 +36,7 @@ const fetch = ({ url, method, data }) => {
       method,
       header: {
         'content-type': 'Application/json',
-        // 'no-redirect': true,
+        'no-redirect': true,
         'cookie': `koa.sid=${sid}; koa.sid.sig=${sig}`,
       },
       data: data,

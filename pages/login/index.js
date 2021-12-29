@@ -88,11 +88,18 @@ Page({
                     url: `${app.globalData.baseApiUrl}/user/wxlogin?code=${code}`,
                 }).then((data) => {
                     console.log('wxlogin data', data);
-                        app.globalData.userInfo = data.data;
-                        wx.switchTab({
-                            url: '../home/index',
-                        })
-                        return;
+                    app.globalData.userInfo = data;
+                    wx.showToast({
+                        icon: "success",
+                        title: '登陆成功',
+                    }).then(() => {
+                        console.log('________');
+                        setTimeout(() => {
+                            wx.switchTab({
+                                url: '../home/index',
+                            })
+                        }, 2000);
+                    })
                 }).catch((err) => {
                     wx.showToast({
                         icon: "error",
