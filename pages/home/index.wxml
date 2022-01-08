@@ -28,10 +28,13 @@
     </view>
   </view>
   <view class="home--page-footer">
-    <view class="flex" bindtap="onTriggleScan">
-      <view class=home--page-footer-scan">扫码，开始游戏</view>
+    <view class="flex home--page-footer-item" bindtap="onTriggleScan">
+      <view class=home--page-footer-scan">扫码</view>
       <image class="home--page-footer-scan-img" src="../../static/img/scan-code.png"></image>
     </view>
-    <navigator url="../chat/index">聊天</navigator>
+    <navigator class="flex home--page-footer-item" url="../chat/index">
+      <view class=home--page-footer-scan">客服助手</view>
+      <image class="home--page-footer-scan-img" src="../../static/img/wechat-line.png"></image>
+    </navigator>
   </view>
 </view>

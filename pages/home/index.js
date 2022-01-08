@@ -97,7 +97,7 @@ Page({
       success: (res) => {
         console.log('scan res', res);
         fetch({
-          url: `${this.data.baseUrl}/user/scanloginweb?code=${res.result}`
+          url: res.result
         }).then((res) => {
           console.log('res', res);
         })

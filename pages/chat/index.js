@@ -1,6 +1,8 @@
 // pages/chat/index.js
 const app = getApp();
 const fetch = require("../../utils/util").fetch;
+const store = require("../../utils/store")
+const watch = require("../../utils/watch");
 Page({
 
     /**
@@ -17,12 +19,13 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        watch.setWatcher(this);
+        const _list = store.getStorageSync('app_chat', true);
         this.setData({
             baseUrl: app.globalData.baseApiUrl,
             profile: app.globalData.userInfo,
-        })
-        console.log("--------", app);
-        console.log("==== chat onload", this.data);
+            list: _list || [],
+        });
     },
 
     /**
@@ -80,6 +83,7 @@ Page({
         })
     },
 
+
     chat: function () {
         const self = this;
         const msg = this.data.message;
@@ -91,12 +95,12 @@ Page({
             return;
         }
         this.setData({
-            list: self.data.list.concat({ username: this.data.profile.username, date: Date.now(), message: msg, isMe: true }),
+            list: self.data.list.concat({ username: this.data.profile.username, date: Math.round(Date.now() / 1000), message: msg, isMe: true }),
         });
         fetch({ url: `${this.data.baseUrl}/robot/chat`, method: "POST", data: { message: msg } })
         .then((res) => {
             self.setData({
-                list: self.data.list.concat({ username: "robot", message: res.msg[0].content, date: Number(res.create_time), isMe: false }),
+                list: self.data.list.concat({ username: "小微", message: res.msg[0].content, date: Math.round(res.create_time / 1000), isMe: false }),
                 message: "",
             });
         })
@@ -105,6 +109,30 @@ Page({
                 icon: "none",
                 title: err,
             })
+        })
+    },
+
+    watch: {
+        list: (newVal, oldVal) => {
+            if (JSON.stringify(newVal) === JSON.stringify(oldVal)) {
+                return;
+            }
+            store.saveStorageSync('app_chat', newVal, true);
+        }
+    },
+
+    removeChatList: () => {
+        wx.showModal({
+            title: '警告',
+            content: '删除聊天记录，不可恢复',
+            success (res) {
+              if (res.confirm) {
+                store.removeStorageSync('app_chat');
+                wx.redirectTo({
+                  url: 'index',
+                })
+              }
+            }
         })
     }
 })

@@ -16,7 +16,7 @@ Page({
     onLoad: function (options) {
         fetch({
             url: `${app.globalData.baseApiUrl}/user/login`,
-            method: "HEAD"
+            method: "GET"
         }).then((user) => {
             console.log("user", user);
             app.globalData.userInfo = user;

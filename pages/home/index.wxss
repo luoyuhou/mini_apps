@@ -76,9 +76,9 @@ view.home--page-body-profile-bio {
   margin-top: 5px;
   
 }
-.home--page-footer view {
+.home--page-footer-item {
   width: 95%;
-  margin: 0 auto;
+  margin: 5px auto;
   background: gold;
   justify-content: space-between;
 }
