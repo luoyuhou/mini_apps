@@ -15,7 +15,7 @@ Page({
      */
     onLoad: function (options) {
         fetch({
-            url: `${app.globalData.baseApiUrl}/user/login`,
+            url: `${app.globalData.baseApiUrl}/auth/sign-in`,
             method: "GET"
         }).then((user) => {
             console.log("user", user);
@@ -85,21 +85,58 @@ Page({
                 var code = res.code;
                 console.log('code', code);
                 res.code && fetch({
-                    url: `${app.globalData.baseApiUrl}/user/wxlogin?code=${code}`,
+                    url: `${app.globalData.baseApiUrl}/auth/wx/verify-code`,
+                    method: "POST",
+                    data: { code },
                 }).then((data) => {
                     console.log('wxlogin data', data);
-                    app.globalData.userInfo = data;
-                    wx.showToast({
-                        icon: "success",
-                        title: '登陆成功',
-                    }).then(() => {
-                        console.log('________');
-                        setTimeout(() => {
-                            wx.switchTab({
-                                url: '../home/index',
+
+
+                    wx.getUserInfo({
+                      lang: "zh_CN",
+                      success: (info) => {
+                        console.log('getUserInfo', info);
+
+                        fetch({
+                            url: `${app.globalData.baseApiUrl}/auth/wx/sign-in`,
+                            method: "POST",
+                            data: { 
+                                uuid: data.data.uuid,
+                                signature: info.signature,
+                                rawData: info.rawData,
+                             },
+                        })
+                        .then((loginData) => {
+                            console.log('loginData', loginData);
+
+                            app.globalData.userInfo = data;
+                            wx.showToast({
+                                icon: "success",
+                                title: '登陆成功',
+                            }).then(() => {
+                                console.log('________');
+                                setTimeout(() => {
+                                    wx.switchTab({
+                                        url: '../home/index',
+                                    })
+                                }, 2000);
                             })
-                        }, 2000);
-                    })
+                        })
+                        .catch((err) => {
+                            wx.showToast({
+                                icon: "error",
+                                title: err || "请重试!"
+                            })
+                        })
+                      },
+                      fail: (err) => {
+                          console.log('error', err)
+                          wx.showToast({
+                            icon: "error",
+                            title: err || "请重试!"
+                        })
+                      }
+                    });
                 }).catch((err) => {
                     wx.showToast({
                         icon: "error",
