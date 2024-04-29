@@ -146,3 +146,38 @@ view, text, image {
   content: 'loading...';
   color: #ccc;
 }
+
+.me--address-item {
+  margin: 0.25rem 0.5rem;
+  align-items: center;
+  padding: 0.25rem 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.me--address-item-address {
+  font-size: 13px;
+  font-weight: 700;
+  padding-bottom: 0.25rem;
+}
+
+.me--address-item-receiver {
+  display: flex;
+  justify-content: space-between;
+  color: gray;
+}
+
+.triangle-right-up {
+  width: 1rem;
+  height: 1rem;
+  border-left: 1rem solid transparent;
+  border-bottom: 1rem solid transparent;
+  border-top: 1rem solid orange;
+}
+
+.triangle-right-bottom {
+  width: 1rem;
+  height: 1rem;
+  border-left: 1rem solid transparent;
+  border-top: 1rem solid transparent;
+  border-bottom: 1rem solid orange;
+}

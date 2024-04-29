@@ -8,11 +8,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    pageIndex: 0,
+    pageIndex: 2,
     pages: [
-      { name: "好友", index: 0 },
-      { name: "账户余额", index: 1 },
-      { name: "比赛时长", index: 2 },
+      { name: "待收货", index: 0 },
+      { name: "全部订单", index: 1 },
+      { name: "收获地址", index: 2 },
       { name: "用户等级", index: 3 },
       { name: "客户中心", index: 4 },
     ],
@@ -21,7 +21,12 @@ Page({
     accountNavigation: [
       { name: '消费记录', url: '' },
       { name: '退款', url: '' }
-    ]
+    ],
+    address: [
+      { address: "二轻大厦", recipient: "Tony", phone: "12345678901", is_default: true },
+      { address: "轻工大厦", recipient: "Tony", phone: "12345678901", is_default: false },
+      { address: "蜂巢公寓", recipient: "Tony", phone: "12345678901", is_default: false },
+    ],
   },
 
   /**

@@ -24,10 +24,9 @@ const formatTime = date => {
 
 const fetch = ({ url, method, data }) => {
   console.log('url=', url);
-  // let token = wx.getStorageSync('userToken');
-  const sid = wx.getStorageSync('koa.sid');
-  const sig = wx.getStorageSync('koa.sid.sig');
-  console.log("cookie======", `koa.sid=${sid}; koa.sid.sig=${sig}`);
+  const token = wx.getStorageSync('token');
+  const sid = wx.getStorageSync('connect.sid');
+
   // console.log('fetch token', token);
   console.log('fetch data', data);
   return new Promise((resolve, reject) => {
@@ -37,7 +36,7 @@ const fetch = ({ url, method, data }) => {
       header: {
         'content-type': 'Application/json',
         'no-redirect': true,
-        'cookie': `koa.sid=${sid}; koa.sid.sig=${sig}`,
+        'cookie': `token=${token};connect.sid=${sid}`,
       },
       data: data,
       success: (res) => {
