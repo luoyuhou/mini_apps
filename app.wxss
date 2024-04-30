@@ -44,6 +44,10 @@ view, text {
   background: #eee;
 }
 
+.bg-white {
+  background-color: white;
+}
+
 .required-label-mark::after {
   content: "*";
   color: red;
@@ -180,4 +184,36 @@ view, text, image {
   border-left: 1rem solid transparent;
   border-top: 1rem solid transparent;
   border-bottom: 1rem solid orange;
+}
+
+.p-1 {
+  padding: 0.25rem;
+}
+
+.p-2 {
+  padding: 0.5rem;
+}
+
+.py-1 {
+  padding: 0.25rem 0;
+}
+
+.py-2 {
+  padding: 0.5rem 0;
+}
+
+.py-3 {
+  padding: 1rem 0;
+}
+
+.my-1 {
+  margin: 0.25rem 0;
+}
+
+.my-2 {
+  margin: 0.5rem 0;
+}
+
+.my-3 {
+  margin: 1rem 0;
 }

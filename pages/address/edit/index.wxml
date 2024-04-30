@@ -1,2 +1,43 @@
 <!--pages/address/edit/index.wxml-->
-<text>pages/address/edit/index.wxml</text>
+<view class="fill-page p-2">
+    <view class="">
+        <view class="p-1 bg-white">
+            <label>收件人</label>
+            <input />
+        </view>
+
+        <view class="my-2 p-1 bg-white">
+            <label>电话</label>
+            <input type="number" />
+        </view>
+
+        <view class="my-1 p-1 bg-white">
+            <label>省/市</label>
+            <input />
+        </view>
+
+        <view class="my-2 p-1 bg-white">
+            <label>市/区</label>
+            <input />
+        </view>
+
+        <view class="my-2 p-1 bg-white">
+            <label>县市/地区</label>
+            <input />
+        </view>
+
+        <view class="my-2 p-1 bg-white">
+            <label>地址</label>
+            <textarea />
+        </view>
+
+        <view>
+            <label style="margin-right: 1rem;">默认</label><switch />
+        </view>
+
+        <view class="my-1">
+            <button type="primary">修改</button>
+        </view>
+    </view>
+    
+</view>
