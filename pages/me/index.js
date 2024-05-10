@@ -1,26 +1,72 @@
-// pages/me/index.js
-const app = getApp();
-const fetch = require('../../utils/util').fetch;
-const wxCharts = require('../../utils/wxcharts.js');
+// pages/strategy/index.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    pageIndex: 2,
+    index: 0,
+    pageIndex: 0,
+    subNavbarIndex: 0,
+    gameInfoIndex: 0,
     pages: [
-      { name: "待收货", index: 0 },
-      { name: "全部订单", index: 1 },
-      { name: "收获地址", index: 2 },
-      { name: "用户等级", index: 3 },
-      { name: "客户中心", index: 4 },
+      { name: "订单", index: 0 },
+      { name: "其他", index: 1 }
     ],
-    currentWeekOrderTitles: ['本月下单次数', '本月花费金额'],
-    currentWeekOrderSummaries: [['20', '120']],
-    orders: [
-      { orderId: "1", store: '猪脚饭', money: 100, createDate: "2020/01/01 10:10:00", receipt: "tony", address: "111"  },
-      { orderId: "2", store: '黄焖鸡', money: 100, createDate: "2020/01/02 10:10:00", receipt: "Jack", address: "123"  }
+    gameInfos: [
+      { name: "待收货", index: 0 },
+      { name: "已完成", index: 1 },
+      { name: "全部订单", index: 2 }
+    ],
+    tableColumn: [
+      { key: "store", name: "商家" },
+      { key: "receipter", name: "收货人" },
+      { key: "address", name: "地址" },
+      { key: "money", name: "金额" },
+      { key: "create_date", name: "下单时间" },
+    ],
+    table1: [
+      {
+        order_id: "1",
+        store: "老赵烤鱼",
+        receipter: "Tony",
+        address: "曼哈顿",
+        moeny: "4.5元",
+        create_date: "2021/08/08 01:30:30"
+      },
+      {
+        order_id: "2",
+        store: "黄焖鸡",
+        receipter: "Tony",
+        address: "阿塞拜疆",
+        moeny: "40.5元",
+        create_date: "2021/08/08 01:30:30"
+      },
+      {
+        order_id: "3",
+        store: "至尊披萨",
+        receipter: "Tony",
+        address: "新德里",
+        moeny: "4.5元",
+        create_date: "2021/08/08 01:30:30"
+      }
+    ],
+    totalTableColumn: [
+      { key: "store", name: "商家" },
+      { key: "receipter", name: "收货人" },
+      { key: "money", name: "金额" },
+      { key: "status", name: "状态" },
+      { key: "create_date", name: "下单时间" },
+    ],
+    table2: [],
+    totalTable: [],
+    data: [],
+
+
+    subNavbar: [
+      { name: "地址管理", index: 0 },
+      { name: "用户等级", index: 1 },
+      { name: "客户中心", index: 2 },
     ],
     address: [
       { address: "二轻大厦", recipient: "Tony", phone: "12345678901", is_default: true },
@@ -33,7 +79,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getMothElectro();
+    this.loadData();
   },
 
   /**
@@ -75,7 +121,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    this.loadData();
   },
 
   /**
@@ -86,52 +132,34 @@ Page({
   },
 
   onSlidePage: function(e) {
+    console.log(e)
     this.setData({
       pageIndex: e.currentTarget.id
     })
   },
 
-  getMothElectro:function(){
-    var windowWidth = 320;
-    try {
-      var res = wx.getSystemInfoSync();
-      windowWidth = res.windowWidth;
-    } catch (e) {
-      console.error('getSystemInfoSync failed!');
-    }
-    new wxCharts({ //当月用电折线图配置
-      canvasId: 'myHistory',
-      type: 'line',
-      categories: ['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8', 'S9', 'S10', 'S11', 'S12', 'S13', 'S14', 'S15'], //categories X轴
-      animation: true,
-      // background: '#f5f5f5',
-      series: [{
-        name: '赛季段位',
-        //data: yuesimulationData.data,
-        data: [1, 6, 9, 1, 0, 2, 9, 2, 8, 6, 0, 9, 8, 0, 3],
-        format: function (val, name) {
-          console.log('val', val, 'name', name);
-          return val;
-        }
-      }],
-      xAxis: {
-        disableGrid: true
-      },
-      yAxis: {
-        title: '',
-        format: function (val) {
-          return val;
-        },
-        max: 20,
-        min: 0
-      },
-      width: windowWidth,
-      height: 200,
-      dataLabel: false,
-      dataPointShape: true,
-      extra: {
-        lineStyle: 'curve'
-      }
-    });
-  }
+  onSwitchSubNavbar: function (e) {
+    this.setData({
+      subNavbarIndex: e.currentTarget.id
+    })
+  },
+
+  onSlide: function(e) {
+    this.setData({
+      gameInfoIndex: e.currentTarget.id
+    })
+  },
+
+  loadData: function () {
+    const data = [
+      {category: '大家都在看', child: [
+        {id: 1, title: "三周年庆典", description: "三年里,数以千万计的召唤师加入我们,aa联盟因你们的到来而精彩 三年后,当我们品尝回忆的滋味,有苦楚也有喜悦。这是召唤师的盛会,也是你我的节日", files: ['https://img2.baidu.com/it/u=3495436499,1211422207&fm=26&fmt=auto&gp=0.jpg', 'https://img2.baidu.com/it/u=3495436499,1211422207&fm=26&fmt=auto&gp=0.jpg', 'https://img2.baidu.com/it/u=3495436499,1211422207&fm=26&fmt=auto&gp=0.jpg', 'https://img2.baidu.com/it/u=3495436499,1211422207&fm=26&fmt=auto&gp=0.jpg', 'https://img2.baidu.com/it/u=3495436499,1211422207&fm=26&fmt=auto&gp=0.jpg', 'https://img2.baidu.com/it/u=3495436499,1211422207&fm=26&fmt=auto&gp=0.jpg', 'https://img2.baidu.com/it/u=3495436499,1211422207&fm=26&fmt=auto&gp=0.jpg', 'https://img2.baidu.com/it/u=3495436499,1211422207&fm=26&fmt=auto&gp=0.jpg', 'https://img2.baidu.com/it/u=3495436499,1211422207&fm=26&fmt=auto&gp=0.jpg'], createDate: Date.now()},
+        {id: 1, title: "三周年庆典", description: "三年里,数以千万计的召唤师加入我们,aa联盟因你们的到来而精彩 三年后,当我们品尝回忆的滋味,有苦楚也有喜悦。这是召唤师的盛会,也是你我的节日", files: ['https://img2.baidu.com/it/u=3495436499,1211422207&fm=26&fmt=auto&gp=0.jpg', 'https://img2.baidu.com/it/u=3495436499,1211422207&fm=26&fmt=auto&gp=0.jpg', 'https://img2.baidu.com/it/u=3495436499,1211422207&fm=26&fmt=auto&gp=0.jpg', 'https://img2.baidu.com/it/u=3495436499,1211422207&fm=26&fmt=auto&gp=0.jpg', 'https://img2.baidu.com/it/u=3495436499,1211422207&fm=26&fmt=auto&gp=0.jpg', 'https://img2.baidu.com/it/u=3495436499,1211422207&fm=26&fmt=auto&gp=0.jpg', 'https://img2.baidu.com/it/u=3495436499,1211422207&fm=26&fmt=auto&gp=0.jpg', 'https://img2.baidu.com/it/u=3495436499,1211422207&fm=26&fmt=auto&gp=0.jpg', 'https://img2.baidu.com/it/u=3495436499,1211422207&fm=26&fmt=auto&gp=0.jpg'], createDate: Date.now()}
+      ]}
+    ];
+    this.setData({
+      index: this.data.index + 1,
+      data: this.data.data.concat(data)
+    })
+  },
 })

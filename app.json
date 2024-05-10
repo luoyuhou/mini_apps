@@ -1,6 +1,5 @@
 {
     "pages": [
-        "pages/strategy/index",
         "pages/me/index",
         "pages/order-list/order-list",
         "pages/login/index",
@@ -13,7 +12,8 @@
         "pages/recharge/index",
         "pages/chat/index",
         "pages/address/add/index",
-        "pages/address/edit/index"
+        "pages/address/edit/index",
+        "pages/goods/index"
     ],
     "window": {
         "backgroundTextStyle": "light",
@@ -24,10 +24,10 @@
     "tabBar": {
         "list": [
             {
-                "selectedIconPath": "static/img/me_on.png",
-                "iconPath": "static/img/me.png",
-                "pagePath": "pages/me/index",
-                "text": "我的"
+                "selectedIconPath": "static/img/cart_on.png",
+                "iconPath": "static/img/cart.png",
+                "pagePath": "pages/goods/index",
+                "text": "购物"
             },
             {
                 "selectedIconPath": "static/img/home_on.png",
@@ -37,9 +37,9 @@
             },
             {
                 "selectedIconPath": "static/img/new_on.png",
-                "iconPath": "static/img/new.png",
-                "pagePath": "pages/strategy/index",
-                "text": "比赛信息"
+                "iconPath": "static/img/me.png",
+                "pagePath": "pages/me/index",
+                "text": "我的"
             }
         ]
     },

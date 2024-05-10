@@ -1,6 +1,6 @@
-<!--pages/me/index.wxml-->
+<!--pages/strategy/index.wxml-->
 <view class="fill-page">
-  <view class="me--page">
+  <view class="strategy--page">
     <!-- 导航 -->
     <view class='top-nav'>
       <view class="top-nav-name {{item.index == pageIndex ? 'top-nav-hover':''}}" wx:for="{{pages}}" wx:key="unique" id='{{item.index}}' catchtap='onSlidePage'>
@@ -9,79 +9,140 @@
     </view>
 
     <!-- body -->
-    <view class="me--page-body">
+    <view class="strategy--page-body">
       <!-- page1 -->
       <view hidden='{{pageIndex!=0}}'>
-        <view class="todo"></view>
+        <!-- 二级 nav -->
+        <view class='two-nav'>
+          <view class="two-nav-name {{item.index == gameInfoIndex ? 'two-nav-hover':''}}" wx:for="{{gameInfos}}" wx:key="unique" id='{{item.index}}' catchtap='onSlide'>
+            {{item.name}}
+          </view>
+        </view>
+        <view class="strategy--page-child-body">
+          <!-- 二级 page1 -->
+          <view hidden="{{gameInfoIndex!=0}}">
+            <view class="table">
+              <view class="tr bg-w">
+                <view class="th" wx:for="{{tableColumn}}" wx:key="unique">{{item.name}}</view>
+              </view>
+              <block wx:for="{{table1}}" wx:key="unique">
+                <navigator url="../order-list/order-list?id={{item.order_id}}" class="p-1">
+                  <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+                    <view class="td">{{item.store}}</view>
+                    <view class="td">{{item.receipter}}</view>
+                    <view class="td">{{item.address}}</view>
+                    <view class="td">{{item.moeny}}</view>
+                    <view class="td">{{item.create_date}}</view>
+                  </view>
+                  <view class="tr" wx:else>
+                    <view class="td">{{item.store}}</view>
+                    <view class="td">{{item.receipter}}</view>
+                    <view class="td">{{item.address}}</view>
+                    <view class="td">{{item.moeny}}</view>
+                    <view class="td">{{item.create_date}}</view>
+                  </view>
+                </navigator>
+              </block>
+            </view>
+            <view class="not-found" hidden="{{table1.length}}"></view>
+          </view>
+          <!-- 二级 page2 -->
+          <view hidden="{{gameInfoIndex!=1}}">
+            <view class="table">
+              <view class="tr bg-w">
+                <view class="th" wx:for="{{tableColumn}}" wx:key="unique">{{item.name}}</view>
+              </view>
+              <block wx:for="{{table2}}" wx:key="unique">
+                <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+                  <view class="td" wx:for="{{item}}" wx:for-item="value" wx:key="unique">{{value}}</view>
+                </view>
+                <view class="tr" wx:else>
+                  <view class="td" wx:for="{{item}}" wx:for-item="value" wx:key="unique">{{value}}</view>
+                </view>
+              </block>
+            </view>
+            <view class="not-found" hidden="{{table2.length}}"></view>
+          </view>
+          <!-- 二级 page3 -->
+          <view hidden="{{gameInfoIndex!=2}}">
+            <view class="table">
+              <view class="tr bg-w">
+                <view class="th" wx:for="{{totalTableColumn}}" wx:key="unique">{{item.name}}</view>
+              </view>
+              <block wx:for="{{totalTable}}" wx:key="unique">
+                <navigator url="../order-list/order-list?id={{item.order_id}}" class="p-1">
+                  <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+                    <view class="td">{{item.store}}</view>
+                    <view class="td">{{item.receipter}}</view>
+                    <view class="td">{{item.moeny}}</view>
+                    <view class="td">{{item.create_date}}</view>
+                  </view>
+                  <view class="tr" wx:else>
+                    <view class="td">{{item.store}}</view>
+                    <view class="td">{{item.receipter}}</view>
+                    <view class="td">{{item.moeny}}</view>
+                    <view class="td">{{item.create_date}}</view>
+                  </view>
+                </navigator>
+              </block>
+            </view>
+            <view class="not-found" hidden="{{totalTable.length}}"></view>
+          </view>
+        </view>
       </view>
       <!-- page2 -->
       <view hidden='{{pageIndex!=1}}'>
-        <view class="table">
-          <view class="tr bg-w">
-            <view class="th" wx:for="{{currentWeekOrderTitles}}" wx:key="unique">{{item}}</view>
-          </view>
-          <block wx:for="{{currentWeekOrderSummaries}}" wx:key="unique">
-            <view class="tr bg-g">
-              <view class="td" wx:for="{{item}}" wx:for-item="value" wx:key="unique">{{value | 0}}</view>
+        <view class="me--page">
+          <!-- 导航 -->
+          <view class='top-nav'>
+            <view class="top-nav-name {{item.index == subNavbarIndex ? 'top-nav-hover':''}}" wx:for="{{subNavbar}}" wx:key="unique" id='{{item.index}}' catchtap='onSwitchSubNavbar'>
+              {{item.name}}
             </view>
-          </block>
-        </view>
-
-        <view style="margin-top: 1px">
-          <view style="border-bottom: 2px solid #eee;" wx:for="{{orders}}" wx:key="unique">
-            <navigator url="../order-list/order-list?id={{item.orderId}}" class="p-1">
-              <view class="flex flex-justify-between">
-                <text class="font-weight-700">{{item.store}}</text>
-                <text>{{item.money}} 元</text>
-              </view>
-              <view class="flex flex-justify-between" style="margin-top: 2px;">
-                <text>{{item.receipt}}</text>
-                <text>{{item.address}}</text>
-                <text>{{item.createDate}}</text>
-              </view>
-            </navigator>
           </view>
-        </view>
-      </view>
-      <!-- page3 -->
-      <view hidden='{{pageIndex!=2}}'>
-        <view class="">
-          <view>
-            <view class="flex me--address-item" wx:for="{{address}}" wx:key="unique">
-              <view style="flex: 1;">
-                <view class="me--address-item-address">{{item.address}}</view>
-                <view class="me--address-item-receiver">
-                  <text>{{item.recipient}}</text>
-                  <text>{{item.phone}}</text>
-                  <text />
+
+          <!-- body -->
+          <view class="me--page-body">
+            <!-- page1 -->
+            <view hidden='{{subNavbarIndex!=0}}'>
+              <view class="">
+                <view>
+                  <view class="flex me--address-item" wx:for="{{address}}" wx:key="unique">
+                    <view style="flex: 1;">
+                      <view class="me--address-item-address">{{item.address}}</view>
+                      <view class="me--address-item-receiver">
+                        <text>{{item.recipient}}</text>
+                        <text>{{item.phone}}</text>
+                        <text />
+                      </view>
+                    </view>
+                    <view style="width: 1rem; position: relative;">
+                      <text wx:if="{{item.is_default}}" class="triangle-right-bottom" style="position: absolute; top: 0px; right: -8px;"></text>
+                      <navigator url="../address/edit/index">
+                        <image style="width: 1rem; height: 1rem;" src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCAyNCAyNCIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZT0iY3VycmVudENvbG9yIiBjbGFzcz0idy02IGgtNiI+CiAgPHBhdGggc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBkPSJtMTYuODYyIDQuNDg3IDEuNjg3LTEuNjg4YTEuODc1IDEuODc1IDAgMSAxIDIuNjUyIDIuNjUyTDEwLjU4MiAxNi4wN2E0LjUgNC41IDAgMCAxLTEuODk3IDEuMTNMNiAxOGwuOC0yLjY4NWE0LjUgNC41IDAgMCAxIDEuMTMtMS44OTdsOC45MzItOC45MzFabTAgMEwxOS41IDcuMTI1TTE4IDE0djQuNzVBMi4yNSAyLjI1IDAgMCAxIDE1Ljc1IDIxSDUuMjVBMi4yNSAyLjI1IDAgMCAxIDMgMTguNzVWOC4yNUEyLjI1IDIuMjUgMCAwIDEgNS4yNSA2SDEwIiAvPgo8L3N2Zz4K'/>
+                      </navigator>
+                    </view>
+                  </view>
+                </view>
+
+                <view style="margin-top: 1rem;">
+                  <navigator url="../address/add/index">
+                    <button type="primary">新增</button>
+                  </navigator>
+
                 </view>
               </view>
-              <view style="width: 1rem; position: relative;">
-                <text wx:if="{{item.is_default}}" class="triangle-right-bottom" style="position: absolute; top: 0px; right: -8px;"></text>
-                <navigator url="../address/edit/index">
-                  <image style="width: 1rem; height: 1rem;" src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCAyNCAyNCIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZT0iY3VycmVudENvbG9yIiBjbGFzcz0idy02IGgtNiI+CiAgPHBhdGggc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBkPSJtMTYuODYyIDQuNDg3IDEuNjg3LTEuNjg4YTEuODc1IDEuODc1IDAgMSAxIDIuNjUyIDIuNjUyTDEwLjU4MiAxNi4wN2E0LjUgNC41IDAgMCAxLTEuODk3IDEuMTNMNiAxOGwuOC0yLjY4NWE0LjUgNC41IDAgMCAxIDEuMTMtMS44OTdsOC45MzItOC45MzFabTAgMEwxOS41IDcuMTI1TTE4IDE0djQuNzVBMi4yNSAyLjI1IDAgMCAxIDE1Ljc1IDIxSDUuMjVBMi4yNSAyLjI1IDAgMCAxIDMgMTguNzVWOC4yNUEyLjI1IDIuMjUgMCAwIDEgNS4yNSA2SDEwIiAvPgo8L3N2Zz4K'/>
-                </navigator>
-              </view>
+            </view>
+            <!-- page4 -->
+            <view hidden='{{subNavbarIndex!=1}}'>
+              <view class="todo"></view>
+            </view>
+            <!-- page5 -->
+            <view hidden='{{subNavbarIndex!=2}}'>
+              <view class="todo"></view>
             </view>
           </view>
-        
-        <view style="margin-top: 1rem;">
-          <navigator url="../address/add/index">
-            <button type="primary">新增</button>
-          </navigator>
-          
         </view>
-        </view>
-      </view>
-      <!-- page4 -->
-      <view hidden='{{pageIndex!=3}}'>
-        <view class="todo"></view>
-      </view>
-      <!-- page5 -->
-      <view hidden='{{pageIndex!=4}}'>
-        <view class="todo"></view>
       </view>
     </view>
   </view>
 </view>
-
