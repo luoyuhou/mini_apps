@@ -16,11 +16,11 @@ Page({
       { name: "用户等级", index: 3 },
       { name: "客户中心", index: 4 },
     ],
-    accountColumn: ['现金余额', '赠送余额', '总余额'],
-    accountTable: [['100', '20', '120']],
-    accountNavigation: [
-      { name: '消费记录', url: '' },
-      { name: '退款', url: '' }
+    currentWeekOrderTitles: ['本月下单次数', '本月花费金额'],
+    currentWeekOrderSummaries: [['20', '120']],
+    orders: [
+      { orderId: "1", store: '猪脚饭', money: 100, createDate: "2020/01/01 10:10:00", receipt: "tony", address: "111"  },
+      { orderId: "2", store: '黄焖鸡', money: 100, createDate: "2020/01/02 10:10:00", receipt: "Jack", address: "123"  }
     ],
     address: [
       { address: "二轻大厦", recipient: "Tony", phone: "12345678901", is_default: true },

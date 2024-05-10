@@ -107,7 +107,7 @@ view, text, image {
   align-items: center;
 }
 .td {
-    width:40%;
+    width:50%;
     justify-content: center;
     text-align: center;
 }
@@ -118,7 +118,7 @@ view, text, image {
   background: #E6F3F9;
 }
 .th {
-  width: 40%;
+  width: 50%;
   justify-content: center;
   background: #f5a623;
   color: #fff;
@@ -194,6 +194,18 @@ view, text, image {
   padding: 0.5rem;
 }
 
+.px-1 {
+  padding: 0 0.25rem;
+}
+
+.px-2 {
+  padding: 0 0.5rem;
+}
+
+.px-3 {
+  padding: 0 1rem;
+}
+
 .py-1 {
   padding: 0.25rem 0;
 }
@@ -216,4 +228,8 @@ view, text, image {
 
 .my-3 {
   margin: 1rem 0;
+}
+
+.font-weight-700 {
+  font-weight: 700;
 }

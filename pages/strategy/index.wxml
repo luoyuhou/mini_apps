@@ -23,15 +23,25 @@
           <view hidden="{{gameInfoIndex!=0}}">
             <view class="table">
               <view class="tr bg-w">
-                <view class="th" wx:for="{{tableColumn1}}" wx:key="unique">{{item}}</view>
+                <view class="th" wx:for="{{tableColumn}}" wx:key="unique">{{item.name}}</view>
               </view>
               <block wx:for="{{table1}}" wx:key="unique">
-                <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
-                  <view class="td" wx:for="{{item}}" wx:for-item="value" wx:key="unique">{{value}}</view>
-                </view>
-                <view class="tr" wx:else>
-                  <view class="td" wx:for="{{item}}" wx:for-item="value" wx:key="unique">{{value}}</view>
-                </view>
+                <navigator url="../order-list/order-list?id={{item.order_id}}" class="p-1">
+                  <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+                    <view class="td">{{item.store}}</view>
+                    <view class="td">{{item.receipter}}</view>
+                    <view class="td">{{item.address}}</view>
+                    <view class="td">{{item.moeny}}</view>
+                    <view class="td">{{item.create_date}}</view>
+                  </view>
+                  <view class="tr" wx:else>
+                    <view class="td">{{item.store}}</view>
+                    <view class="td">{{item.receipter}}</view>
+                    <view class="td">{{item.address}}</view>
+                    <view class="td">{{item.moeny}}</view>
+                    <view class="td">{{item.create_date}}</view>
+                  </view>
+                </navigator>
               </block>
             </view>
             <view class="not-found" hidden="{{table1.length}}"></view>
@@ -40,7 +50,7 @@
           <view hidden="{{gameInfoIndex!=1}}">
             <view class="table">
               <view class="tr bg-w">
-                <view class="th" wx:for="{{tableColumn2}}" wx:key="unique">{{item}}</view>
+                <view class="th" wx:for="{{tableColumn}}" wx:key="unique">{{item.name}}</view>
               </view>
               <block wx:for="{{table2}}" wx:key="unique">
                 <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
@@ -54,11 +64,36 @@
             <view class="not-found" hidden="{{table2.length}}"></view>
           </view>
           <!-- 二级 page3 -->
-          <view hidden="{{gameInfoIndex!=2}}" class="todo"></view>
+          <view hidden="{{gameInfoIndex!=2}}">
+            <view class="table">
+              <view class="tr bg-w">
+                <view class="th" wx:for="{{totalTableColumn}}" wx:key="unique">{{item.name}}</view>
+              </view>
+              <block wx:for="{{totalTable}}" wx:key="unique">
+                <navigator url="../order-list/order-list?id={{item.order_id}}" class="p-1">
+                  <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+                    <view class="td">{{item.store}}</view>
+                    <view class="td">{{item.receipter}}</view>
+                    <view class="td">{{item.moeny}}</view>
+                    <view class="td">{{item.create_date}}</view>
+                  </view>
+                  <view class="tr" wx:else>
+                    <view class="td">{{item.store}}</view>
+                    <view class="td">{{item.receipter}}</view>
+                    <view class="td">{{item.moeny}}</view>
+                    <view class="td">{{item.create_date}}</view>
+                  </view>
+                </navigator>
+              </block>
+            </view>
+            <view class="not-found" hidden="{{totalTable.length}}"></view>
+          </view>
         </view>
       </view>
       <!-- page2 -->
-      <view hidden='{{pageIndex!=1}}' class="todo"></view>
+      <view hidden='{{pageIndex!=1}}'>
+        <navigator url="../address/index/index">地址设置</navigator>
+      </view>
     </view>
   </view>
 </view>

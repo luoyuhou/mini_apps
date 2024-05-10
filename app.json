@@ -1,11 +1,12 @@
 {
     "pages": [
+        "pages/strategy/index",
         "pages/me/index",
+        "pages/order-list/order-list",
         "pages/login/index",
         "pages/refund/index",
         "pages/home/index",
         "pages/video/index",
-        "pages/strategy/index",
         "pages/video/thread/index",
         "pages/profile/index",
         "pages/order/index",

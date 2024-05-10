@@ -18,19 +18,28 @@
       <view hidden='{{pageIndex!=1}}'>
         <view class="table">
           <view class="tr bg-w">
-            <view class="th" wx:for="{{accountColumn}}" wx:key="unique">{{item}}</view>
+            <view class="th" wx:for="{{currentWeekOrderTitles}}" wx:key="unique">{{item}}</view>
           </view>
-          <block wx:for="{{accountTable}}" wx:key="unique">
+          <block wx:for="{{currentWeekOrderSummaries}}" wx:key="unique">
             <view class="tr bg-g">
               <view class="td" wx:for="{{item}}" wx:for-item="value" wx:key="unique">{{value | 0}}</view>
             </view>
           </block>
         </view>
 
-        <view style="margin-top: 5px">
-          <view class="navigation" wx:for="{{accountNavigation}}" wx:key="unique">
-            <navigator url="{{item.url}}">{{item.name}}</navigator>
-            <text>></text>
+        <view style="margin-top: 1px">
+          <view style="border-bottom: 2px solid #eee;" wx:for="{{orders}}" wx:key="unique">
+            <navigator url="../order-list/order-list?id={{item.orderId}}" class="p-1">
+              <view class="flex flex-justify-between">
+                <text class="font-weight-700">{{item.store}}</text>
+                <text>{{item.money}} 元</text>
+              </view>
+              <view class="flex flex-justify-between" style="margin-top: 2px;">
+                <text>{{item.receipt}}</text>
+                <text>{{item.address}}</text>
+                <text>{{item.createDate}}</text>
+              </view>
+            </navigator>
           </view>
         </view>
       </view>

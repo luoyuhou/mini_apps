@@ -1,0 +1,7 @@
+<!--pages/order-list/order-list.wxml-->
+<view class="fill-page">
+    <view class="order-list--page">
+        <text>{{id}}</text>
+        
+    </view>
+</view>
