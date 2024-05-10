@@ -7,6 +7,7 @@ Page({
   data: {
     index: 0,
     pageIndex: 0,
+    subNavbarIndex: 0,
     gameInfoIndex: 0,
     pages: [
       { name: "订单", index: 0 },
@@ -59,7 +60,19 @@ Page({
     ],
     table2: [],
     totalTable: [],
-    data: []
+    data: [],
+
+
+    subNavbar: [
+      { name: "地址管理", index: 0 },
+      { name: "用户等级", index: 1 },
+      { name: "客户中心", index: 2 },
+    ],
+    address: [
+      { address: "二轻大厦", recipient: "Tony", phone: "12345678901", is_default: true },
+      { address: "轻工大厦", recipient: "Tony", phone: "12345678901", is_default: false },
+      { address: "蜂巢公寓", recipient: "Tony", phone: "12345678901", is_default: false },
+    ],
   },
 
   /**
@@ -122,6 +135,12 @@ Page({
     console.log(e)
     this.setData({
       pageIndex: e.currentTarget.id
+    })
+  },
+
+  onSwitchSubNavbar: function (e) {
+    this.setData({
+      subNavbarIndex: e.currentTarget.id
     })
   },
 

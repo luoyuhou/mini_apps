@@ -92,7 +92,56 @@
       </view>
       <!-- page2 -->
       <view hidden='{{pageIndex!=1}}'>
-        <navigator url="../address/index/index">地址设置</navigator>
+        <view class="me--page">
+          <!-- 导航 -->
+          <view class='top-nav'>
+            <view class="top-nav-name {{item.index == subNavbarIndex ? 'top-nav-hover':''}}" wx:for="{{subNavbar}}" wx:key="unique" id='{{item.index}}' catchtap='onSwitchSubNavbar'>
+              {{item.name}}
+            </view>
+          </view>
+
+          <!-- body -->
+          <view class="me--page-body">
+            <!-- page1 -->
+            <view hidden='{{subNavbarIndex!=0}}'>
+              <view class="">
+                <view>
+                  <view class="flex me--address-item" wx:for="{{address}}" wx:key="unique">
+                    <view style="flex: 1;">
+                      <view class="me--address-item-address">{{item.address}}</view>
+                      <view class="me--address-item-receiver">
+                        <text>{{item.recipient}}</text>
+                        <text>{{item.phone}}</text>
+                        <text />
+                      </view>
+                    </view>
+                    <view style="width: 1rem; position: relative;">
+                      <text wx:if="{{item.is_default}}" class="triangle-right-bottom" style="position: absolute; top: 0px; right: -8px;"></text>
+                      <navigator url="../address/edit/index">
+                        <image style="width: 1rem; height: 1rem;" src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCAyNCAyNCIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZT0iY3VycmVudENvbG9yIiBjbGFzcz0idy02IGgtNiI+CiAgPHBhdGggc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBkPSJtMTYuODYyIDQuNDg3IDEuNjg3LTEuNjg4YTEuODc1IDEuODc1IDAgMSAxIDIuNjUyIDIuNjUyTDEwLjU4MiAxNi4wN2E0LjUgNC41IDAgMCAxLTEuODk3IDEuMTNMNiAxOGwuOC0yLjY4NWE0LjUgNC41IDAgMCAxIDEuMTMtMS44OTdsOC45MzItOC45MzFabTAgMEwxOS41IDcuMTI1TTE4IDE0djQuNzVBMi4yNSAyLjI1IDAgMCAxIDE1Ljc1IDIxSDUuMjVBMi4yNSAyLjI1IDAgMCAxIDMgMTguNzVWOC4yNUEyLjI1IDIuMjUgMCAwIDEgNS4yNSA2SDEwIiAvPgo8L3N2Zz4K'/>
+                      </navigator>
+                    </view>
+                  </view>
+                </view>
+
+                <view style="margin-top: 1rem;">
+                  <navigator url="../address/add/index">
+                    <button type="primary">新增</button>
+                  </navigator>
+
+                </view>
+              </view>
+            </view>
+            <!-- page4 -->
+            <view hidden='{{subNavbarIndex!=1}}'>
+              <view class="todo"></view>
+            </view>
+            <!-- page5 -->
+            <view hidden='{{subNavbarIndex!=2}}'>
+              <view class="todo"></view>
+            </view>
+          </view>
+        </view>
       </view>
     </view>
   </view>
