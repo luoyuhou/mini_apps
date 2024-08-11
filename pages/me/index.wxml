@@ -1,6 +1,6 @@
 <!--pages/strategy/index.wxml-->
 <view class="fill-page">
-  <view class="strategy--page">
+  <view class="me--page">
     <!-- 导航 -->
     <view class='top-nav'>
       <view class="top-nav-name {{item.index == pageIndex ? 'top-nav-hover':''}}" wx:for="{{pages}}" wx:key="unique" id='{{item.index}}' catchtap='onSlidePage'>
@@ -9,7 +9,7 @@
     </view>
 
     <!-- body -->
-    <view class="strategy--page-body">
+    <view class="me--page-body">
       <!-- page1 -->
       <view hidden='{{pageIndex!=0}}'>
         <!-- 二级 nav -->
@@ -94,23 +94,16 @@
       <view hidden='{{pageIndex!=1}}'>
         <view class="me--page">
           <!-- 导航 -->
-          <view class='top-nav'>
-            <view class="top-nav-name {{item.index == subNavbarIndex ? 'top-nav-hover':''}}" wx:for="{{subNavbar}}" wx:key="unique" id='{{item.index}}' catchtap='onSwitchSubNavbar'>
-              {{item.name}}
-            </view>
-          </view>
 
           <!-- body -->
-          <view class="me--page-body">
+          <view class="me--page-body mt-2">
             <!-- page1 -->
-            <view hidden='{{subNavbarIndex!=0}}'>
-              <view class="">
-                <view style="margin-top: 1rem;">
-                  <navigator url="../address/index/index">
-                    <button type="primary">地址管理</button>
-                  </navigator>
-
-                </view>
+            <view class="">
+              <view>
+                <navigator url="../address/index/index" class="margin-top: 1rem; me--navigator-item">
+                  <text>地址管理</text>
+                  <image src="../../static/img/chevron_right.png" style="height: 1.5rem; width: 1.5rem;"></image>
+                </navigator>
               </view>
             </view>
             <!-- page4 -->

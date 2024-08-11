@@ -8,17 +8,18 @@ Page({
      */
     data: {
         columns: [
-            {type: 'txet', name: 'username', label: '账户', required: true },
-            {type: 'txet', name: 'nickname', label: '昵称'},
-            {type: 'password', name: 'password', label: '密码'},
-            {type: 'password', name: 'confirm', label: '确认密码'},
-            {type: 'email', name: 'email', label: '邮箱'},
-            {type: 'text', name: 'mobile', label: '手机号', required: true },
-            {type: 'text', name: 'bio', label: '座右铭'}
+            { type: 'txet', name: 'first_name', label: '名字', required: true },
+            { type: 'txet', name: 'last_name', label: '姓氏' },
+            { type: 'password', name: 'password', label: '密码' },
+            { type: 'password', name: 'confirm', label: '确认密码' },
+            { type: 'email', name: 'email', label: '邮箱' },
+            { type: 'text', name: 'phone', label: '手机号', required: true },
+            { type: 'text', name: 'bio', label: '座右铭' }
         ],
         genderColumns: [
-            { name: "男", value: 1, checked: true },
-            { name: '女', value: 0}
+            { name: "男", value: 2, checked: true },
+            { name: '女', value: 1 },
+            { name: '保密', value: 0 }
         ],
         profile: {},
         baseUrl: "",
@@ -28,7 +29,9 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function () {
-        
+        this.setData({
+            profile: app.globalData.userInfo
+        })
     },
 
     /**
@@ -42,10 +45,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function (options) {
-        this.setData({
-            profile: app.globalData.userInfo,
-            baseUrl: app.globalData.baseApiUrl,
-        })
+
     },
 
     /**
@@ -138,7 +138,7 @@ Page({
             return;
         }
         fetch({
-          url: `${app.globalData.baseApiUrl}/user/profile`,
+          url: `${app.globalData.baseApiUrl}/wx/user/profile`,
           method: 'PUT',
           data: this.data.profile
         }).then((data) => {
@@ -149,7 +149,8 @@ Page({
             app.globalData.userInfo = data;
         }).catch((err) => {
             wx.showToast({
-              title: err,
+                icon: 'error',
+                title: JSON.stringify(err.message),
             })
         });
     }

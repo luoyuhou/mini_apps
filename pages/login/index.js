@@ -109,7 +109,7 @@ Page({
                         .then((loginData) => {
                             console.log('loginData', loginData);
 
-                            app.globalData.userInfo = data;
+                            app.globalData.userInfo = loginData?.data;
                             wx.showToast({
                                 icon: "success",
                                 title: '登陆成功',

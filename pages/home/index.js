@@ -17,7 +17,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    this.setData({
+      profile: app.globalData.userInfo
+    })
   },
 
   /**
@@ -31,13 +33,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    console.log("home page app", app);
-    this.setData({
-      profile: app.globalData.userInfo,
-      baseUrl: app.globalData.baseApiUrl
-    })
+    console.log("gobal", this.data.profile, app.globalData);
     this.loadData();
-    console.log("======profile", this.data)
   },
 
   /**

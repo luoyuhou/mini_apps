@@ -118,7 +118,9 @@ Page({
     },
 
     chooseArea(e) {
-        const find = this.data.areas.find((p) => p.code === e.currentTarget.dataset?.code);
+        const { areas } = this.data;
+        const isCity = areas.length > 1 ? areas[0].code === areas[1].code : false;
+        const find = isCity ?areas.find((p) => p.town === e.currentTarget.dataset?.town) : this.data.areas.find((p) => p.code === e.currentTarget.dataset?.code);
 
         this.setData({
             area: find ?? null,

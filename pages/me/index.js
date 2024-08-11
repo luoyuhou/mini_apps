@@ -61,18 +61,6 @@ Page({
     table2: [],
     totalTable: [],
     data: [],
-
-
-    subNavbar: [
-      { name: "地址管理", index: 0 },
-      { name: "用户等级", index: 1 },
-      { name: "客户中心", index: 2 },
-    ],
-    address: [
-      { address: "二轻大厦", recipient: "Tony", phone: "12345678901", is_default: true },
-      { address: "轻工大厦", recipient: "Tony", phone: "12345678901", is_default: false },
-      { address: "蜂巢公寓", recipient: "Tony", phone: "12345678901", is_default: false },
-    ],
   },
 
   /**

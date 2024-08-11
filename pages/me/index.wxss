@@ -1,13 +1,20 @@
-/* pages/strategy/index.wxss */
-.strategy--page {
+/* pages/me/index.wxss */
+.me--page {
     width: 95%;
     margin: 10px auto;
-    background: #fff;
 }
 
-.strategy--page-body {
-    padding-top: 2px;
+.me--page-body {
+    margin-top: 4px;
+    background: #fff;
 }
 .strategy--page-child-body {
     margin-top: 2px;
+}
+
+.me--navigator-item {
+    padding: 0.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

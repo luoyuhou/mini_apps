@@ -13,10 +13,10 @@
         <view class="home--page-body-profile-text flex">
           <view class="home--page-body-profile-nickname">{{profile.nickname}}</view>
           <view class="home--page-body-profile-bio">{{profile.bio || '此人很懒，什么也没留下...'}}</view>
-          <view class="home--page-body-profile-level">{{filter.getLevelName(profile.level)}}玩家</view>
+          <view class="home--page-body-profile-level">{{profile.first_name}}{{profile.last_name}}</view>
         </view>
       </view>
-      <view class="flex home--page-body-profile-section-2">
+      <!-- <view class="flex home--page-body-profile-section-2">
         <view class="flex home--page-body-profile-time">
           <view>账户剩余</view>
           <view>{{profile.money}} 元</view>
@@ -24,7 +24,7 @@
         <view>
           <button class="home--page-body-profile-recharge" bindtap="onRecharge">充值</button>
         </view>
-      </view>
+      </view> -->
     </view>
   </view>
   <view class="home--page-footer">

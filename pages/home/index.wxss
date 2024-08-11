@@ -16,7 +16,7 @@
 }
 .home--page-body-profile {
   width: 95%;
-  height: 200px;
+  height: 130px;
   border: 1px solid gold;
   margin: 5px auto;
   background: #3c3f41ff;
@@ -79,8 +79,10 @@ view.home--page-body-profile-bio {
 .home--page-footer-item {
   width: 95%;
   margin: 5px auto;
-  background: gold;
+  padding: 0 2px;
+  background: white;
   justify-content: space-between;
+  border-radius: 2px;
 }
 .home--page-footer-scan {
   padding: 0 10px;
