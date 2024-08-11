@@ -56,6 +56,7 @@ Page({
         this.setData({
             province: find ?? null,
             city: null,
+            area: null,
             town: null,
             showProvinceList: !this.data.showProvinceList,
             showCitiesList: false,
@@ -92,6 +93,8 @@ Page({
 
         this.setData({
             city: find ?? null,
+            area: null,
+            town: null,
             showCitiesList: !this.data.showCitiesList,
             showTownList: false,
         });
@@ -119,6 +122,7 @@ Page({
 
         this.setData({
             area: find ?? null,
+            town: null,
             showAreaList: !this.data.showAreaList,
         });
 
@@ -141,7 +145,7 @@ Page({
     },
 
     chooseTown(e) {
-        const find = this.data.towns.find((p) => p.code === e.currentTarget.dataset?.code);
+        const find = this.data.towns.find((p) => p.town === e.currentTarget.dataset?.town);
 
         this.setData({
             town: find ?? null,
@@ -150,12 +154,12 @@ Page({
     },
 
     formSubmit: function(e) {
-        const { recipient, phone } = e.detail.value ?? {};
+        const { recipient, phone, address } = e.detail.value ?? {};
 
         if(!recipient) {
             wx.showToast({
                 icon: "error",
-                title: "收件人 为必填字段",
+                title: "收件人 为必填",
             });
             return;
         }
@@ -163,49 +167,58 @@ Page({
         if(!phone) {
             wx.showToast({
                 icon: "error",
-                title: "电话 为必填字段",
+                title: "电话 为必填",
             });
             return;
         }
 
-        const { province, city, area, town, is_default } = this.data;
+        if (!address) {
+            wx.showToast({
+                icon: "error",
+                title: "收件地址 为必填",
+            });
+            return;
+        }
+
+        const { province, city, area, town, addressIsDefault } = this.data;
 
         if(!province) {
             wx.showToast({
                 icon: "error",
-                title: "省 / 市 必填字段",
+                title: "省 / 市 必填",
             });
             return;
         }
         if(!city) {
             wx.showToast({
                 icon: "error",
-                title: "市 / 区 为必填字段",
+                title: "市 / 区 为必填",
             });
             return;
         }
         if(!area) {
             wx.showToast({
                 icon: "error",
-                title: "县市 / 地区 为必填字段",
+                title: "县市 / 地区 为必填",
             });
             return;
         }
         if(!town) {
             wx.showToast({
                 icon: "error",
-                title: "城镇 / 街道 为必填字段",
+                title: "城镇 / 街道 为必填",
             });
             return;
         }
         const payload = {
             recipient,
-            phone,
+            phone: "+86" + phone,
+            address,
             province: province.code,
             city: city.code,
             area: area.code,
-            town: town.code,
-            is_default,
+            town: town.town,
+            is_default: addressIsDefault,
         };
 
         wx.showToast({
@@ -216,10 +229,27 @@ Page({
             submitting: true,
         });
 
-        fetch({})
-        .then()
-        .catch()
-        .finily();
+        fetch({  url: `${app.globalData.baseApiUrl}/wx/user/address`, method: 'post', data: payload })
+        .then((res) => {
+            wx.showToast({
+                icon: 'success',
+                title: '创建成功',
+            });
+            wx.navigateTo({
+                url: '../index/index',
+            });
+        })
+        .catch((err) => {
+            wx.showModal({
+                title: "创建新地址失败",
+                content: JSON.stringify(err.message),
+            })
+        })
+        .finally(() => {
+            this.setData({
+                submitting: false,
+            });
+        });
     },
 
     /**

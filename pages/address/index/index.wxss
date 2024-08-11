@@ -1,0 +1,31 @@
+/* pages/address/index/index.wxss */
+.address-item {
+    margin: 0.25rem 0.5rem;
+    align-items: center;
+    padding: 0.25rem 0;
+    border-bottom: 1px solid #ddd;
+  }
+  
+.address-item-address {
+font-size: 13px;
+font-weight: 700;
+padding-bottom: 0.25rem;
+}
+  
+.address-item-receiver {
+display: flex;
+justify-content: space-between;
+color: gray;
+}
+
+.address-item-receiver-user {
+    width: 4.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.address-item {
+    display: flex;
+    justify-content: space-between;
+}

@@ -1,0 +1,29 @@
+<!--pages/address/index/index.wxml-->
+<view class="p-2">
+    <view class="">
+        <view>
+            <view class="flex address-item" wx:for="{{address}}" wx:key="unique">
+                <view style="flex: 1;">
+                    <view class="address-item-address">{{item.address}}</view>
+                    <view class="address-item-receiver">
+                        <text class="address-item-receiver-user">{{item.recipient}}</text>
+                        <text>{{item.phone}}</text>
+                        <text />
+                    </view>
+                </view>
+                <view style="width: 1rem; position: relative;">
+                    <text wx:if="{{item.is_default}}" class="triangle-right-bottom" style="position: absolute; top: 0px; right: -8px;"></text>
+                    <navigator url="../edit/index?user_address_id={{item.user_address_id}}">
+                        <image style="width: 1rem; height: 1rem;" src='../../../static/img/edit.png' />
+                    </navigator>
+                </view>
+            </view>
+        </view>
+    </view>
+
+    <view style="margin-top: 1rem;">
+        <navigator url="../add/index">
+            <button type="primary">新增地址</button>
+        </navigator>
+    </view>
+</view>

@@ -1,43 +1,92 @@
 <!--pages/address/edit/index.wxml-->
+<!--pages/address/add/index.wxml-->
 <view class="fill-page p-2">
     <view class="">
-        <view class="p-1 bg-white">
-            <label>收件人</label>
-            <input />
-        </view>
+        <form bindsubmit="formSubmit">
+            <view class="p-1 bg-white">
+                <label>收件人</label>
+                <input name="recipient" value="{{recipient}}" placeholder="请输入收件人姓名......" />
+            </view>
 
-        <view class="my-2 p-1 bg-white">
-            <label>电话</label>
-            <input type="number" />
-        </view>
+            <view class="my-2 p-1 bg-white">
+                <label>电话</label>
+                <input name="phone" type="number" value="{{phone}}" placeholder="请输入收件人联系电话....." />
+            </view>
 
-        <view class="my-1 p-1 bg-white">
-            <label>省/市</label>
-            <input />
-        </view>
+            <view class="my-1 p-1 bg-white">
+                <label>省 / 市</label>
+                <view class="address-item mt-1" bindtap="topShowProvinces">
+                    <text>{{province ? province.name : "请选择省 / 市......"}}</text>
+                    <image src="{{ showProvinceList? '../../../static/img/chevron_big_up.png' : '../../../static/img/chevron_big_down.png'}}" style="width: 20px; height: 20px;"></image>
+                </view>
 
-        <view class="my-2 p-1 bg-white">
-            <label>市/区</label>
-            <input />
-        </view>
+                <scroll-view hidden="{{!showProvinceList}}">
+                    <view class="" wx:for="{{provinces}}" wx:key="unique" data-code="{{item.code}}" bindtap="chooseProvince">
+                        <view>{{item.name}}</view>
+                    </view>
+                </scroll-view>
+            </view>
 
-        <view class="my-2 p-1 bg-white">
-            <label>县市/地区</label>
-            <input />
-        </view>
+            <view class="my-2 p-1 bg-white">
+                <label>市 / 区</label>
+                
+                <view class="address-item mt-1" bindtap="topShowCity">
+                    <text>{{city ? city.name : "请选择市 / 区......"}}</text>
+                    <image src="{{ showCitiesList? '../../../static/img/chevron_big_up.png' : '../../../static/img/chevron_big_down.png'}}" style="width: 20px; height: 20px;"></image>
+                </view>
 
-        <view class="my-2 p-1 bg-white">
-            <label>地址</label>
-            <textarea />
-        </view>
+                <scroll-view hidden="{{!showCitiesList}}">
+                    <view class="" wx:for="{{cities}}" wx:key="unique" data-code="{{item.code}}" bindtap="chooseCity">
+                        <view>{{item.name}}</view>
+                    </view>
+                </scroll-view>
+            </view>
 
-        <view>
-            <label style="margin-right: 1rem;">默认</label><switch />
-        </view>
+            <view class="my-2 p-1 bg-white">
+                <label>县市 / 地区</label>
+                
+                <view class="address-item mt-1" bindtap="topShowArea">
+                    <text>{{area ? area.name : "请选择县市 / 地区......"}}</text>
+                    <image src="{{ showAreaList? '../../../static/img/chevron_big_up.png' : '../../../static/img/chevron_big_down.png'}}" style="width: 20px; height: 20px;"></image>
+                </view>
 
-        <view class="my-1">
-            <button type="primary">修改</button>
-        </view>
+                <scroll-view hidden="{{!showAreaList}}">
+                    <view class="" wx:for="{{areas}}" wx:key="unique" data-code="{{item.code}}" bindtap="chooseArea">
+                        <view>{{item.name}}</view>
+                    </view>
+                </scroll-view>
+            </view>
+
+            <view class="my-2 p-1 bg-white">
+                <label>城镇 / 街道</label>
+                
+                <view class="address-item mt-1" bindtap="topShowTown">
+                    <text>{{town ? town.name : "请选择城镇 / 街道......"}}</text>
+                    <image src="{{ showTownList? '../../../static/img/chevron_big_up.png' : '../../../static/img/chevron_big_down.png'}}" style="width: 20px; height: 20px;"></image>
+                </view>
+
+                <scroll-view hidden="{{!showTownList}}">
+                    <view class="" wx:for="{{towns}}" wx:key="unique" data-town="{{item.town}}" bindtap="chooseTown">
+                        <view>{{item.name}}</view>
+                    </view>
+                </scroll-view>
+            </view>
+
+            <view class="my-2 p-1 bg-white">
+                <label>地址</label>
+                <textarea class="mt-1" name="address" style="height: 50px;" value="{{address}}" placeholder="请输入您的详细地址......" />
+            </view>
+
+            <view class="my-3">
+                <label style="margin-right: 1rem;">默认</label>
+                <switch checked="{{addressIsDefault}}" bindchange="switchChange" />
+            </view>
+
+            <view class="my-1">
+                <button type="primary" formType="submit" >提交</button>
+            </view>
+        </form>
     </view>
-    
+
 </view>
+

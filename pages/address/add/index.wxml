@@ -65,7 +65,7 @@
                 </view>
 
                 <scroll-view hidden="{{!showTownList}}">
-                    <view class="" wx:for="{{towns}}" wx:key="unique" data-code="{{item.code}}" bindtap="chooseTown">
+                    <view class="" wx:for="{{towns}}" wx:key="unique" data-town="{{item.town}}" bindtap="chooseTown">
                         <view>{{item.name}}</view>
                     </view>
                 </scroll-view>
@@ -73,7 +73,7 @@
 
             <view class="my-2 p-1 bg-white">
                 <label>地址</label>
-                <textarea name="address" style="height: 50px;" placeholder="请输入您的详细地址......" />
+                <textarea class="mt-1" name="address" style="height: 50px;" placeholder="请输入您的详细地址......" />
             </view>
 
             <view class="my-3">

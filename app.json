@@ -1,8 +1,8 @@
 {
     "pages": [
+        "pages/login/index",
         "pages/me/index",
         "pages/order-list/order-list",
-        "pages/login/index",
         "pages/refund/index",
         "pages/home/index",
         "pages/video/index",
@@ -13,7 +13,8 @@
         "pages/chat/index",
         "pages/address/add/index",
         "pages/address/edit/index",
-        "pages/goods/index"
+        "pages/goods/index",
+        "pages/address/index/index"
     ],
     "window": {
         "backgroundTextStyle": "light",

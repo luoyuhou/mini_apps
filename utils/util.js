@@ -40,8 +40,7 @@ const fetch = ({ url, method, data }) => {
       },
       data: data,
       success: (res) => {
-        console.log('fetch success', res);
-        if (res.statusCode !== 200) {
+        if (res.statusCode >= 300) {
           reject(res.data);
         }
         if (res && Array.isArray(res.cookies) && res.cookies.length) {
