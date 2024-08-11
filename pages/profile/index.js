@@ -29,9 +29,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function () {
-        this.setData({
-            profile: app.globalData.userInfo
-        })
+
     },
 
     /**
@@ -45,7 +43,9 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function (options) {
-
+        this.setData({
+            profile: app.globalData.userInfo
+        });
     },
 
     /**
@@ -145,8 +145,11 @@ Page({
             console.log('bind profile', data); 
             wx.showToast({
                 title: "更新成功",
-            })
-            app.globalData.userInfo = data;
+            });
+            this.setData({
+                profile: data?.data,
+            });
+            app.globalData.userInfo = data.data;
         }).catch((err) => {
             wx.showToast({
                 icon: 'error',
