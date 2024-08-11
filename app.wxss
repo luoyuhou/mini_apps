@@ -222,6 +222,10 @@ view, text, image {
   margin: 0.25rem 0;
 }
 
+.mt-1 {
+  margin-top: 0.25rem;
+}
+
 .my-2 {
   margin: 0.5rem 0;
 }
