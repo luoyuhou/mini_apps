@@ -1,6 +1,7 @@
 {
     "pages": [
         "pages/login/index",
+        "pages/store/index",
         "pages/me/index",
         "pages/order-list/order-list",
         "pages/refund/index",
@@ -27,7 +28,7 @@
             {
                 "selectedIconPath": "static/img/cart_on.png",
                 "iconPath": "static/img/cart.png",
-                "pagePath": "pages/goods/index",
+                "pagePath": "pages/store/index",
                 "text": "购物"
             },
             {

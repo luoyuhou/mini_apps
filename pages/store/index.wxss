@@ -1,0 +1,57 @@
+/* pages/store/index.wxss */
+.store--page {
+
+}
+
+.store--page-search-bar {
+    z-index: 9;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 0.5rem 0.3rem;
+    background-color: #eeeeee;
+}
+.store--page-search {
+    border: 1px solid gold;
+    border-radius: 1rem;
+    padding: 0.3rem 1.5rem;
+    background-color: white;
+}
+
+.store--page-category {
+    padding-top: 2.8rem;
+    margin-top: 0.8rem;
+}
+
+.store--page-category-row {
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.store--page-store-list {
+    margin-top: 1rem;
+    border-top: 0.1rem solid #dddddd;
+    padding-top: .3rem;
+    background-color: #eeeeee;
+}
+
+.store--page-store-item {
+    display: flex;
+    background-color: white;
+    border-radius: 1rem;
+    padding: 1rem;
+    margin: 0.5rem 0;
+}
+
+.store--page-store-item-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.store--page-store-item-image {
+    height: 6rem;
+    width: 6rem;
+    border-radius: 1rem;
+}

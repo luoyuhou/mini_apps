@@ -1,0 +1,47 @@
+<!--pages/store/index.wxml-->
+<view class="fill-page">
+    <view class="store--page-search-bar">
+        <input type="text" placeholder="请输入关键词" class="store--page-search" />
+    </view>
+
+    <view class="store--page-category px-2">
+        <view class="store--page-category-row">
+            <button size="mini">生鲜果蔬</button>
+            <button size="mini">休闲食品</button>
+            <button size="mini">粮油调味</button>
+            <button size="mini">酒水饮料</button>
+        </view>
+        <view class="store--page-category-row">
+            <button size="mini">粮油调味</button>
+            <button size="mini">烟品茶饮</button>
+            <button size="mini">方便速食</button>
+            <button size="mini">散装食品</button>
+        </view>
+        <view class="store--page-category-row">
+            <button size="mini">熟食烘焙</button>
+            <button size="mini">冷冻食品</button>
+            <button size="mini">日化用品</button>
+            <button size="mini">家庭用品</button>
+        </view>
+        <view class="">
+            <button size="mini">五金电器</button>
+        </view>
+    </view>
+
+    <view class="store--page-store-list px-2">
+        <scroll-view scroll-y >
+            <view class="store--page-store-item" wx:for="{{stories}}" wx:key="unique">
+                <view class="store--page-store-item-image">image</view>
+                <view>
+                    <view class="store--page-store-item-name">{{item.store_name}}</view>
+                    <view class="mt-1">
+                        <text>评分</text>
+                        <text>销量</text>
+                    </view>
+                    <view class="mt-1">起送</view>
+                    <view class="mt-1">地址</view>
+                </view>
+            </view>
+        </scroll-view>
+    </view>
+</view>
