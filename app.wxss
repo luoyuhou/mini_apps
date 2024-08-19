@@ -222,3 +222,19 @@ view, text, image {
 .font-weight-700 {
   font-weight: 700;
 }
+
+.d-flex {
+  display: flex;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.color-secondary {
+  color: #6c757d;
+}

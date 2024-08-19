@@ -43,10 +43,14 @@
     border-radius: 1rem;
     padding: 1rem;
     margin: 0.5rem 0;
+    align-items: center;
+}
+.store--page-store-item > image {
+    border-radius: 2rem;
 }
 
 .store--page-store-item-name {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     font-weight: 700;
 }
 
