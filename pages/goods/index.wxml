@@ -1,2 +1,70 @@
 <!--pages/goods/index.wxml-->
-<text>pages/goods/index.wxml</text>
+<view class="fill-page goods--page">
+    <view style="position: fixed; width: 100%; z-index: 1;">
+        <view class="d-flex goods--page-header py-2">
+            <view style="width: 6rem;">
+                <image class="goods--page-header-image" src="../../static/img/store_brief.png" mode=""/>
+                <view class="mt-1" style="text-align: center;">
+                    <text>评分3.0</text>
+                </view>
+            </view>
+            <view class="goods--page-header-info">
+                <view class="d-flex" style="align-items: center;">
+                    <image src="../../static/img/svgaddress.png" style="height: 1rem; width: 1rem;" mode=""/>
+                    <text style="margin-left: 0.2rem; color: skyblue;">地址：</text>
+                </view>
+                <view class="mt-2 d-flex" style="color: limegreen; align-items: center;">
+                    <image src="../../static/img/clock.png" style="height: 1rem; width: 1rem;" mode=""/>
+                    <text style="margin-left: 0.2rem;">配送约</text>
+                    <text class="mx-1 font-weight-700">60</text>
+                    <text>分钟</text>
+                </view>
+                <view class="mt-2 color-secondary">
+                    <text>公告：</text>
+                </view>
+            </view>
+        </view>
+        <view class="goods--page-search">
+            <view class="goods--page-search-input">
+                <input type="text" placeholder="搜索店内商品" />
+                <image src="../../static/img/SEARCH.png" style="height: 1rem; width: 1rem; position: absolute; top: 21px; left: 20px;" mode=""/>
+            </view>
+            <view>
+                <button size="mini" type="primary">搜索</button>
+            </view>
+        </view>
+    </view>
+    
+    <view class="d-flex goods--page-body">
+        <view class="goods--page-category">
+            <scroll-view wx:for="{{categories}}" wx:key="unique">
+                <view data-id="{{item.id}}" class="{{item.id === categoryId? 'active': ''}}" bind:tap="onSwitchCategory">{{item.name}}</view>
+            </scroll-view>
+        </view>
+        <view class="goods--page-goods">
+            <scroll-view wx:for="{{goods}}" wx:key="unique">
+                <view class="goods-item">
+                    <view>
+                        <image src="../../static/img/image.png" class="goods-item-image" mode=""/>
+                    </view>
+                    <view class="goods-item-info">
+                        <view class="font-weight-700" style="font-size: 0.9rem;">{{item.name}}</view>
+                        <view class="d-flex" style="width: 100%;">
+                            <view style="font-size: 0.8rem; flex: 1; color: red;">月售 {{item.monthly_number}}</view>
+                            <view style="font-size: 0.8rem; flex: 1; color: skyblue;">库存 {{item.remained_number}}</view>
+                        </view>
+                        <view class="d-flex;" style="flex-direction: row; justify-content: space-between; margin-right: 1rem;">
+                            <view style="font-size: 0.8rem;">￥{{item.price}} 元</view>
+                            <view>
+                                <text data-id="{{item.id}}" wx:if="{{cars[item.id] > 0}}" class="count-reduce" bind:tap="onReduceGoodsOnCars">-</text>
+                                <text wx:if="{{cars[item.id] > 0}}" class="buy-count">{{cars[item.id]}}</text>
+                                <text data-id="{{item.id}}" class="count-plus" bind:tap="onAddGoodsToCars">+</text>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </scroll-view>
+        </view>
+    </view>
+</view>
+

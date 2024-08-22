@@ -1,7 +1,8 @@
 {
     "description": "项目配置文件",
     "packOptions": {
-        "ignore": []
+        "ignore": [],
+        "include": []
     },
     "setting": {
         "urlCheck": false,
@@ -45,23 +46,9 @@
     "libVersion": "2.13.0",
     "appid": "wxcb63e5903cf90c98",
     "projectname": "mini_apps",
-    "debugOptions": {
-        "hidedInDevtools": []
-    },
-    "isGameTourist": false,
-    "condition": {
-        "search": {
-            "list": []
-        },
-        "conversation": {
-            "list": []
-        },
-        "game": {
-            "currentL": -1,
-            "list": []
-        },
-        "miniprogram": {
-            "list": []
-        }
+    "condition": {},
+    "editorSetting": {
+        "tabIndent": "insertSpaces",
+        "tabSize": 4
     }
 }

@@ -1,1 +1,107 @@
 /* pages/goods/index.wxss */
+.goods--page {}
+
+.goods--page-header {
+    background-color: #202020;
+    color: white;
+}
+
+.goods--page-header-image {
+    margin: 0 0.6rem;
+    height: 4rem;
+    width: 4rem;
+    border-radius: 5px;
+}
+
+.goods--page-header-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.goods--page-search {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem;
+    background-color: #fff;
+    position: relative;
+}
+
+.goods--page-search input {
+    padding-left: 1.4rem;
+}
+
+.goods--page-search-input {
+    flex: 1;
+    background-color: #dddddd;
+    border-radius: 4px;
+    padding: 5px;
+    margin-right: 1rem;
+}
+
+.goods--page-body {
+    margin-top: 10.3rem;
+}
+
+.goods--page-category {
+    width: 5rem;
+    padding-bottom: 5rem;
+    background-color: #eee;
+}
+.goods--page-category view {
+    padding: 0.8rem;
+    font-size: 12px;
+}
+
+.goods--page-category view.active {
+    color: gold;
+    font-weight: 700;
+}
+
+.goods--page-goods {
+    flex: 1;
+    background-color: #fff;
+}
+
+.goods--page-goods .goods-item {
+    display: flex;
+    padding: 0.5rem;
+}
+
+.goods-item-image {
+    height: 5rem;
+    width: 5rem;
+    margin: 0 0.5rem;
+}
+.goods-item-info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.goods-item-info .count-reduce {
+    /* width: 2rem; */
+    /* height: 2rem; */
+    border: 1px solid gold;
+    padding: 0.2rem 0.55rem;
+    border-radius: 100%;
+    font-size: 1rem;
+    font-weight: 900;
+}
+
+.goods-item-info .buy-count {
+    display: inline-block;
+    text-align: end;
+    width: 1rem;
+    margin: 0 0.5rem;
+}
+
+.goods-item-info .count-plus {
+    background-color: gold;
+    padding: 0.2rem 0.5rem;
+    border-radius: 100%;
+    font-size: 1rem;
+    font-weight: 900;
+}
