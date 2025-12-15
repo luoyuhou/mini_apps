@@ -25,12 +25,47 @@
   display: flex;
   align-items: center;
   margin-right: 20rpx;
+  cursor: pointer;
 }
 
-.location-icon {
-  width: 32rpx;
-  height: 32rpx;
+/* 定位图标 - 气球形状 */
+.location-marker-icon {
+  width: 28rpx;
+  height: 38rpx;
+  position: relative;
   margin-right: 8rpx;
+  flex-shrink: 0;
+}
+
+.location-marker-icon::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 28rpx;
+  height: 28rpx;
+  background: #FF4444;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  box-shadow: 0 2rpx 4rpx rgba(0,0,0,0.2);
+}
+
+.marker-dot {
+  position: absolute;
+  top: 7rpx;
+  left: 9rpx;
+  width: 10rpx;
+  height: 10rpx;
+  background: #FFF;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.location-icon-text {
+  font-size: 36rpx;
+  margin-right: 6rpx;
+  line-height: 1;
+  color: #FF4444;
 }
 
 .location-text {

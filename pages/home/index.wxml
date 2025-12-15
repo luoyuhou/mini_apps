@@ -2,8 +2,10 @@
 <view class='home--page'>
   <!-- 顶部搜索栏 -->
   <view class="home--header">
-    <view class="home--header-location">
-      <image class="location-icon" src="../../static/img/location.png" mode="aspectFit"></image>
+    <view class="home--header-location" bindtap="onLocationClick">
+      <view class="location-marker-icon">
+        <view class="marker-dot"></view>
+      </view>
       <text class="location-text">{{location || '定位中...'}}</text>
     </view>
     <view class="home--header-search" bindtap="onSearch">

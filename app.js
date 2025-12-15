@@ -1,4 +1,6 @@
 //app.js
+const config = require('./config.js');
+
 App({
   onLaunch: function () {
     var self = this;
@@ -28,7 +30,7 @@ App({
     })
   },
   globalData: {
-    baseApiUrl: 'http://luoyuhou.com/api',
+    baseApiUrl: config.baseApiUrl,
     userInfo: null
   }
 })
