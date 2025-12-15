@@ -1,61 +1,206 @@
 /* pages/store/index.wxss */
 .store--page {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #F5F5F5;
+}
 
+/* 顶部区域 */
+.store--page-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    background: #FFF;
+    box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.08);
 }
 
 .store--page-search-bar {
-    z-index: 9;
-    width: 100%;
-    position: fixed;
-    left: 0;
-    top: 0;
-    padding: 0.5rem 0.3rem;
-    background-color: #eeeeee;
-}
-.store--page-search {
-    border: 1px solid gold;
-    border-radius: 1rem;
-    padding: 0.3rem 1.5rem;
-    background-color: white;
-}
-
-.store--page-category {
-    padding-top: 2.8rem;
-    margin-top: 0.8rem;
-}
-
-.store--page-category-row {
-    margin-bottom: 0.5rem;
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    padding: 20rpx 30rpx;
+    background: #FFF;
 }
 
-.store--page-store-list {
-    margin-top: 1rem;
-    border-top: 0.1rem solid #dddddd;
-    padding-top: .3rem;
-    background-color: #eeeeee;
+.search-icon {
+    width: 32rpx;
+    height: 32rpx;
+    margin-right: 12rpx;
+}
+
+.store--page-search {
+    flex: 1;
+    height: 64rpx;
+    background: #F5F5F5;
+    border-radius: 32rpx;
+    padding: 0 24rpx;
+    font-size: 28rpx;
+}
+
+/* 筛选栏 */
+.store--page-filter {
+    display: flex;
+    padding: 20rpx 30rpx;
+    border-top: 1rpx solid #F0F0F0;
+}
+
+.filter-item {
+    flex: 1;
+    text-align: center;
+    font-size: 28rpx;
+    color: #666;
+    padding: 10rpx 0;
+    position: relative;
+}
+
+.filter-item.active {
+  color: #4FC3F7;
+  font-weight: bold;
+}
+
+.filter-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40rpx;
+  height: 4rpx;
+  background: #4FC3F7;
+  border-radius: 2rpx;
+}
+
+/* 商家列表 */
+.store--page-list {
+    margin-top: 220rpx;
+    flex: 1;
+    padding: 20rpx 30rpx;
 }
 
 .store--page-store-item {
     display: flex;
-    background-color: white;
-    border-radius: 1rem;
-    padding: 1rem;
-    margin: 0.5rem 0;
+    background: #FFF;
+    border-radius: 16rpx;
+    padding: 24rpx;
+    margin-bottom: 20rpx;
+    box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.06);
+}
+
+.store-image {
+    width: 180rpx;
+    height: 180rpx;
+    border-radius: 12rpx;
+    flex-shrink: 0;
+    margin-right: 20rpx;
+}
+
+.store-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.store-name-row {
+    display: flex;
     align-items: center;
-}
-.store--page-store-item > image {
-    border-radius: 2rem;
+    margin-bottom: 12rpx;
 }
 
-.store--page-store-item-name {
-    font-size: 1.1rem;
-    font-weight: 700;
+.store-name {
+    font-size: 32rpx;
+    font-weight: bold;
+    color: #333;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-.store--page-store-item-image {
-    height: 6rem;
-    width: 6rem;
-    border-radius: 1rem;
+.store-tags {
+    display: flex;
+    gap: 8rpx;
+}
+
+.tag {
+    padding: 4rpx 12rpx;
+    font-size: 20rpx;
+    color: #FF6B00;
+    background: #FFF5E6;
+    border-radius: 4rpx;
+}
+
+.store-rating-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12rpx;
+}
+
+.rating-wrap {
+    display: flex;
+    align-items: center;
+    margin-right: 24rpx;
+}
+
+.star-icon {
+    width: 28rpx;
+    height: 28rpx;
+    margin-right: 6rpx;
+}
+
+.rating-score {
+    font-size: 26rpx;
+    color: #FF8C00;
+    font-weight: bold;
+}
+
+.sales-count {
+    font-size: 24rpx;
+    color: #999;
+}
+
+.store-delivery-row {
+    display: flex;
+    align-items: center;
+    gap: 24rpx;
+    margin-bottom: 12rpx;
+}
+
+.delivery-info,
+.delivery-fee,
+.delivery-time {
+    font-size: 24rpx;
+    color: #666;
+}
+
+.store-discount-row {
+    display: flex;
+    gap: 12rpx;
+}
+
+.discount-tag {
+    padding: 4rpx 12rpx;
+    font-size: 22rpx;
+    color: #FF3B30;
+    background: #FFEEEE;
+    border-radius: 4rpx;
+}
+
+.no-more {
+    text-align: center;
+    padding: 40rpx 0;
+    font-size: 24rpx;
+    color: #999;
+}
+
+.empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 400rpx;
+    font-size: 28rpx;
+    color: #999;
 }

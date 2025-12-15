@@ -11,6 +11,28 @@ Page({
     data: [],
     profile: {},
     baseUrl: "",
+    location: "北京市朝阳区",
+    categories: [
+      { id: 2, name: '外卖', icon: 'emoji', emoji: '🏠' },
+      { id: 3, name: '超市', icon: 'emoji', emoji: '🛒' },
+      { id: 4, name: '水果', icon: 'emoji', emoji: '🍊' },
+      { id: 5, name: '买菜', icon: 'emoji', emoji: '🥬' },
+      { id: 6, name: '医药', icon: 'emoji', emoji: '💊' },
+      { id: 7, name: '鲜花', icon: 'emoji', emoji: '🌸' },
+      { id: 8, name: '更多', icon: '../../static/img/home.png' }
+    ],
+    banners: [
+      { id: 1, image: '../../static/img/car.jpg' },
+      { id: 2, image: '../../static/img/store_brief.png' },
+      { id: 3, image: '../../static/img/car.jpg' }
+    ],
+    stores: [
+      { id: 1, name: '美味餐厅', image: '../../static/img/store_brief.png', rating: 4.8, sales: 1200, avgPrice: 35, deliveryFee: 5 },
+      { id: 2, name: '便利超市', image: '../../static/img/store_brief.png', rating: 4.9, sales: 850, avgPrice: 20, deliveryFee: 3 },
+      { id: 3, name: '水果鲜生', image: '../../static/img/store_brief.png', rating: 4.7, sales: 650, avgPrice: 25, deliveryFee: 4 },
+      { id: 4, name: '特色小吃', image: '../../static/img/store_brief.png', rating: 4.6, sales: 520, avgPrice: 18, deliveryFee: 3 },
+      { id: 5, name: '快餐连锁', image: '../../static/img/store_brief.png', rating: 4.8, sales: 980, avgPrice: 30, deliveryFee: 5 }
+    ]
   },
 
   /**
@@ -107,4 +129,37 @@ Page({
       url: '../order/index',
     })
   },
+
+  onSearch: function() {
+    wx.navigateTo({
+      url: '../store/index',
+    })
+  },
+
+  onCategoryClick: function(e) {
+    const id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '../store/index?category=' + id,
+    })
+  },
+
+  onStoreClick: function(e) {
+    const id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '../goods/index?storeId=' + id,
+    })
+  },
+
+  onQuickEntry: function(e) {
+    const type = e.currentTarget.dataset.type;
+    if (type === 'chat') {
+      wx.navigateTo({
+        url: '../chat/index',
+      })
+    } else if (type === 'order') {
+      wx.navigateTo({
+        url: '../order-list/order-list',
+      })
+    }
+  }
 })

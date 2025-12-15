@@ -1,64 +1,60 @@
 <!--pages/store/index.wxml-->
-<view class="fill-page">
-    <view class="store--page-search-bar">
-        <input type="text" placeholder="请输入关键词" class="store--page-search" />
-    </view>
-
-    <view class="store--page-category px-2">
-        <view class="store--page-category-row">
-            <button size="mini">生鲜果蔬</button>
-            <button size="mini">休闲食品</button>
-            <button size="mini">粮油调味</button>
-            <button size="mini">酒水饮料</button>
+<view class="store--page">
+    <!-- 顶部搜索栏 -->
+    <view class="store--page-header">
+        <view class="store--page-search-bar">
+            <image class="search-icon" src="../../static/img/search.png" mode="aspectFit"></image>
+            <input type="text" placeholder="搜索商家、商品" class="store--page-search" />
         </view>
-        <view class="store--page-category-row">
-            <button size="mini">粮油调味</button>
-            <button size="mini">烟品茶饮</button>
-            <button size="mini">方便速食</button>
-            <button size="mini">散装食品</button>
-        </view>
-        <view class="store--page-category-row">
-            <button size="mini">熟食烘焙</button>
-            <button size="mini">冷冻食品</button>
-            <button size="mini">日化用品</button>
-            <button size="mini">家庭用品</button>
-        </view>
-        <view class="">
-            <button size="mini">五金电器</button>
+        <view class="store--page-filter">
+            <view class="filter-item {{filterType === 'default' ? 'active' : ''}}" bindtap="onFilter" data-type="default">
+                <text>综合排序</text>
+            </view>
+            <view class="filter-item {{filterType === 'sales' ? 'active' : ''}}" bindtap="onFilter" data-type="sales">
+                <text>销量</text>
+            </view>
+            <view class="filter-item {{filterType === 'distance' ? 'active' : ''}}" bindtap="onFilter" data-type="distance">
+                <text>距离</text>
+            </view>
+            <view class="filter-item {{filterType === 'price' ? 'active' : ''}}" bindtap="onFilter" data-type="price">
+                <text>价格</text>
+            </view>
         </view>
     </view>
 
-    <view class="store--page-store-list px-2">
-        <scroll-view scroll-y >
-            <view class="store--page-store-item" wx:for="{{stories}}" wx:key="unique">
-                <view class="store--page-store-item-image d-flex justify-center align-items-center">
-                    <image style="height: 6rem; width: 6rem; border-radius: 1rem;" src="{{item.image_url || '../../static/img/store_brief.png'}}"></image>
+    <!-- 商家列表 -->
+    <scroll-view scroll-y class="store--page-list">
+        <view class="store--page-store-item" wx:for="{{stores}}" wx:key="id" bindtap="onStoreClick" data-id="{{item.id}}">
+            <image class="store-image" src="{{item.image_url || '../../static/img/store_brief.png'}}" mode="aspectFill"></image>
+            <view class="store-info">
+                <view class="store-name-row">
+                    <text class="store-name">{{item.store_name}}</text>
+                    <view class="store-tags" wx:if="{{item.tags}}">
+                        <text class="tag" wx:for="{{item.tags}}" wx:key="index" wx:for-item="tag">{{tag}}</text>
+                    </view>
                 </view>
-                <view style="margin-left: 0.7rem;">
-                    <view class="store--page-store-item-name">{{item.store_name}}</view>
-                    <view class="d-flex align-items-center">
-                        <view>
-                            <image src="../../static/img/star.png" style="height: 1.1rem; width: 1.1rem;"></image>
-                        </view>
-                        <view class="px-1" style="width: 2rem;">{{0}}分</view>
-                        <view class="px-3">月售{{item.month_count || 0}}+</view>
-                        <view>人均 ￥{{item.avg || 0}}</view>
+                <view class="store-rating-row">
+                    <view class="rating-wrap">
+                        <image src="../../static/img/star.png" class="star-icon"></image>
+                        <text class="rating-score">{{item.rating || '4.8'}}</text>
                     </view>
-                    <view class="mt-1 d-flex">
-                        <view style="width: 4rem;">
-                            <text>起送</text>
-                            <text>￥{{item.mini_total || 0}}</text>
-                        </view>
-                        <view class="px-1">
-                            <text>配送</text>
-                            <text>￥{{item.shipping_fee || 0}}</text>
-                        </view>
-                    </view>
-                    <view class="mt-1">地址：
-                        <text class="color-secondary">{{item.province_name}}{{item.city_name}}{{item.area_name}}{{item.town_name}}{{item.address}}</text>
+                    <text class="sales-count">月售{{item.month_count || 100}}+</text>
+                </view>
+                <view class="store-delivery-row">
+                    <text class="delivery-info">¥{{item.mini_total || 20}}起送</text>
+                    <text class="delivery-fee">配送费¥{{item.shipping_fee || 5}}</text>
+                    <text class="delivery-time">{{item.delivery_time || '30'}}分钟</text>
+                </view>
+                <view class="store-discount-row" wx:if="{{item.discount}}">
+                    <view class="discount-tag">
+                        <text>{{item.discount}}</text>
                     </view>
                 </view>
             </view>
-        </scroll-view>
-    </view>
+        </view>
+        <view class="no-more" wx:if="{{stores.length > 0}}">没有更多了</view>
+        <view class="empty" wx:if="{{stores.length === 0}}">
+            <text>暂无商家</text>
+        </view>
+    </scroll-view>
 </view>

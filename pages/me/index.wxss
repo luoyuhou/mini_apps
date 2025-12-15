@@ -1,20 +1,266 @@
 /* pages/me/index.wxss */
+page {
+  background: #F5F5F5;
+}
+
 .me--page {
-    width: 95%;
-    margin: 10px auto;
+  min-height: 100vh;
+  padding-bottom: 40rpx;
 }
 
-.me--page-body {
-    margin-top: 4px;
-    background: #fff;
-}
-.strategy--page-child-body {
-    margin-top: 2px;
+/* 用户信息头部 */
+.me--header {
+  background: linear-gradient(180deg, #87CEEB 0%, #4FC3F7 100%);
+  padding: 40rpx 30rpx 30rpx;
+  margin-bottom: 20rpx;
 }
 
-.me--navigator-item {
-    padding: 0.25rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.user-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30rpx;
+}
+
+.user-avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  border: 4rpx solid rgba(255,255,255,0.5);
+  margin-right: 24rpx;
+}
+
+.user-detail {
+  flex: 1;
+}
+
+.user-name {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 12rpx;
+}
+
+.user-level {
+  display: flex;
+  align-items: center;
+}
+
+.level-badge {
+  background: rgba(0,0,0,0.2);
+  color: #FFF;
+  font-size: 20rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 8rpx;
+  margin-right: 12rpx;
+}
+
+.user-phone {
+  font-size: 24rpx;
+  color: #666;
+}
+
+.user-vip {
+  padding: 12rpx 24rpx;
+  background: rgba(255,255,255,0.9);
+  border-radius: 30rpx;
+  font-size: 24rpx;
+  color: #333;
+}
+
+/* 数据统计 */
+.user-stats {
+  display: flex;
+  background: #FFF;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.08);
+}
+
+.stat-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-number {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8rpx;
+}
+
+.stat-label {
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* 区块样式 */
+.me--section {
+  background: #FFF;
+  margin-bottom: 20rpx;
+  padding: 30rpx;
+  border-radius: 16rpx;
+  margin: 0 30rpx 20rpx;
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30rpx;
+}
+
+.title-text {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.title-more {
+  display: flex;
+  align-items: center;
+  font-size: 24rpx;
+  color: #999;
+}
+
+.arrow-icon {
+  width: 24rpx;
+  height: 24rpx;
+  margin-left: 8rpx;
+}
+
+/* 订单菜单 */
+.order-menu {
+  display: flex;
+  justify-content: space-between;
+}
+
+.menu-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.menu-icon {
+  width: 56rpx;
+  height: 56rpx;
+  margin-bottom: 12rpx;
+}
+
+.menu-text {
+  font-size: 24rpx;
+  color: #666;
+}
+
+/* 钱包菜单 */
+.wallet-menu {
+  display: flex;
+  flex-direction: column;
+}
+
+.wallet-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid #F0F0F0;
+}
+
+.wallet-item:last-child {
+  border-bottom: none;
+}
+
+.wallet-left {
+  display: flex;
+  align-items: center;
+}
+
+.wallet-icon {
+  width: 48rpx;
+  height: 48rpx;
+  margin-right: 20rpx;
+}
+
+.wallet-text {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.wallet-right {
+  display: flex;
+  align-items: center;
+}
+
+.wallet-amount,
+.wallet-count {
+  font-size: 28rpx;
+  color: #666;
+  margin-right: 12rpx;
+}
+
+/* 功能菜单 */
+.function-menu {
+  display: flex;
+  flex-direction: column;
+}
+
+.function-item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid #F0F0F0;
+}
+
+.function-item:last-child {
+  border-bottom: none;
+}
+
+.function-icon {
+  width: 56rpx;
+  height: 56rpx;
+  margin-right: 20rpx;
+  padding: 8rpx;
+  background: #F0F8FF;
+  border-radius: 50%;
+}
+
+.function-icon-wrap {
+  width: 56rpx;
+  height: 56rpx;
+  margin-right: 20rpx;
+  background: #E3F2FD;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* 线性位置图标 */
+.location-icon-outline {
+  width: 24rpx;
+  height: 30rpx;
+  border: 3rpx solid #4FC3F7;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  position: relative;
+}
+
+.location-icon-outline::after {
+  content: '';
+  position: absolute;
+  width: 8rpx;
+  height: 8rpx;
+  background: #4FC3F7;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.function-text {
+  flex: 1;
+  font-size: 28rpx;
+  color: #333;
 }

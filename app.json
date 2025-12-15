@@ -19,23 +19,27 @@
     ],
     "window": {
         "backgroundTextStyle": "light",
-        "navigationBarBackgroundColor": "#fff",
-        "navigationBarTitleText": "WeChat",
+        "navigationBarBackgroundColor": "#87CEEB",
+        "navigationBarTitleText": "易购市",
         "navigationBarTextStyle": "black"
     },
     "tabBar": {
+        "color": "#999999",
+        "selectedColor": "#4FC3F7",
+        "backgroundColor": "#ffffff",
+        "borderStyle": "black",
         "list": [
-            {
-                "selectedIconPath": "static/img/cart_on.png",
-                "iconPath": "static/img/cart.png",
-                "pagePath": "pages/store/index",
-                "text": "购物"
-            },
             {
                 "selectedIconPath": "static/img/home_on.png",
                 "iconPath": "static/img/home.png",
                 "pagePath": "pages/home/index",
                 "text": "首页"
+            },
+            {
+                "selectedIconPath": "static/img/cart_on.png",
+                "iconPath": "static/img/cart.png",
+                "pagePath": "pages/store/index",
+                "text": "购物"
             },
             {
                 "selectedIconPath": "static/img/new_on.png",

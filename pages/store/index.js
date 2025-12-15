@@ -10,7 +10,8 @@ Page({
         pages: null,
         loading: false,
         pageNum: 0,
-        stories: [],
+        stores: [],
+        filterType: 'default', // default, sales, distance, price
     },
 
     /**
@@ -79,15 +80,15 @@ Page({
     },
 
     onLoadStoreList: function() {
-        const { pageNum, stories } = this.data;
+        const { pageNum, stores } = this.data;
         this.setData({ loading: true });
         fetch({ url: `${app.globalData.baseApiUrl}/store/pagination`, method: 'post', data: { pageNum, pageSize: 5, filtered: [], sorted: []} })
         .then((res) => {
             console.log('res', res);
             if (pageNum) {
-                this.setData({ stories: stories.concat(res.data), pages: res.pages });
+                this.setData({ stores: stores.concat(res.data), pages: res.pages });
             } else {
-                this.setData({ stories: res.data, pages: res.pages });
+                this.setData({ stores: res.data, pages: res.pages });
             }
         })
         .catch((err) => wx.showToast({
@@ -95,4 +96,17 @@ Page({
         }))
         .finally(() => this.setData({ loading: false }));
     },
+
+    onFilter: function(e) {
+        const type = e.currentTarget.dataset.type;
+        this.setData({ filterType: type });
+        // 可以在这里添加排序逻辑
+    },
+
+    onStoreClick: function(e) {
+        const id = e.currentTarget.dataset.id;
+        wx.navigateTo({
+            url: '../goods/index?storeId=' + id,
+        })
+    }
 })

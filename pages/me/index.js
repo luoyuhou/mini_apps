@@ -1,73 +1,25 @@
-// pages/strategy/index.js
+// pages/me/index.js
+const app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    index: 0,
-    pageIndex: 0,
-    subNavbarIndex: 0,
-    gameInfoIndex: 0,
-    pages: [
-      { name: "订单", index: 0 },
-      { name: "其他", index: 1 }
-    ],
-    gameInfos: [
-      { name: "待收货", index: 0 },
-      { name: "已完成", index: 1 },
-      { name: "全部订单", index: 2 }
-    ],
-    tableColumn: [
-      { key: "store", name: "商家" },
-      { key: "receipter", name: "收货人" },
-      { key: "address", name: "地址" },
-      { key: "money", name: "金额" },
-      { key: "create_date", name: "下单时间" },
-    ],
-    table1: [
-      {
-        order_id: "1",
-        store: "老赵烤鱼",
-        receipter: "Tony",
-        address: "曼哈顿",
-        moeny: "4.5元",
-        create_date: "2021/08/08 01:30:30"
-      },
-      {
-        order_id: "2",
-        store: "黄焖鸡",
-        receipter: "Tony",
-        address: "阿塞拜疆",
-        moeny: "40.5元",
-        create_date: "2021/08/08 01:30:30"
-      },
-      {
-        order_id: "3",
-        store: "至尊披萨",
-        receipter: "Tony",
-        address: "新德里",
-        moeny: "4.5元",
-        create_date: "2021/08/08 01:30:30"
-      }
-    ],
-    totalTableColumn: [
-      { key: "store", name: "商家" },
-      { key: "receipter", name: "收货人" },
-      { key: "money", name: "金额" },
-      { key: "status", name: "状态" },
-      { key: "create_date", name: "下单时间" },
-    ],
-    table2: [],
-    totalTable: [],
-    data: [],
+    profile: {},
+    orderStats: {
+      unpaid: 0,
+      unshipped: 0,
+      shipped: 0,
+      completed: 0
+    }
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.loadData();
+
   },
 
   /**
@@ -81,7 +33,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.setData({
+      profile: app.globalData.userInfo || {}
+    });
+    this.loadOrderStats();
   },
 
   /**
@@ -109,7 +64,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    this.loadData();
+
   },
 
   /**
@@ -119,35 +74,41 @@ Page({
 
   },
 
-  onSlidePage: function(e) {
-    console.log(e)
+  loadOrderStats: function() {
+    // 模拟加载订单统计数据
     this.setData({
-      pageIndex: e.currentTarget.id
+      orderStats: {
+        unpaid: 2,
+        unshipped: 1,
+        shipped: 3,
+        completed: 15
+      }
+    });
+  },
+
+  onVipClick: function() {
+    wx.showToast({
+      title: '功能开发中',
+      icon: 'none'
+    });
+  },
+
+  onNavToOrders: function(e) {
+    const status = e.currentTarget.dataset.status;
+    wx.navigateTo({
+      url: '../order-list/order-list?status=' + status,
     })
   },
 
-  onSwitchSubNavbar: function (e) {
-    this.setData({
-      subNavbarIndex: e.currentTarget.id
+  onNavToRefund: function() {
+    wx.navigateTo({
+      url: '../refund/index',
     })
   },
 
-  onSlide: function(e) {
-    this.setData({
-      gameInfoIndex: e.currentTarget.id
+  onRecharge: function() {
+    wx.navigateTo({
+      url: '../recharge/index',
     })
-  },
-
-  loadData: function () {
-    const data = [
-      {category: '大家都在看', child: [
-        {id: 1, title: "三周年庆典", description: "三年里,数以千万计的召唤师加入我们,aa联盟因你们的到来而精彩 三年后,当我们品尝回忆的滋味,有苦楚也有喜悦。这是召唤师的盛会,也是你我的节日", files: ['https://img2.baidu.com/it/u=3495436499,1211422207&fm=26&fmt=auto&gp=0.jpg', 'https://img2.baidu.com/it/u=3495436499,1211422207&fm=26&fmt=auto&gp=0.jpg', 'https://img2.baidu.com/it/u=3495436499,1211422207&fm=26&fmt=auto&gp=0.jpg', 'https://img2.baidu.com/it/u=3495436499,1211422207&fm=26&fmt=auto&gp=0.jpg', 'https://img2.baidu.com/it/u=3495436499,1211422207&fm=26&fmt=auto&gp=0.jpg', 'https://img2.baidu.com/it/u=3495436499,1211422207&fm=26&fmt=auto&gp=0.jpg', 'https://img2.baidu.com/it/u=3495436499,1211422207&fm=26&fmt=auto&gp=0.jpg', 'https://img2.baidu.com/it/u=3495436499,1211422207&fm=26&fmt=auto&gp=0.jpg', 'https://img2.baidu.com/it/u=3495436499,1211422207&fm=26&fmt=auto&gp=0.jpg'], createDate: Date.now()},
-        {id: 1, title: "三周年庆典", description: "三年里,数以千万计的召唤师加入我们,aa联盟因你们的到来而精彩 三年后,当我们品尝回忆的滋味,有苦楚也有喜悦。这是召唤师的盛会,也是你我的节日", files: ['https://img2.baidu.com/it/u=3495436499,1211422207&fm=26&fmt=auto&gp=0.jpg', 'https://img2.baidu.com/it/u=3495436499,1211422207&fm=26&fmt=auto&gp=0.jpg', 'https://img2.baidu.com/it/u=3495436499,1211422207&fm=26&fmt=auto&gp=0.jpg', 'https://img2.baidu.com/it/u=3495436499,1211422207&fm=26&fmt=auto&gp=0.jpg', 'https://img2.baidu.com/it/u=3495436499,1211422207&fm=26&fmt=auto&gp=0.jpg', 'https://img2.baidu.com/it/u=3495436499,1211422207&fm=26&fmt=auto&gp=0.jpg', 'https://img2.baidu.com/it/u=3495436499,1211422207&fm=26&fmt=auto&gp=0.jpg', 'https://img2.baidu.com/it/u=3495436499,1211422207&fm=26&fmt=auto&gp=0.jpg', 'https://img2.baidu.com/it/u=3495436499,1211422207&fm=26&fmt=auto&gp=0.jpg'], createDate: Date.now()}
-      ]}
-    ];
-    this.setData({
-      index: this.data.index + 1,
-      data: this.data.data.concat(data)
-    })
-  },
+  }
 })

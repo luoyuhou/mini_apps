@@ -1,40 +1,64 @@
 <!--pages/home/index.wxml-->
-<wxs src="../../utils/filter.wxs" module="filter" />
-<view class='home--page fill-page'>
-  <view class="home--page-header">
-    <image class="home--page-header-car" src="{{cartpath || '../../static/img/car.jpg'}}"></image>
+<view class='home--page'>
+  <!-- 顶部搜索栏 -->
+  <view class="home--header">
+    <view class="home--header-location">
+      <image class="location-icon" src="../../static/img/location.png" mode="aspectFit"></image>
+      <text class="location-text">{{location || '定位中...'}}</text>
+    </view>
+    <view class="home--header-search" bindtap="onSearch">
+      <image class="search-icon" src="../../static/img/search.png" mode="aspectFit"></image>
+      <text class="search-placeholder">搜索商家、商品</text>
+    </view>
+    <view class="home--header-scan" bindtap="onTriggleScan">
+      <image class="scan-icon" src="../../static/img/scan-code.png" mode="aspectFit"></image>
+    </view>
   </view>
-  <view class="home--page-body">
-    <view class="home--page-body-profile">
-      <view class="home--page-body-profile-section-1 flex">
-        <navigator url="../profile/index">
-          <image class="home--page-body-profile-avatar" src="{{profile.avatar || '../../static/img/profile.png'}}"></image>
-        </navigator>
-        <view class="home--page-body-profile-text flex">
-          <view class="home--page-body-profile-nickname">{{profile.nickname}}</view>
-          <view class="home--page-body-profile-bio">{{profile.bio || '此人很懒，什么也没留下...'}}</view>
-          <view class="home--page-body-profile-level">{{profile.first_name}}{{profile.last_name}}</view>
+
+  <scroll-view scroll-y class="home--scroll">
+    <!-- 分类导航 -->
+    <view class="home--category">
+      <view class="category-item" wx:for="{{categories}}" wx:key="id" bindtap="onCategoryClick" data-id="{{item.id}}">
+        <view class="category-icon-wrap">
+          <image wx:if="{{item.icon !== 'emoji'}}" class="category-icon" src="{{item.icon}}" mode="aspectFit"></image>
+          <text wx:else class="category-emoji">{{item.emoji}}</text>
+        </view>
+        <text class="category-name">{{item.name}}</text>
+      </view>
+    </view>
+
+    <!-- 轮播图 -->
+    <view class="home--banner">
+      <swiper class="banner-swiper" indicator-dots indicator-color="rgba(255,255,255,0.5)" indicator-active-color="#87CEEB" autoplay interval="3000" circular>
+        <swiper-item wx:for="{{banners}}" wx:key="id">
+          <image class="banner-image" src="{{item.image}}" mode="aspectFill"></image>
+        </swiper-item>
+      </swiper>
+    </view>
+
+    <!-- 推荐商家 -->
+    <view class="home--recommend">
+      <view class="recommend-header">
+        <text class="recommend-title">推荐商家</text>
+        <text class="recommend-more">查看更多 ></text>
+      </view>
+      <view class="recommend-list">
+        <view class="recommend-item" wx:for="{{stores}}" wx:key="id" bindtap="onStoreClick" data-id="{{item.id}}">
+          <image class="recommend-image" src="{{item.image}}" mode="aspectFill"></image>
+          <view class="recommend-info">
+            <text class="recommend-name">{{item.name}}</text>
+            <view class="recommend-rating">
+              <image class="star-icon" src="../../static/img/star.png" mode="aspectFit"></image>
+              <text class="rating-text">{{item.rating || '5.0'}}</text>
+              <text class="sales-text">月售{{item.sales || 100}}+</text>
+            </view>
+            <view class="recommend-price">
+              <text class="price-text">¥{{item.avgPrice || 20}}/人</text>
+              <text class="delivery-text">配送费¥{{item.deliveryFee || 5}}</text>
+            </view>
+          </view>
         </view>
       </view>
-      <!-- <view class="flex home--page-body-profile-section-2">
-        <view class="flex home--page-body-profile-time">
-          <view>账户剩余</view>
-          <view>{{profile.money}} 元</view>
-        </view>
-        <view>
-          <button class="home--page-body-profile-recharge" bindtap="onRecharge">充值</button>
-        </view>
-      </view> -->
     </view>
-  </view>
-  <view class="home--page-footer">
-    <view class="flex home--page-footer-item" bindtap="onTriggleScan">
-      <view class=home--page-footer-scan">扫码</view>
-      <image class="home--page-footer-scan-img" src="../../static/img/scan-code.png"></image>
-    </view>
-    <navigator class="flex home--page-footer-item" url="../chat/index">
-      <view class=home--page-footer-scan">客服助手</view>
-      <image class="home--page-footer-scan-img" src="../../static/img/wechat-line.png"></image>
-    </navigator>
-  </view>
+  </scroll-view>
 </view>

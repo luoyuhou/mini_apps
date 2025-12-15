@@ -1,121 +1,124 @@
-<!--pages/strategy/index.wxml-->
-<view class="fill-page">
-  <view class="me--page">
-    <!-- 导航 -->
-    <view class='top-nav'>
-      <view class="top-nav-name {{item.index == pageIndex ? 'top-nav-hover':''}}" wx:for="{{pages}}" wx:key="unique" id='{{item.index}}' catchtap='onSlidePage'>
-        {{item.name}}
+<!--pages/me/index.wxml-->
+<view class="me--page">
+  <!-- 用户信息卡片 -->
+  <view class="me--header">
+    <view class="user-info">
+      <navigator url="../profile/index">
+        <image class="user-avatar" src="{{profile.avatar || '../../static/img/profile.png'}}" mode="aspectFill"></image>
+      </navigator>
+      <view class="user-detail">
+        <view class="user-name">{{profile.nickname || '用户名'}}</view>
+        <view class="user-level">
+          <text class="level-badge">会员</text>
+          <text class="user-phone">{{profile.phone || '未绑定手机'}}</text>
+        </view>
+      </view>
+      <view class="user-vip" bindtap="onVipClick">
+        <text>开通会员 ></text>
       </view>
     </view>
+    
+    <!-- 数据统计 -->
+    <view class="user-stats">
+      <view class="stat-item" bindtap="onNavToOrders" data-status="0">
+        <text class="stat-number">{{orderStats.unpaid || 0}}</text>
+        <text class="stat-label">待付款</text>
+      </view>
+      <view class="stat-item" bindtap="onNavToOrders" data-status="1">
+        <text class="stat-number">{{orderStats.unshipped || 0}}</text>
+        <text class="stat-label">待发货</text>
+      </view>
+      <view class="stat-item" bindtap="onNavToOrders" data-status="2">
+        <text class="stat-number">{{orderStats.shipped || 0}}</text>
+        <text class="stat-label">待收货</text>
+      </view>
+      <view class="stat-item" bindtap="onNavToOrders" data-status="3">
+        <text class="stat-number">{{orderStats.completed || 0}}</text>
+        <text class="stat-label">已完成</text>
+      </view>
+    </view>
+  </view>
 
-    <!-- body -->
-    <view class="me--page-body">
-      <!-- page1 -->
-      <view hidden='{{pageIndex!=0}}'>
-        <!-- 二级 nav -->
-        <view class='two-nav'>
-          <view class="two-nav-name {{item.index == gameInfoIndex ? 'two-nav-hover':''}}" wx:for="{{gameInfos}}" wx:key="unique" id='{{item.index}}' catchtap='onSlide'>
-            {{item.name}}
-          </view>
+  <!-- 我的订单 -->
+  <view class="me--section">
+    <view class="section-title">
+      <text class="title-text">我的订单</text>
+      <navigator url="../order-list/order-list" class="title-more">
+        <text>查看全部</text>
+        <image class="arrow-icon" src="../../static/img/chevron_right.png" mode="aspectFit"></image>
+      </navigator>
+    </view>
+    <view class="order-menu">
+      <view class="menu-item" bindtap="onNavToOrders" data-status="0">
+        <image class="menu-icon" src="../../static/img/cart.png" mode="aspectFit"></image>
+        <text class="menu-text">待付款</text>
+      </view>
+      <view class="menu-item" bindtap="onNavToOrders" data-status="1">
+        <image class="menu-icon" src="../../static/img/home.png" mode="aspectFit"></image>
+        <text class="menu-text">待发货</text>
+      </view>
+      <view class="menu-item" bindtap="onNavToOrders" data-status="2">
+        <image class="menu-icon" src="../../static/img/cart.png" mode="aspectFit"></image>
+        <text class="menu-text">待收货</text>
+      </view>
+      <view class="menu-item" bindtap="onNavToOrders" data-status="4">
+        <image class="menu-icon" src="../../static/img/star.png" mode="aspectFit"></image>
+        <text class="menu-text">待评价</text>
+      </view>
+      <view class="menu-item" bindtap="onNavToRefund">
+        <image class="menu-icon" src="../../static/img/home.png" mode="aspectFit"></image>
+        <text class="menu-text">退款/售后</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 钱包 -->
+  <view class="me--section">
+    <view class="section-title">
+      <text class="title-text">我的钱包</text>
+    </view>
+    <view class="wallet-menu">
+      <view class="wallet-item">
+        <view class="wallet-left">
+          <image class="wallet-icon" src="../../static/img/cart.png" mode="aspectFit"></image>
+          <text class="wallet-text">余额</text>
         </view>
-        <view class="strategy--page-child-body">
-          <!-- 二级 page1 -->
-          <view hidden="{{gameInfoIndex!=0}}">
-            <view class="table">
-              <view class="tr bg-w">
-                <view class="th" wx:for="{{tableColumn}}" wx:key="unique">{{item.name}}</view>
-              </view>
-              <block wx:for="{{table1}}" wx:key="unique">
-                <navigator url="../order-list/order-list?id={{item.order_id}}" class="p-1">
-                  <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
-                    <view class="td">{{item.store}}</view>
-                    <view class="td">{{item.receipter}}</view>
-                    <view class="td">{{item.address}}</view>
-                    <view class="td">{{item.moeny}}</view>
-                    <view class="td">{{item.create_date}}</view>
-                  </view>
-                  <view class="tr" wx:else>
-                    <view class="td">{{item.store}}</view>
-                    <view class="td">{{item.receipter}}</view>
-                    <view class="td">{{item.address}}</view>
-                    <view class="td">{{item.moeny}}</view>
-                    <view class="td">{{item.create_date}}</view>
-                  </view>
-                </navigator>
-              </block>
-            </view>
-            <view class="not-found" hidden="{{table1.length}}"></view>
-          </view>
-          <!-- 二级 page2 -->
-          <view hidden="{{gameInfoIndex!=1}}">
-            <view class="table">
-              <view class="tr bg-w">
-                <view class="th" wx:for="{{tableColumn}}" wx:key="unique">{{item.name}}</view>
-              </view>
-              <block wx:for="{{table2}}" wx:key="unique">
-                <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
-                  <view class="td" wx:for="{{item}}" wx:for-item="value" wx:key="unique">{{value}}</view>
-                </view>
-                <view class="tr" wx:else>
-                  <view class="td" wx:for="{{item}}" wx:for-item="value" wx:key="unique">{{value}}</view>
-                </view>
-              </block>
-            </view>
-            <view class="not-found" hidden="{{table2.length}}"></view>
-          </view>
-          <!-- 二级 page3 -->
-          <view hidden="{{gameInfoIndex!=2}}">
-            <view class="table">
-              <view class="tr bg-w">
-                <view class="th" wx:for="{{totalTableColumn}}" wx:key="unique">{{item.name}}</view>
-              </view>
-              <block wx:for="{{totalTable}}" wx:key="unique">
-                <navigator url="../order-list/order-list?id={{item.order_id}}" class="p-1">
-                  <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
-                    <view class="td">{{item.store}}</view>
-                    <view class="td">{{item.receipter}}</view>
-                    <view class="td">{{item.moeny}}</view>
-                    <view class="td">{{item.create_date}}</view>
-                  </view>
-                  <view class="tr" wx:else>
-                    <view class="td">{{item.store}}</view>
-                    <view class="td">{{item.receipter}}</view>
-                    <view class="td">{{item.moeny}}</view>
-                    <view class="td">{{item.create_date}}</view>
-                  </view>
-                </navigator>
-              </block>
-            </view>
-            <view class="not-found" hidden="{{totalTable.length}}"></view>
-          </view>
+        <view class="wallet-right">
+          <text class="wallet-amount">¥{{profile.money || '0.00'}}</text>
         </view>
       </view>
-      <!-- page2 -->
-      <view hidden='{{pageIndex!=1}}'>
-        <view class="me--page">
-          <!-- 导航 -->
-
-          <!-- body -->
-          <view class="me--page-body mt-2">
-            <!-- page1 -->
-            <view class="">
-              <view>
-                <navigator url="../address/index/index" class="margin-top: 1rem; me--navigator-item">
-                  <text>地址管理</text>
-                  <image src="../../static/img/chevron_right.png" style="height: 1.5rem; width: 1.5rem;"></image>
-                </navigator>
-              </view>
-            </view>
-            <!-- page4 -->
-            <view hidden='{{subNavbarIndex!=1}}'>
-              <view class="todo"></view>
-            </view>
-            <!-- page5 -->
-            <view hidden='{{subNavbarIndex!=2}}'>
-              <view class="todo"></view>
-            </view>
-          </view>
+      <view class="wallet-item">
+        <view class="wallet-left">
+          <image class="wallet-icon" src="../../static/img/star.png" mode="aspectFit"></image>
+          <text class="wallet-text">优惠券</text>
         </view>
+        <view class="wallet-right">
+          <text class="wallet-count">0张</text>
+          <image class="arrow-icon" src="../../static/img/chevron_right.png" mode="aspectFit"></image>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 功能菜单 -->
+  <view class="me--section">
+    <view class="function-menu">
+      <navigator url="../address/index/index" class="function-item">
+        <view class="function-icon-wrap">
+          <view class="location-icon-outline"></view>
+        </view>
+        <text class="function-text">收货地址</text>
+        <image class="arrow-icon" src="../../static/img/chevron_right.png" mode="aspectFit"></image>
+      </navigator>
+      <navigator url="../chat/index" class="function-item">
+        <image class="function-icon" src="../../static/img/wechat-line.png" mode="aspectFit"></image>
+        <text class="function-text">在线客服</text>
+        <image class="arrow-icon" src="../../static/img/chevron_right.png" mode="aspectFit"></image>
+      </navigator>
+      <view class="function-item">
+        <image class="function-icon" src="../../static/img/home.png" mode="aspectFit"></image>
+        <text class="function-text">关于我们</text>
+        <image class="arrow-icon" src="../../static/img/chevron_right.png" mode="aspectFit"></image>
       </view>
     </view>
   </view>
