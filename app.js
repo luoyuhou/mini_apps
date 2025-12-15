@@ -28,7 +28,7 @@ App({
     })
   },
   globalData: {
-    baseApiUrl: 'http://127.0.0.1:3000/api',
+    baseApiUrl: 'http://luoyuhou.com/api',
     userInfo: null
   }
 })
