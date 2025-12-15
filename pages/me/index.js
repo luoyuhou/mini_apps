@@ -33,9 +33,21 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    // 优先从 globalData 读取
+    let userInfo = app.globalData.userInfo;
+    
+    // 如果 globalData 没有，从本地存储读取
+    if (!userInfo) {
+      userInfo = wx.getStorageSync('userInfo');
+      if (userInfo) {
+        app.globalData.userInfo = userInfo;
+      }
+    }
+    
     this.setData({
-      profile: app.globalData.userInfo || {}
+      profile: userInfo || {}
     });
+    
     this.loadOrderStats();
   },
 
@@ -110,5 +122,75 @@ Page({
     wx.navigateTo({
       url: '../recharge/index',
     })
+  },
+
+  // 跳转到收藏页面
+  onNavToFavorites: function() {
+    wx.showToast({
+      title: '收藏功能开发中',
+      icon: 'none'
+    });
+  },
+
+  // 跳转到浏览记录页面
+  onNavToHistory: function() {
+    wx.showToast({
+      title: '浏览记录功能开发中',
+      icon: 'none'
+    });
+  },
+
+  // 选择头像
+  onChooseAvatar: function(e) {
+    const { avatarUrl } = e.detail;
+    console.log('选择头像:', avatarUrl);
+    
+    // 更新本地数据
+    const userInfo = {
+      ...this.data.profile,
+      avatarUrl: avatarUrl
+    };
+    
+    this.setData({
+      profile: userInfo
+    });
+    
+    // 保存到本地存储
+    wx.setStorageSync('userInfo', userInfo);
+    app.globalData.userInfo = userInfo;
+    
+    wx.showToast({
+      title: '头像更新成功',
+      icon: 'success'
+    });
+  },
+
+  // 昵称输入完成
+  onNicknameBlur: function(e) {
+    const nickName = e.detail.value;
+    console.log('输入昵称:', nickName);
+    
+    if (!nickName) {
+      return;
+    }
+    
+    // 更新本地数据
+    const userInfo = {
+      ...this.data.profile,
+      nickName: nickName
+    };
+    
+    this.setData({
+      profile: userInfo
+    });
+    
+    // 保存到本地存储
+    wx.setStorageSync('userInfo', userInfo);
+    app.globalData.userInfo = userInfo;
+    
+    wx.showToast({
+      title: '昵称更新成功',
+      icon: 'success'
+    });
   }
 })

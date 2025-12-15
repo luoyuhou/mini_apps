@@ -23,12 +23,13 @@ Page({
       { id: 5, name: '买菜', icon: 'emoji', emoji: '🥬' },
       { id: 6, name: '医药', icon: 'emoji', emoji: '💊' },
       { id: 7, name: '鲜花', icon: 'emoji', emoji: '💐' },
-      { id: 8, name: '更多', icon: '../../static/img/home.png', disabled: true }
+      { id: 8, name: '更多', icon: '../../static/img/more.png', disabled: true }
     ],
     banners: [
-      { id: 1, image: '../../static/img/car.jpg' },
-      { id: 2, image: '../../static/img/store_brief.png' },
-      { id: 3, image: '../../static/img/car.jpg' }
+      { id: 1, image: '../../static/picture/poster_1.png' },
+      { id: 2, image: '../../static/picture/poster_2.png' },
+      { id: 3, image: '../../static/picture/poster_3.png' },
+      { id: 4, image: '../../static/picture/poster_4.png' },
     ],
     stores: [
       { id: 1, name: '美味餐厅', image: '../../static/img/store_brief.png', rating: 4.8, sales: 1200, avgPrice: 35, deliveryFee: 5 },

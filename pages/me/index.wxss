@@ -29,6 +29,29 @@ page {
   margin-right: 24rpx;
 }
 
+.avatar-wrapper {
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+  line-height: 0;
+  margin-right: 24rpx;
+}
+
+.avatar-wrapper::after {
+  border: none;
+}
+
+.user-name-input {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 12rpx;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
 .user-detail {
   flex: 1;
 }
@@ -74,6 +97,7 @@ page {
   border-radius: 16rpx;
   padding: 30rpx;
   box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.08);
+  justify-content: space-around;
 }
 
 .stat-item {
@@ -81,6 +105,17 @@ page {
   display: flex;
   flex-direction: column;
   align-items: center;
+  cursor: pointer;
+}
+
+.stat-icon {
+  font-size: 56rpx;
+  margin-bottom: 12rpx;
+  line-height: 1;
+  color: #ccc;
+  -webkit-text-stroke: 1rpx #ccc;
+  -webkit-text-fill-color: white;
+  filter: grayscale(100%);
 }
 
 .stat-number {

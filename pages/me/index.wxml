@@ -3,11 +3,19 @@
   <!-- 用户信息卡片 -->
   <view class="me--header">
     <view class="user-info">
-      <navigator url="../profile/index">
-        <image class="user-avatar" src="{{profile.avatar || '../../static/img/profile.png'}}" mode="aspectFill"></image>
-      </navigator>
+      <!-- 头像选择器 -->
+      <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+        <image class="user-avatar" src="{{profile.avatarUrl || profile.avatar || '../../static/img/profile.png'}}" mode="aspectFill"></image>
+      </button>
       <view class="user-detail">
-        <view class="user-name">{{profile.nickname || '用户名'}}</view>
+        <!-- 昵称输入框 -->
+        <input 
+          class="user-name-input" 
+          type="nickname" 
+          placeholder="点击设置昵称"
+          value="{{profile.nickName || profile.nickname || ''}}"
+          bind:blur="onNicknameBlur"
+        />
         <view class="user-level">
           <text class="level-badge">会员</text>
           <text class="user-phone">{{profile.phone || '未绑定手机'}}</text>
@@ -20,21 +28,13 @@
     
     <!-- 数据统计 -->
     <view class="user-stats">
-      <view class="stat-item" bindtap="onNavToOrders" data-status="0">
-        <text class="stat-number">{{orderStats.unpaid || 0}}</text>
-        <text class="stat-label">待付款</text>
+      <view class="stat-item" bindtap="onNavToFavorites">
+        <image class="menu-icon" src="../../static/img/collect.png" mode="aspectFit"></image>
+        <text class="stat-label">收藏</text>
       </view>
-      <view class="stat-item" bindtap="onNavToOrders" data-status="1">
-        <text class="stat-number">{{orderStats.unshipped || 0}}</text>
-        <text class="stat-label">待发货</text>
-      </view>
-      <view class="stat-item" bindtap="onNavToOrders" data-status="2">
-        <text class="stat-number">{{orderStats.shipped || 0}}</text>
-        <text class="stat-label">待收货</text>
-      </view>
-      <view class="stat-item" bindtap="onNavToOrders" data-status="3">
-        <text class="stat-number">{{orderStats.completed || 0}}</text>
-        <text class="stat-label">已完成</text>
+      <view class="stat-item" bindtap="onNavToHistory">
+        <image class="menu-icon" src="../../static/img/foot.png" mode="aspectFit"></image>
+        <text class="stat-label">浏览记录</text>
       </view>
     </view>
   </view>
