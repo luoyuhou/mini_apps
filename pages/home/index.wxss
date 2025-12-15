@@ -121,6 +121,11 @@
   color: #333;
 }
 
+.category-item.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 /* 轮播图 */
 .home--banner {
   background: #FFF;

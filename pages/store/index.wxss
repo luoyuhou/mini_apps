@@ -18,6 +18,19 @@
     box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.08);
 }
 
+/* 分类标题 */
+.store--page-category-title {
+    text-align: center;
+    padding: 24rpx 30rpx 16rpx;
+    border-bottom: 1rpx solid #F0F0F0;
+}
+
+.store--page-category-title text {
+    font-size: 34rpx;
+    color: #333;
+    font-weight: bold;
+}
+
 .store--page-search-bar {
     display: flex;
     align-items: center;
@@ -75,7 +88,7 @@
 
 /* 商家列表 */
 .store--page-list {
-    margin-top: 220rpx;
+    margin-top: 280rpx;
     flex: 1;
     padding: 20rpx 30rpx;
 }

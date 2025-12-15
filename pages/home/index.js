@@ -19,7 +19,7 @@ Page({
       { id: 5, name: '买菜', icon: 'emoji', emoji: '🥬' },
       { id: 6, name: '医药', icon: 'emoji', emoji: '💊' },
       { id: 7, name: '鲜花', icon: 'emoji', emoji: '🌸' },
-      { id: 8, name: '更多', icon: '../../static/img/home.png' }
+      { id: 8, name: '更多', icon: '../../static/img/home.png', disabled: true }
     ],
     banners: [
       { id: 1, image: '../../static/img/car.jpg' },
@@ -138,6 +138,13 @@ Page({
 
   onCategoryClick: function(e) {
     const id = e.currentTarget.dataset.id;
+    const disabled = e.currentTarget.dataset.disabled;
+    
+    // 如果是禁用的按钮，直接返回不执行跳转
+    if (disabled) {
+      return;
+    }
+    
     wx.navigateTo({
       url: '../store/index?category=' + id,
     })

@@ -12,13 +12,32 @@ Page({
         pageNum: 0,
         stores: [],
         filterType: 'default', // default, sales, distance, price
+        categoryId: null,
+        categoryName: '',
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-
+        // 获取分类ID和名称
+        const categoryId = options.category;
+        const categoryMap = {
+            '2': '外卖',
+            '3': '超市',
+            '4': '水果',
+            '5': '买菜',
+            '6': '医药',
+            '7': '鲜花',
+            '8': '更多'
+        };
+        
+        if (categoryId) {
+            this.setData({
+                categoryId: categoryId,
+                categoryName: categoryMap[categoryId] || '商家'
+            });
+        }
     },
 
     /**

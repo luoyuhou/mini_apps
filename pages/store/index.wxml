@@ -2,6 +2,11 @@
 <view class="store--page">
     <!-- 顶部搜索栏 -->
     <view class="store--page-header">
+        <!-- 分类标题 -->
+        <view class="store--page-category-title" wx:if="{{categoryName}}">
+            <text>{{categoryName}}</text>
+        </view>
+        
         <view class="store--page-search-bar">
             <image class="search-icon" src="../../static/img/search.png" mode="aspectFit"></image>
             <input type="text" placeholder="搜索商家、商品" class="store--page-search" />
