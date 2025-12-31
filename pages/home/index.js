@@ -115,18 +115,198 @@ Page({
   },
 
   onTriggleScan: function() {
-    console.log('----------');
+    const that = this;
+    console.log('开始扫码');
+    
     wx.scanCode({
-      // onlyFromCamera: true,
+      onlyFromCamera: true,
+      scanType: ['qrCode'],
       success: (res) => {
-        console.log('scan res', res);
-        fetch({
-          url: res.result
-        }).then((res) => {
-          console.log('res', res);
-        })
+        console.log('扫码成功:', res);
+        const scanResult = res.result;
+        
+        try {
+          // 解析二维码内容，提取 qrCodeId
+          let qrCodeId = '';
+          
+          // 情况1: 扫描结果是 JSON 字符串
+          try {
+            const jsonData = JSON.parse(scanResult);
+            if (jsonData.qrCodeId) {
+              qrCodeId = jsonData.qrCodeId;
+              console.log('从 JSON 解析得到 qrCodeId:', qrCodeId);
+            }
+          } catch (e) {
+            // 不是 JSON，继续尝试其他格式
+          }
+          
+          // 情况2: URL 参数格式 (http://domain/page?qrCodeId=xxx)
+          if (!qrCodeId && scanResult.includes('qrCodeId=')) {
+            try {
+              const url = new URL(scanResult);
+              qrCodeId = url.searchParams.get('qrCodeId');
+              console.log('从 URL 参数解析得到 qrCodeId:', qrCodeId);
+            } catch (e) {
+              console.error('URL 解析失败:', e);
+            }
+          }
+          
+          // 情况3: 路径格式 (http://domain/qr-login/xxx)
+          if (!qrCodeId && scanResult.includes('qr-login/')) {
+            const parts = scanResult.split('qr-login/');
+            if (parts.length > 1) {
+              qrCodeId = parts[1].split('?')[0]; // 去掉可能的查询参数
+              console.log('从路径解析得到 qrCodeId:', qrCodeId);
+            }
+          }
+          
+          // 情况4: 纯 UUID 格式
+          if (!qrCodeId) {
+            // 检查是否是 UUID 格式 (xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx)
+            const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+            if (uuidPattern.test(scanResult)) {
+              qrCodeId = scanResult;
+              console.log('直接使用 UUID:', qrCodeId);
+            }
+          }
+          
+          if (!qrCodeId) {
+            console.error('无法解析二维码内容:', scanResult);
+            wx.showToast({
+              title: '无效的二维码',
+              icon: 'none',
+              duration: 2000
+            });
+            return;
+          }
+          
+          console.log('最终解析得到 qrCodeId:', qrCodeId);
+          
+          // 获取用户的 openid
+          const openid = wx.getStorageSync('openid');
+          if (!openid) {
+            wx.showToast({
+              title: '请先登录小程序',
+              icon: 'none',
+              duration: 2000
+            });
+            // 跳转到登录页
+            wx.navigateTo({
+              url: '/pages/login/index',
+            });
+            return;
+          }
+          
+          // 1. 先标记为已扫描
+          that.markQrCodeAsScanned(qrCodeId, openid);
+          
+        } catch (error) {
+          console.error('解析二维码失败:', error);
+          wx.showToast({
+            title: '二维码格式错误',
+            icon: 'none',
+            duration: 2000
+          });
+        }
+      },
+      fail: (err) => {
+        console.error('扫码失败:', err);
+        if (err.errMsg !== 'scanCode:fail cancel') {
+          wx.showToast({
+            title: '扫码失败',
+            icon: 'none',
+            duration: 2000
+          });
+        }
       }
     })
+  },
+  
+  /**
+   * 标记二维码为已扫描
+   */
+  markQrCodeAsScanned: function(qrCodeId, openid) {
+    const that = this;
+    
+    wx.showLoading({
+      title: '处理中...',
+    });
+    
+    fetch({
+      url: `${config.baseApiUrl}/auth/qr-code/scan`,
+      method: 'POST',
+      data: {
+        qrCodeId: qrCodeId,
+        openid: openid
+      }
+    }).then((response) => {
+      wx.hideLoading();
+      console.log('标记已扫描成功:', response);
+      
+      // 显示确认对话框
+      wx.showModal({
+        title: '确认登录',
+        content: '是否确认登录网页端？',
+        confirmText: '确认登录',
+        cancelText: '取消',
+        success: (modalRes) => {
+          if (modalRes.confirm) {
+            // 用户点击确认，调用确认登录接口
+            that.confirmQrLogin(qrCodeId, openid);
+          } else {
+            // 用户取消，提示已取消
+            wx.showToast({
+              title: '已取消登录',
+              icon: 'none',
+              duration: 2000
+            });
+          }
+        }
+      });
+    }).catch((error) => {
+      wx.hideLoading();
+      console.error('标记已扫描失败:', error);
+      wx.showToast({
+        title: error.message || '操作失败，请重试',
+        icon: 'none',
+        duration: 2000
+      });
+    });
+  },
+  
+  /**
+   * 确认二维码登录
+   */
+  confirmQrLogin: function(qrCodeId, openid) {
+    wx.showLoading({
+      title: '登录中...',
+    });
+    
+    fetch({
+      url: `${config.baseApiUrl}/auth/qr-code/confirm`,
+      method: 'POST',
+      data: {
+        qrCodeId: qrCodeId,
+        openid: openid
+      }
+    }).then((response) => {
+      wx.hideLoading();
+      console.log('确认登录成功:', response);
+      
+      wx.showToast({
+        title: '网页端登录成功',
+        icon: 'success',
+        duration: 2000
+      });
+    }).catch((error) => {
+      wx.hideLoading();
+      console.error('确认登录失败:', error);
+      wx.showToast({
+        title: error.message || '登录失败，请重试',
+        icon: 'none',
+        duration: 2000
+      });
+    });
   },
 
   onRecharge: function() {

@@ -110,6 +110,13 @@ Page({
                             console.log('loginData', loginData);
 
                             app.globalData.userInfo = loginData?.data;
+                            
+                            // 保存 openid 到本地存储
+                            if (loginData?.data?.openid) {
+                                wx.setStorageSync('openid', loginData.data.openid);
+                                console.log('已保存 openid:', loginData.data.openid);
+                            }
+                            
                             wx.showToast({
                                 icon: "success",
                                 title: '登陆成功',
