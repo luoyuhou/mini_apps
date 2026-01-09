@@ -1,5 +1,283 @@
 /* pages/order-list/order-list.wxss */
-.order-list--page {
-    width: 95%;
-    margin: 10px auto;
+.order-list-page {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #f5f5f5;
+}
+
+/* Tab栏 */
+.tab-bar {
+    display: flex;
+    background-color: #fff;
+    padding: 0 24rpx;
+    box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.tab-item {
+    flex: 1;
+    text-align: center;
+    padding: 28rpx 0;
+    position: relative;
+}
+
+.tab-text {
+    font-size: 28rpx;
+    color: #666;
+    transition: all 0.3s;
+}
+
+.tab-item.active .tab-text {
+    color: #ff6b6b;
+    font-weight: bold;
+    font-size: 30rpx;
+}
+
+.tab-underline {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 48rpx;
+    height: 6rpx;
+    background-color: #ff6b6b;
+    border-radius: 3rpx;
+}
+
+/* 订单滚动区域 */
+.order-scroll {
+    flex: 1;
+    height: 100%;
+}
+
+.order-list {
+    padding: 20rpx;
+}
+
+/* 订单卡片 */
+.order-card {
+    background-color: #fff;
+    border-radius: 16rpx;
+    margin-bottom: 20rpx;
+    overflow: hidden;
+    box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.05);
+}
+
+/* 订单头部 */
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24rpx;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.store-info {
+    display: flex;
+    align-items: center;
+}
+
+.store-name {
+    font-size: 28rpx;
+    font-weight: bold;
+    color: #333;
+}
+
+.order-status {
+    font-size: 28rpx;
+    font-weight: 500;
+}
+
+/* 商品列表 */
+.goods-list {
+    padding: 24rpx;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.goods-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20rpx;
+}
+
+.goods-item:last-child {
+    margin-bottom: 0;
+}
+
+.goods-info {
+    flex: 1;
+    margin-right: 20rpx;
+}
+
+.goods-name {
+    font-size: 28rpx;
+    color: #333;
+    margin-bottom: 8rpx;
+}
+
+.goods-spec {
+    font-size: 24rpx;
+    color: #999;
+}
+
+.goods-price-count {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.goods-price {
+    font-size: 28rpx;
+    color: #ff6b6b;
+    font-weight: bold;
+    margin-bottom: 4rpx;
+}
+
+.goods-count {
+    font-size: 24rpx;
+    color: #999;
+}
+
+/* 配送信息 */
+.delivery-info {
+    padding: 16rpx 24rpx;
+    background-color: #f9f9f9;
+    font-size: 24rpx;
+    color: #666;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.delivery-label {
+    margin-right: 8rpx;
+}
+
+.delivery-time {
+    color: #333;
+}
+
+/* 收货地址 */
+.address-info {
+    padding: 16rpx 24rpx;
+    background-color: #f9f9f9;
+    font-size: 24rpx;
+    color: #666;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.address-icon {
+    margin-right: 8rpx;
+}
+
+/* 订单金额 */
+.order-amount {
+    padding: 20rpx 24rpx;
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.amount-label {
+    font-size: 24rpx;
+    color: #999;
+    margin-right: 16rpx;
+}
+
+.amount-text {
+    font-size: 24rpx;
+    color: #666;
+}
+
+.amount-value {
+    font-size: 32rpx;
+    color: #ff6b6b;
+    font-weight: bold;
+}
+
+/* 操作按钮 */
+.order-actions {
+    padding: 20rpx 24rpx;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.order-time {
+    font-size: 24rpx;
+    color: #999;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 20rpx;
+}
+
+.btn-cancel {
+    padding: 12rpx 32rpx;
+    font-size: 26rpx;
+    color: #666;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 40rpx;
+    line-height: 1;
+}
+
+.btn-primary {
+    padding: 12rpx 32rpx;
+    font-size: 26rpx;
+    color: #fff;
+    background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%);
+    border: none;
+    border-radius: 40rpx;
+    line-height: 1;
+}
+
+.btn-cancel::after,
+.btn-primary::after {
+    border: none;
+}
+
+/* 加载状态 */
+.loading-status {
+    text-align: center;
+    padding: 40rpx;
+    font-size: 28rpx;
+    color: #999;
+}
+
+/* 空状态 */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 200rpx 0;
+}
+
+.empty-icon {
+    font-size: 120rpx;
+    margin-bottom: 32rpx;
+}
+
+.empty-text {
+    font-size: 32rpx;
+    color: #999;
+    margin-bottom: 16rpx;
+}
+
+.empty-hint {
+    font-size: 24rpx;
+    color: #ccc;
+}
+
+/* 没有更多 */
+.no-more {
+    text-align: center;
+    padding: 40rpx;
+    font-size: 24rpx;
+    color: #ccc;
 }

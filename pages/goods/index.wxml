@@ -26,43 +26,165 @@
         </view>
         <view class="goods--page-search">
             <view class="goods--page-search-input">
-                <input type="text" placeholder="搜索店内商品" />
+                <input type="text" placeholder="搜索店内商品" model:value="{{searchKeyword}}" />
                 <image src="../../static/img/SEARCH.png" style="height: 1rem; width: 1rem; position: absolute; top: 21px; left: 20px;" mode=""/>
             </view>
             <view>
-                <button size="mini" type="primary">搜索</button>
+                <button size="mini" type="primary" bind:tap="onSearch">搜索</button>
             </view>
         </view>
     </view>
     
     <view class="d-flex goods--page-body">
         <view class="goods--page-category">
-            <scroll-view wx:for="{{categories}}" wx:key="unique">
-                <view data-id="{{item.category_id}}" class="{{item.category_id === categoryId? 'active': ''}}" bind:tap="onSwitchCategory">{{item.name}}</view>
+            <scroll-view scroll-y="true" style="height: 100%;">
+                <view 
+                    wx:for="{{categories}}" 
+                    wx:key="category_id"
+                    data-id="{{item.category_id}}" 
+                    class="{{item.category_id === categoryId? 'active': ''}}" 
+                    bind:tap="onSwitchCategory"
+                >
+                    {{item.name}}
+                </view>
             </scroll-view>
         </view>
         <view class="goods--page-goods">
             <view wx:if="{{goods.length > 0 }}">
-                <scroll-view wx:for="{{goods}}" wx:key="unique">
-                    <view class="goods-item">
+                <scroll-view scroll-y="true" style="height: calc(100vh - 10.3rem);">
+                    <view wx:for="{{goods}}" wx:key="goods_id" class="goods-item">
                         <view>
-                            <image src="../../static/img/image.png" class="goods-item-image" mode=""/>
+                            <image 
+                                src="../../static/img/image.png" 
+                                class="goods-item-image" 
+                                mode="aspectFill"
+                            />
                         </view>
                         <view class="goods-item-info">
-                            <view class="font-weight-700" style="font-size: 0.9rem;">{{item.name}}</view>
-                            <view style="font-size:0.7rem; color: #bbb;">{{item.description}}</view>
-                            <view class="d-flex" style="width: 100%;">
-                                <view style="font-size: 0.8rem; flex: 1; color: red;">月售 {{item.monthly_number}}</view>
-                                <view style="font-size: 0.8rem; flex: 1; color: skyblue;">库存 {{item.remained_number}}</view>
-                            </view>
-                            <view class="d-flex;" style="flex-direction: row; justify-content: space-between; margin-right: 1rem;">
-                                <view style="font-size: 0.8rem;">￥{{item.price}} 元</view>
-                                <view>
-                                    <text data-id="{{item.id}}" wx:if="{{cars[item.id] > 0}}" class="count-reduce" bind:tap="onReduceGoodsOnCars">-</text>
-                                    <text wx:if="{{cars[item.id] > 0}}" class="buy-count">{{cars[item.id]}}</text>
-                                    <text data-id="{{item.id}}" class="count-plus" bind:tap="onAddGoodsToCars">+</text>
+                            <!-- 商品标题 -->
+                            <view class="goods-header">
+                                <view class="font-weight-700" style="font-size: 0.9rem;">{{item.name}}</view>
+                                <view 
+                                    wx:if="{{item.versions.length > 1}}" 
+                                    class="expand-btn"
+                                    data-id="{{item.goods_id}}"
+                                    bind:tap="onToggleExpand"
+                                >
+                                    {{expandedGoods[item.goods_id] ? '收起' : '展开'}} 
+                                    <text class="arrow {{expandedGoods[item.goods_id] ? 'arrow-up' : 'arrow-down'}}">▼</text>
                                 </view>
                             </view>
+                            
+                            <!-- 商品描述 -->
+                            <view style="font-size:0.7rem; color: #bbb; margin-top: 0.2rem;">{{item.description}}</view>
+                            
+                            <!-- 单规格商品：直接显示价格和购买按钮 -->
+                            <block wx:if="{{item.versions.length === 1}}">
+                                <view class="version-item single-version">
+                                    <view class="version-info">
+                                        <text class="version-spec">{{item.versions[0].unit_name}}</text>
+                                        <text class="version-price">￥{{item.versions[0].price / 100}}</text>
+                                    </view>
+                                    <view class="version-meta">
+                                        <text class="meta-item">月售 {{item.versions[0].monthly_sales || 0}}</text>
+                                        <text class="meta-item">库存 {{item.versions[0].count}}</text>
+                                    </view>
+                                    <view class="version-action">
+                                        <text 
+                                            wx:if="{{cars[item.versions[0].version_id] > 0}}" 
+                                            class="count-reduce" 
+                                            data-id="{{item.versions[0].version_id}}"
+                                            bind:tap="onReduceGoodsOnCars"
+                                        >-</text>
+                                        <text 
+                                            wx:if="{{cars[item.versions[0].version_id] > 0}}" 
+                                            class="buy-count"
+                                        >{{cars[item.versions[0].version_id]}}</text>
+                                        <text 
+                                            class="count-plus" 
+                                            data-id="{{item.versions[0].version_id}}"
+                                            data-name="{{item.name}}"
+                                            data-unit="{{item.versions[0].unit_name}}"
+                                            bind:tap="onAddGoodsToCars"
+                                        >+</text>
+                                    </view>
+                                </view>
+                            </block>
+                            
+                            <!-- 多规格商品：显示第一个规格 + 展开/收起 -->
+                            <block wx:else>
+                                <!-- 默认显示第一个规格 -->
+                                <view class="version-item first-version">
+                                    <view class="version-info">
+                                        <text class="version-spec">{{item.versions[0].unit_name}}</text>
+                                        <text class="version-price">￥{{item.versions[0].price / 100}}</text>
+                                        <text class="version-badge">共{{item.versions.length}}种规格</text>
+                                    </view>
+                                    <view class="version-meta">
+                                        <text class="meta-item">月售 {{item.versions[0].monthly_sales || 0}}</text>
+                                        <text class="meta-item">库存 {{item.versions[0].count}}</text>
+                                    </view>
+                                    <view class="version-action">
+                                        <text 
+                                            wx:if="{{cars[item.versions[0].version_id] > 0}}" 
+                                            class="count-reduce" 
+                                            data-id="{{item.versions[0].version_id}}"
+                                            bind:tap="onReduceGoodsOnCars"
+                                        >-</text>
+                                        <text 
+                                            wx:if="{{cars[item.versions[0].version_id] > 0}}" 
+                                            class="buy-count"
+                                        >{{cars[item.versions[0].version_id]}}</text>
+                                        <text 
+                                            class="count-plus" 
+                                            data-id="{{item.versions[0].version_id}}"
+                                            data-name="{{item.name}}"
+                                            data-unit="{{item.versions[0].unit_name}}"
+                                            bind:tap="onAddGoodsToCars"
+                                        >+</text>
+                                    </view>
+                                </view>
+                                
+                                <!-- 展开后显示其他规格 -->
+                                <block wx:if="{{expandedGoods[item.goods_id]}}">
+                                    <view 
+                                        wx:for="{{item.versions}}" 
+                                        wx:for-item="version" 
+                                        wx:for-index="vIndex"
+                                        wx:key="version_id"
+                                        wx:if="{{vIndex > 0}}"
+                                        class="version-item expanded-version"
+                                    >
+                                        <view class="version-info">
+                                            <text class="version-spec">{{version.unit_name}}</text>
+                                            <text class="version-price">￥{{version.price / 100}}</text>
+                                        </view>
+                                        <view class="version-meta">
+                                            <text class="meta-item">月售 {{version.monthly_sales || 0}}</text>
+                                            <text class="meta-item">库存 {{version.count}}</text>
+                                        </view>
+                                        <view class="version-action">
+                                            <text 
+                                                wx:if="{{cars[version.version_id] > 0}}" 
+                                                class="count-reduce" 
+                                                data-id="{{version.version_id}}"
+                                                bind:tap="onReduceGoodsOnCars"
+                                            >-</text>
+                                            <text 
+                                                wx:if="{{cars[version.version_id] > 0}}" 
+                                                class="buy-count"
+                                            >{{cars[version.version_id]}}</text>
+                                            <text 
+                                                class="count-plus" 
+                                                data-id="{{version.version_id}}"
+                                                data-name="{{item.name}}"
+                                                data-unit="{{version.unit_name}}"
+                                                bind:tap="onAddGoodsToCars"
+                                            >+</text>
+                                        </view>
+                                    </view>
+                                </block>
+                            </block>
                         </view>
                     </view>
                 </scroll-view>
@@ -70,5 +192,20 @@
             <view wx:else style="padding: 0.5rem; color: gray; font-size: 12px;">列表为空...</view>
         </view>
     </view>
+    
+    <!-- 购物车浮动按钮 -->
+    <view 
+        wx:if="{{totalCount > 0}}" 
+        class="cart-float"
+        bind:tap="onViewCart"
+    >
+        <view class="cart-badge">{{totalCount}}</view>
+        <view class="cart-info">
+            <text class="cart-price">￥{{totalPrice / 100}}</text>
+            <text class="cart-delivery">另需配送费</text>
+        </view>
+        <view class="cart-submit">
+            去结算
+        </view>
+    </view>
 </view>
-

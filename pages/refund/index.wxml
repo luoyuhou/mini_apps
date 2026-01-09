@@ -1,38 +1,89 @@
 <!--pages/refund/index.wxml-->
-<wxs src="../../utils/filter.wxs" module="filter" />
-<view class="fill-page">
-  <view class="refund--page">
-    <!-- 导航 -->
-    <view class='top-nav'>
-      <view class="top-nav-name {{item.index == pageIndex ? 'top-nav-hover':''}}" wx:for="{{pages}}" wx:key="unique" id='{{item.index}}' catchtap='onSlidePage'>
-        {{item.name}}
-      </view>
+<view class="refund-page">
+    <!-- Tab 栏 -->
+    <view class="tab-bar">
+        <view 
+            wx:for="{{tabs}}" 
+            wx:key="status" 
+            class="tab-item {{currentStatus === item.status ? 'active' : ''}}"
+            bindtap="onTabChange"
+            data-status="{{item.status}}"
+        >
+            <text class="tab-text">{{item.name}}</text>
+            <view class="tab-underline" wx:if="{{currentStatus === item.status}}"></view>
+        </view>
     </view>
 
-    <!-- body -->
-    <view class="refund--page-body">
-        <view wx:if="{{loading}}">
-            <view class="data-loading"></view>
-        </view>
-        <view wx:elif="{{data[pageIndex].length == 0 && !loading}}">
-            <view class="not-found"></view>
-        </view>
-        <view wx:else>
-            <view wx:for="{{data[pageIndex]}}" wx:key="unique" class="refund--page-item">
-                <view>
-                    <view>退款金额</view>
-                    <view>{{item.money / 100}}元</view>
+    <!-- 退款列表 -->
+    <scroll-view class="refund-scroll" scroll-y enable-back-to-top>
+        <view class="refund-list">
+            <view class="refund-card" wx:for="{{refundList}}" wx:key="refund_id" bindtap="onViewDetail" data-id="{{item.refund_id}}">
+                <!-- 退款头部 -->
+                <view class="refund-header">
+                    <view class="refund-info">
+                        <text class="refund-id">退款单号: {{item.refund_id}}</text>
+                    </view>
+                    <view class="refund-status" style="color: {{statusConfig[item.state].color}}">
+                        {{statusConfig[item.state].text}}
+                    </view>
                 </view>
-                <view>
-                    <view>退款状态</view>
-                    <view><rich-text nodes="{{filter.formatState(item.state)}}"></rich-text></view>
+
+                <!-- 商品信息 -->
+                <view class="goods-info" wx:if="{{item.goods_info}}">
+                    <view class="goods-name">{{item.goods_info.goods_name}}</view>
+                    <view class="goods-spec">{{item.goods_info.unit_name}} x {{item.goods_info.count}}</view>
                 </view>
-                <view>
-                    <view>订单创建时间</view>
-                    <view>{{filter.formatTime(item.createtime, 'Y-M-D h:m:s')}}</view>
+
+                <!-- 退款信息 -->
+                <view class="refund-details">
+                    <view class="detail-row">
+                        <text class="detail-label">退款金额:</text>
+                        <text class="detail-value amount">¥{{item.money / 100}}</text>
+                    </view>
+                    <view class="detail-row" wx:if="{{item.reason}}">
+                        <text class="detail-label">退款原因:</text>
+                        <text class="detail-value">{{item.reason}}</text>
+                    </view>
+                    <view class="detail-row">
+                        <text class="detail-label">申请时间:</text>
+                        <text class="detail-value">{{item.createtime}}</text>
+                    </view>
+                </view>
+
+                <!-- 操作按钮 -->
+                <view class="refund-actions" catchtap="stopPropagation">
+                    <button 
+                        wx:if="{{item.state === 0}}"
+                        class="btn-cancel" 
+                        catchtap="onCancelRefund"
+                        data-id="{{item.refund_id}}"
+                    >取消退款</button>
+                    
+                    <button 
+                        wx:if="{{item.state === 0}}"
+                        class="btn-primary" 
+                        catchtap="onUrgeRefund"
+                        data-id="{{item.refund_id}}"
+                    >催促退款</button>
                 </view>
             </view>
         </view>
-    </view>
-  </view>
+
+        <!-- 加载状态 -->
+        <view class="loading-status" wx:if="{{loading}}">
+            <text>加载中...</text>
+        </view>
+
+        <!-- 空状态 -->
+        <view class="empty-state" wx:if="{{!loading && refundList.length === 0}}">
+            <text class="empty-icon">💰</text>
+            <text class="empty-text">暂无退款记录</text>
+            <text class="empty-hint">当前没有退款/售后订单</text>
+        </view>
+
+        <!-- 没有更多 -->
+        <view class="no-more" wx:if="{{!loading && !hasMore && refundList.length > 0}}">
+            <text>— 没有更多了 —</text>
+        </view>
+    </scroll-view>
 </view>

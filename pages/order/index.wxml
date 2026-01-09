@@ -1,24 +1,99 @@
 <!--pages/order/index.wxml-->
 <view class="fill-page">
-    <view class="order--page">
-        <view class="order--page-container">
-            <view class="row-center order--page-title">请选择充值金额</view>
-            <view class="order--page-list flex">
-                <view wx:for="{{list}}" wx:key="unique" class="order--page-list-item {{index == listIndex ? 'active':''}}" id="{{index}}" bindtap="onChooseItem">
-                    <view class="order--page-list-item-amount">{{item.amount / 100}}</view>
-                    <view class="order--page-list-item-money">{{item.money / 100}}元</view>
-                    <view class="order--page-list-item-label" wx:if="{{item.discount > 0 && item.discount % 100 != 0}}">{{item.discount / 100 }}折</view>
-                    <view class="order--page-list-item-label" wx:if="{{item.discount > 0 && item.discount % 100 == 0}}">{{item.discount / 100 }}.0折</view>
+    <view class="order-page">
+        <view class="order-page-container">
+            <!-- 标题 -->
+            <view class="order-page-header">
+                <view class="order-page-title">确认订单</view>
+            </view>
+
+            <!-- 收货地址 -->
+            <view class="address-section">
+                <view class="address-card" wx:if="{{selectedAddress}}" bindtap="onSelectAddress">
+                    <view class="address-icon">📍</view>
+                    <view class="address-content">
+                        <view class="address-user">
+                            <text class="user-name">{{selectedAddress.recipient}}</text>
+                            <text class="user-phone">{{selectedAddress.phone}}</text>
+                        </view>
+                        <view class="address-detail">{{selectedAddress.address}}</view>
+                    </view>
+                    <view class="address-arrow">›</view>
+                </view>
+                
+                <view class="address-empty" wx:if="{{!selectedAddress}}" bindtap="onSelectAddress">
+                    <text class="empty-icon">+</text>
+                    <text class="empty-text">添加收货地址</text>
                 </view>
             </view>
-            <view class="order--page-dashboard">
-                <view class="order--page-dashboard-panel">
-                    <text>需要支付的金额:</text><text>{{list[listIndex] && list[listIndex]['money'] / 100 || 0 }}元</text>
+
+            <!-- 送达时间 -->
+            <view class="delivery-section">
+                <view class="delivery-card" wx:if="{{deliveryTime}}" bindtap="onSelectDeliveryTime">
+                    <view class="delivery-icon">🕐</view>
+                    <view class="delivery-content">
+                        <view class="delivery-label">送达时间</view>
+                        <view class="delivery-time">
+                            <text class="time-label">{{deliveryTime.label}}</text>
+                            <text class="time-desc">{{deliveryTime.description}}</text>
+                        </view>
+                    </view>
+                    <view class="delivery-arrow">›</view>
+                </view>
+                
+                <view class="delivery-empty" wx:if="{{!deliveryTime}}" bindtap="onSelectDeliveryTime">
+                    <text class="empty-icon">🕐</text>
+                    <text class="empty-text">选择送达时间</text>
                 </view>
             </view>
-            <view class="order--page-submit">
-                    <button type="primary" bindtap="onOrder" disabled="{{listIndex == -1}}">立即下单</button>
+
+            <!-- 购物车商品列表 -->
+            <view class="order-page-list" wx:if="{{cartItems.length > 0}}">
+                <view class="order-item" wx:for="{{cartItems}}" wx:key="version_id">
+                    <view class="item-info">
+                        <view class="item-name">{{item.goods_name}}</view>
+                        <view class="item-spec">规格: {{item.unit_name}}</view>
+                        <view class="item-price">¥{{item.price / 100}}</view>
+                    </view>
+                    <view class="item-controls">
+                        <view class="quantity-control">
+                            <button class="btn-decrease" bindtap="onDecreaseCount" data-index="{{index}}">-</button>
+                            <input 
+                                class="input-count" 
+                                type="digit" 
+                                value="{{item.count}}" 
+                                bindconfirm="onInputCount" 
+                                data-index="{{index}}"
+                            />
+                            <button class="btn-increase" bindtap="onIncreaseCount" data-index="{{index}}">+</button>
+                        </view>
+                        <view class="item-subtotal">小计: ¥{{item.subtotal / 100}}</view>
+                    </view>
                 </view>
+            </view>
+
+            <!-- 空购物车提示 -->
+            <view class="empty-cart" wx:if="{{cartItems.length === 0}}">
+                <text class="empty-text">购物车为空</text>
+                <text class="empty-hint">去选购商品吧～</text>
+            </view>
+
+            <!-- 底部结算栏 -->
+            <view class="order-page-footer" wx:if="{{cartItems.length > 0}}">
+                <view class="order-summary">
+                    <view class="summary-row">
+                        <text class="summary-label">商品数量:</text>
+                        <text class="summary-value">{{totalCount}} 件</text>
+                    </view>
+                    <view class="summary-row total-row">
+                        <text class="summary-label">总计:</text>
+                        <text class="summary-total">¥{{(totalPrice / 100)}}</text>
+                    </view>
+                </view>
+                <view class="order-submit">
+                    <button class="btn-submit" type="primary" bindtap="onOrder">立即下单</button>
+                </view>
+            </view>
         </view>
     </view>
 </view>

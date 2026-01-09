@@ -1,5 +1,4 @@
 /* pages/goods/index.wxss */
-/* .goods--page {} */
 
 .goods--page-header {
     background-color: #202020;
@@ -42,66 +41,274 @@
 
 .goods--page-body {
     margin-top: 10.3rem;
+    height: calc(100vh - 10.3rem);
 }
 
 .goods--page-category {
     width: 5rem;
-    padding-bottom: 5rem;
     background-color: #eee;
 }
+
 .goods--page-category view {
     padding: 0.8rem;
     font-size: 12px;
+    text-align: center;
 }
 
 .goods--page-category view.active {
-    color: gold;
+    background-color: #fff;
+    color: #ff6b00;
     font-weight: 700;
+    border-left: 3px solid #ff6b00;
 }
 
 .goods--page-goods {
     flex: 1;
     background-color: #fff;
+    overflow: hidden;
 }
 
-.goods--page-goods .goods-item {
+/* ==================== 商品卡片 ==================== */
+
+.goods-item {
     display: flex;
-    padding: 0.5rem;
+    padding: 0.8rem 0.4rem;
+    border-bottom: 1px solid #f5f5f5;
 }
 
 .goods-item-image {
-    height: 5rem;
-    width: 5rem;
-    margin: 0 0.5rem;
+    height: 4rem;
+    width: 4rem;
+    margin-right: 0.5rem;
+    border-radius: 4px;
+    flex-shrink: 0;
 }
+
 .goods-item-info {
-    width: 100%;
+    flex: 1;
     display: flex;
     flex-direction: column;
+}
+
+/* 商品标题区域 */
+.goods-header {
+    display: flex;
     justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.4rem;
 }
 
-.goods-item-info .count-reduce {
-    /* width: 2rem; */
-    /* height: 2rem; */
-    border: 1px solid gold;
-    padding: 0.2rem 0.55rem;
-    border-radius: 100%;
-    font-size: 1rem;
-    font-weight: 900;
-}
-
-.goods-item-info .buy-count {
-    display: inline-block;
-    text-align: end;
-    width: 1rem;
-    margin: 0 0.5rem;
-}
-
-.goods-item-info .count-plus {
-    background-color: gold;
+.expand-btn {
+    font-size: 0.7rem;
+    color: #ff6b00;
     padding: 0.2rem 0.5rem;
-    border-radius: 100%;
+    border-radius: 4px;
+    background-color: #fff5f0;
+    display: flex;
+    align-items: center;
+}
+
+.arrow {
+    font-size: 0.6rem;
+    margin-left: 0.2rem;
+    transition: transform 0.3s;
+}
+
+.arrow-down {
+    transform: rotate(0deg);
+}
+
+.arrow-up {
+    transform: rotate(180deg);
+}
+
+/* ==================== 版本规格 ==================== */
+
+.version-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-top: 1px dashed #f0f0f0;
+}
+
+.version-item.first-version {
+    border-top: none;
+}
+
+.version-item.single-version {
+    border-top: none;
+    padding-top: 0.3rem;
+}
+
+.version-info {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.version-spec {
+    font-size: 0.8rem;
+    color: #666;
+    background-color: #f5f5f5;
+    padding: 0.1rem 0.5rem;
+    border-radius: 3px;
+    margin-right: 0.5rem;
+}
+
+.version-price {
     font-size: 1rem;
-    font-weight: 900;
+    color: #ff6b00;
+    font-weight: 700;
+    margin-right: 0.5rem;
+}
+
+.version-badge {
+    font-size: 0.65rem;
+    color: #999;
+    background-color: #f9f9f9;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+}
+
+.version-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-right: 0.8rem;
+}
+
+.meta-item {
+    font-size: 0.65rem;
+    color: #999;
+    margin: 0.1rem 0;
+}
+
+.version-action {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-width: 5rem;
+}
+
+/* 展开后的版本样式 */
+.expanded-version {
+    background-color: #fafafa;
+    margin: 0.3rem 0;
+    padding: 0.5rem 0.8rem;
+    border-radius: 4px;
+    border: 1px solid #f0f0f0;
+}
+
+/* ==================== 购物车按钮 ==================== */
+
+.count-reduce {
+    border: 1px solid #ff6b00;
+    color: #ff6b00;
+    padding: 0.15rem 0.5rem;
+    border-radius: 50%;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1;
+    display: inline-block;
+    text-align: center;
+    min-width: 1.5rem;
+}
+
+.buy-count {
+    display: inline-block;
+    text-align: center;
+    min-width: 1.5rem;
+    margin: 0 0.3rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.count-plus {
+    background-color: #ff6b00;
+    color: white;
+    padding: 0.15rem 0.45rem;
+    border-radius: 50%;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1;
+    display: inline-block;
+    text-align: center;
+    min-width: 1.5rem;
+}
+
+/* ==================== 购物车浮动按钮 ==================== */
+
+.cart-float {
+    position: fixed;
+    bottom: 1rem;
+    left: 5%;
+    right: 5%;
+    background: linear-gradient(to right, #ff6b00, #ff8533);
+    border-radius: 50px;
+    padding: 0.8rem 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 12px rgba(255, 107, 0, 0.3);
+    z-index: 100;
+}
+
+.cart-badge {
+    background-color: #ff3b30;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.2rem 0.5rem;
+    border-radius: 50%;
+    min-width: 1.5rem;
+    text-align: center;
+}
+
+.cart-info {
+    flex: 1;
+    margin-left: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-price {
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.cart-delivery {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.65rem;
+    margin-top: 0.1rem;
+}
+
+.cart-submit {
+    background-color: white;
+    color: #ff6b00;
+    font-size: 0.9rem;
+    font-weight: 700;
+    padding: 0.5rem 1.5rem;
+    border-radius: 50px;
+}
+
+/* ==================== 响应式优化 ==================== */
+
+@media screen and (max-width: 375px) {
+    .goods-item-image {
+        height: 4rem;
+        width: 4rem;
+    }
+    
+    .version-price {
+        font-size: 0.9rem;
+    }
+    
+    .count-reduce,
+    .count-plus {
+        padding: 0.1rem 0.4rem;
+        font-size: 0.9rem;
+    }
 }
