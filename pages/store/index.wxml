@@ -29,7 +29,7 @@
 
     <!-- 商家列表 -->
     <scroll-view scroll-y class="store--page-list">
-        <view class="store--page-store-item" wx:for="{{stores}}" wx:key="id" bindtap="onStoreClick" data-id="{{item.id}}">
+        <view class="store--page-store-item" wx:for="{{stores}}" wx:key="store_id" bindtap="onStoreClick" data-id="{{item.store_id}}">
             <image class="store-image" src="{{item.image_url || '../../static/img/store_brief.png'}}" mode="aspectFill"></image>
             <view class="store-info">
                 <view class="store-name-row">

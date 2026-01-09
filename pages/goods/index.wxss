@@ -1,5 +1,5 @@
 /* pages/goods/index.wxss */
-.goods--page {}
+/* .goods--page {} */
 
 .goods--page-header {
     background-color: #202020;

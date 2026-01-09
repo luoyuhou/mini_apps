@@ -11,7 +11,7 @@
             <view class="goods--page-header-info">
                 <view class="d-flex" style="align-items: center;">
                     <image src="../../static/img/svgaddress.png" style="height: 1rem; width: 1rem;" mode=""/>
-                    <text style="margin-left: 0.2rem; color: skyblue;">地址：</text>
+                    <text style="margin-left: 0.2rem; color: skyblue;">地址：{{address}}</text>
                 </view>
                 <view class="mt-2 d-flex" style="color: limegreen; align-items: center;">
                     <image src="../../static/img/clock.png" style="height: 1rem; width: 1rem;" mode=""/>
@@ -38,32 +38,36 @@
     <view class="d-flex goods--page-body">
         <view class="goods--page-category">
             <scroll-view wx:for="{{categories}}" wx:key="unique">
-                <view data-id="{{item.id}}" class="{{item.id === categoryId? 'active': ''}}" bind:tap="onSwitchCategory">{{item.name}}</view>
+                <view data-id="{{item.category_id}}" class="{{item.category_id === categoryId? 'active': ''}}" bind:tap="onSwitchCategory">{{item.name}}</view>
             </scroll-view>
         </view>
         <view class="goods--page-goods">
-            <scroll-view wx:for="{{goods}}" wx:key="unique">
-                <view class="goods-item">
-                    <view>
-                        <image src="../../static/img/image.png" class="goods-item-image" mode=""/>
-                    </view>
-                    <view class="goods-item-info">
-                        <view class="font-weight-700" style="font-size: 0.9rem;">{{item.name}}</view>
-                        <view class="d-flex" style="width: 100%;">
-                            <view style="font-size: 0.8rem; flex: 1; color: red;">月售 {{item.monthly_number}}</view>
-                            <view style="font-size: 0.8rem; flex: 1; color: skyblue;">库存 {{item.remained_number}}</view>
+            <view wx:if="{{goods.length > 0 }}">
+                <scroll-view wx:for="{{goods}}" wx:key="unique">
+                    <view class="goods-item">
+                        <view>
+                            <image src="../../static/img/image.png" class="goods-item-image" mode=""/>
                         </view>
-                        <view class="d-flex;" style="flex-direction: row; justify-content: space-between; margin-right: 1rem;">
-                            <view style="font-size: 0.8rem;">￥{{item.price}} 元</view>
-                            <view>
-                                <text data-id="{{item.id}}" wx:if="{{cars[item.id] > 0}}" class="count-reduce" bind:tap="onReduceGoodsOnCars">-</text>
-                                <text wx:if="{{cars[item.id] > 0}}" class="buy-count">{{cars[item.id]}}</text>
-                                <text data-id="{{item.id}}" class="count-plus" bind:tap="onAddGoodsToCars">+</text>
+                        <view class="goods-item-info">
+                            <view class="font-weight-700" style="font-size: 0.9rem;">{{item.name}}</view>
+                            <view style="font-size:0.7rem; color: #bbb;">{{item.description}}</view>
+                            <view class="d-flex" style="width: 100%;">
+                                <view style="font-size: 0.8rem; flex: 1; color: red;">月售 {{item.monthly_number}}</view>
+                                <view style="font-size: 0.8rem; flex: 1; color: skyblue;">库存 {{item.remained_number}}</view>
+                            </view>
+                            <view class="d-flex;" style="flex-direction: row; justify-content: space-between; margin-right: 1rem;">
+                                <view style="font-size: 0.8rem;">￥{{item.price}} 元</view>
+                                <view>
+                                    <text data-id="{{item.id}}" wx:if="{{cars[item.id] > 0}}" class="count-reduce" bind:tap="onReduceGoodsOnCars">-</text>
+                                    <text wx:if="{{cars[item.id] > 0}}" class="buy-count">{{cars[item.id]}}</text>
+                                    <text data-id="{{item.id}}" class="count-plus" bind:tap="onAddGoodsToCars">+</text>
+                                </view>
                             </view>
                         </view>
                     </view>
-                </view>
-            </scroll-view>
+                </scroll-view>
+            </view>
+            <view wx:else style="padding: 0.5rem; color: gray; font-size: 12px;">列表为空...</view>
         </view>
     </view>
 </view>
