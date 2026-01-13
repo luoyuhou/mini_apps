@@ -218,6 +218,18 @@ Page({
     },
 
     /**
+     * 清空购物车（由订单页调用）
+     */
+    clearCart: function() {
+        console.log('清空购物车');
+        this.setData({ 
+            cars: {},
+            totalCount: 0,
+            totalPrice: 0
+        });
+    },
+
+    /**
      * 查看购物车
      */
     onViewCart: function() {

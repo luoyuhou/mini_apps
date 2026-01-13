@@ -362,26 +362,51 @@ Page({
                         delivery_date: deliveryTime.time,
                     };
 
+                    wx.showLoading({
+                        title: '下单中...',
+                        mask: true
+                    });
+
                     fetch({
-                        url: `${app.globalData.baseApiUrl}/order`,
+                        url: `${app.globalData.baseApiUrl}/users/order`,
                         method: "post",
                         data: orderData,
                     }).then((res) => {
+                        wx.hideLoading();
                         console.log('Order created:', res);
+                        
+                        // 通知商品页清空购物车
+                        const pages = getCurrentPages();
+                        const goodsPage = pages.find(page => page.route === 'pages/goods/index');
+                        if (goodsPage) {
+                            goodsPage.clearCart();
+                        }
+                        
                         wx.showToast({
                             title: '下单成功',
-                            icon: 'success'
+                            icon: 'success',
+                            duration: 2000
                         });
                         
-                        // 延迟跳转到订单列表或返回上一页
+                        // 延迟跳转到订单列表页
                         setTimeout(() => {
-                            wx.navigateBack();
-                        }, 1500);
+                            wx.redirectTo({
+                                url: '/pages/order-list/order-list',
+                                fail: () => {
+                                    // 如果 redirectTo 失败，尝试 navigateTo
+                                    wx.navigateTo({
+                                        url: '/pages/order-list/order-list'
+                                    });
+                                }
+                            });
+                        }, 2000);
                     }).catch((err) => {
+                        wx.hideLoading();
                         console.error('Order failed:', err);
                         wx.showToast({
-                            title: '下单失败',
-                            icon: 'none'
+                            title: err.message || '下单失败，请重试',
+                            icon: 'none',
+                            duration: 2000
                         });
                     });
                 }
