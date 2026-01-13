@@ -1,4 +1,5 @@
 <!--pages/order-list/order-list.wxml-->
+<wxs src="../../utils/filter.wxs" module="filter" />
 <view class="order-list-page">
     <!-- Tab 栏 -->
     <view class="tab-bar">
@@ -21,7 +22,7 @@
                 <!-- 订单头部 -->
                 <view class="order-header">
                     <view class="store-info">
-                        <text class="store-name">{{item.store_name || '商家'}}</text>
+                        <text class="store-name">{{item._store.store_name || '商家'}}</text>
                     </view>
                     <view class="order-status" style="color: {{statusConfig[item.status].color}}">
                         {{statusConfig[item.status].text}}
@@ -43,22 +44,26 @@
                 </view>
 
                 <!-- 配送信息 -->
-                <view class="delivery-info" wx:if="{{item.delivery_time}}">
-                    <text class="delivery-label">送达时间:</text>
-                    <text class="delivery-time">{{item.delivery_time.label}} {{item.delivery_time.description}}</text>
+                <view class="delivery-info">
+                    <text class="delivery-label">送达时间：</text>
+                    <text class="delivery-time">{{item.delivery_date}}</text>
                 </view>
 
                 <!-- 收货地址 -->
-                <view class="address-info" wx:if="{{item.address}}">
+                <view class="address-info">
+                    <text class="address-icon">收货地址：</text>
+                    <text class="address-text">{{item.province}}{{item.city}}{{item.area}}{{item.town}}{{item.address}}</text>
+                </view>
+                <view class="address-info">
                     <text class="address-icon">📍</text>
-                    <text class="address-text">{{item.address.recipient}} {{item.address.phone}}</text>
+                    <text class="address-text">{{item.recipient}} {{item.phone}}</text>
                 </view>
 
                 <!-- 订单金额 -->
                 <view class="order-amount">
                     <text class="amount-label">共{{item.total_count}}件商品</text>
                     <text class="amount-text">合计: </text>
-                    <text class="amount-value">¥{{item.total_price / 100}}</text>
+                    <text class="amount-value">¥{{item.money / 100}}</text>
                 </view>
 
                 <!-- 操作按钮 -->

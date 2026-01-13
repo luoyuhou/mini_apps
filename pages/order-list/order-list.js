@@ -10,9 +10,9 @@ Page({
         currentStatus: 'all', // all, 0, 1, 2, 4
         tabs: [
             { status: 'all', name: '全部' },
-            { status: '0', name: '待付款' },
-            { status: '1', name: '待发货' },
-            { status: '2', name: '待收货' },
+            { status: '1', name: '待接单' },
+            { status: '2', name: '待发货' },
+            { status: '3', name: '待收货' },
             { status: '4', name: '待评价' }
         ],
         orderList: [],
@@ -21,7 +21,7 @@ Page({
         pageSize: 10,
         hasMore: true,
         statusConfig: {
-            '0': { text: '待付款', color: '#ff6b6b', action: '去支付' },
+            '0': { text: '待接单', color: '#ff6b6b', action: '去支付' },
             '1': { text: '待发货', color: '#ffa500', action: '提醒发货' },
             '2': { text: '待收货', color: '#1890ff', action: '确认收货' },
             '3': { text: '已完成', color: '#52c41a', action: '再次购买' },
@@ -72,9 +72,9 @@ Page({
         this.setData({ loading: true });
 
         // 构建请求URL
-        let url = `${app.globalData.baseApiUrl}/order/list?page=${page}&pageSize=${pageSize}`;
+        let url = `${app.globalData.baseApiUrl}/users/order/list?page=${page}&pageSize=${pageSize}`;
         if (currentStatus !== 'all') {
-            url += `&status=${currentStatus}`;
+            url += `&stage=${currentStatus}`;
         }
 
         fetch({
@@ -105,72 +105,6 @@ Page({
      * 加载模拟订单数据（用于测试）
      */
     loadMockOrders: function() {
-        const mockOrders = [
-            {
-                order_id: '202601100001',
-                status: '0',
-                create_time: '2026-01-10 10:30:00',
-                total_price: 15800,
-                total_count: 3,
-                store_name: '超市便利店',
-                address: {
-                    recipient: '张三',
-                    phone: '138****8888',
-                    address: '北京市朝阳区xx街道xx号'
-                },
-                delivery_time: {
-                    label: '今天下午',
-                    description: '14:00 - 18:00'
-                },
-                items: [
-                    { goods_name: '可口可乐', unit_name: '瓶装 330ml', price: 300, count: 2, subtotal: 600 },
-                    { goods_name: '薯片', unit_name: '袋装 100g', price: 800, count: 1, subtotal: 800 },
-                    { goods_name: '矿泉水', unit_name: '瓶装 500ml', price: 200, count: 5, subtotal: 1000 }
-                ]
-            },
-            {
-                order_id: '202601090001',
-                status: '1',
-                create_time: '2026-01-09 15:20:00',
-                total_price: 28500,
-                total_count: 5,
-                store_name: '生鲜超市',
-                address: {
-                    recipient: '李四',
-                    phone: '139****9999',
-                    address: '上海市浦东新区xx路xx号'
-                },
-                delivery_time: {
-                    label: '明天上午',
-                    description: '9:00 - 12:00'
-                },
-                items: [
-                    { goods_name: '苹果', unit_name: '500g', price: 1500, count: 2, subtotal: 3000 },
-                    { goods_name: '牛奶', unit_name: '盒装 250ml', price: 500, count: 3, subtotal: 1500 }
-                ]
-            },
-            {
-                order_id: '202601080001',
-                status: '2',
-                create_time: '2026-01-08 11:00:00',
-                total_price: 45600,
-                total_count: 4,
-                store_name: '日用百货',
-                address: {
-                    recipient: '王五',
-                    phone: '137****7777',
-                    address: '广州市天河区xx路xx号'
-                },
-                delivery_time: {
-                    label: '今天晚间',
-                    description: '18:00 - 21:00'
-                },
-                items: [
-                    { goods_name: '洗衣液', unit_name: '2L', price: 3800, count: 1, subtotal: 3800 },
-                    { goods_name: '纸巾', unit_name: '10包装', price: 2500, count: 2, subtotal: 5000 }
-                ]
-            }
-        ];
 
         // 根据状态筛选
         let filteredOrders = mockOrders;
