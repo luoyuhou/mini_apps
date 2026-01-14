@@ -25,12 +25,8 @@ Page({
       { id: 7, name: '鲜花', icon: 'emoji', emoji: '💐' },
       { id: 8, name: '更多', icon: '../../static/img/more.png', disabled: true }
     ],
-    banners: [
-      { id: 1, image: '../../static/picture/poster_1.png' },
-      { id: 2, image: '../../static/picture/poster_2.png' },
-      { id: 3, image: '../../static/picture/poster_3.png' },
-      { id: 4, image: '../../static/picture/poster_4.png' },
-    ],
+    // 轮播图数据，初始为空，展示时从后端拉取
+    banners: [],
     stores: [
       { id: 1, name: '美味餐厅', image: '../../static/img/store_brief.png', rating: 4.8, sales: 1200, avgPrice: 35, deliveryFee: 5 },
       { id: 2, name: '便利超市', image: '../../static/img/store_brief.png', rating: 4.9, sales: 850, avgPrice: 20, deliveryFee: 3 },
@@ -62,6 +58,7 @@ Page({
       profile: app.globalData.userInfo
     });
     this.loadData();
+    this.loadBanners();
   },
 
   /**
@@ -99,24 +96,35 @@ Page({
 
   },
 
-  loadData: function () {
-    const data = [
-      { id: 1, meChecked: false, good: 1, username: 'jack', avatar: "https://img2.baidu.com/it/u=441072932,880591356&fm=26&fmt=auto&gp=0.jpg", createDate: new Date(), message: '春眠不觉晓，处处闻啼鸟。', url: 'https://vd3.bdstatic.com/mda-mgp4rpu14uanfd27/sc/cae_h264/1627097538537122138/mda-mgp4rpu14uanfd27.mp4?v_from_s=hkapp-haokan-nanjing&auth_key=1627124754-0-0-9b815f8a01b0278d8db0aad02a771d0f&bcevod_channel=searchbox_feed&pd=1&pt=3&abtest=3000165_2' },
-      { id: 2, username: 'jack', avatar: "https://img2.baidu.com/it/u=441072932,880591356&fm=26&fmt=auto&gp=0.jpg", createDate: new Date(), message: '春眠不觉晓，处处闻啼鸟。', url: 'https://vd3.bdstatic.com/mda-mgp4rpu14uanfd27/sc/cae_h264/1627097538537122138/mda-mgp4rpu14uanfd27.mp4?v_from_s=hkapp-haokan-nanjing&auth_key=1627124754-0-0-9b815f8a01b0278d8db0aad02a771d0f&bcevod_channel=searchbox_feed&pd=1&pt=3&abtest=3000165_2' },
-      { id: 3, username: 'jack', avatar: "https://img2.baidu.com/it/u=441072932,880591356&fm=26&fmt=auto&gp=0.jpg", createDate: new Date(), message: '春眠不觉晓，处处闻啼鸟。', url: 'https://vd3.bdstatic.com/mda-mgp4rpu14uanfd27/sc/cae_h264/1627097538537122138/mda-mgp4rpu14uanfd27.mp4?v_from_s=hkapp-haokan-nanjing&auth_key=1627124754-0-0-9b815f8a01b0278d8db0aad02a771d0f&bcevod_channel=searchbox_feed&pd=1&pt=3&abtest=3000165_2' },
-      { id: 4, username: 'jack', avatar: "https://img2.baidu.com/it/u=441072932,880591356&fm=26&fmt=auto&gp=0.jpg", createDate: new Date(), message: '春眠不觉晓，处处闻啼鸟。', url: 'https://vd3.bdstatic.com/mda-mgp4rpu14uanfd27/sc/cae_h264/1627097538537122138/mda-mgp4rpu14uanfd27.mp4?v_from_s=hkapp-haokan-nanjing&auth_key=1627124754-0-0-9b815f8a01b0278d8db0aad02a771d0f&bcevod_channel=searchbox_feed&pd=1&pt=3&abtest=3000165_2' },
-      { id: 5, username: 'jack', avatar: "https://img2.baidu.com/it/u=441072932,880591356&fm=26&fmt=auto&gp=0.jpg", createDate: new Date(), message: '春眠不觉晓，处处闻啼鸟。', url: 'https://vd3.bdstatic.com/mda-mgp4rpu14uanfd27/sc/cae_h264/1627097538537122138/mda-mgp4rpu14uanfd27.mp4?v_from_s=hkapp-haokan-nanjing&auth_key=1627124754-0-0-9b815f8a01b0278d8db0aad02a771d0f&bcevod_channel=searchbox_feed&pd=1&pt=3&abtest=3000165_2' },
-      { id: 6, username: 'jack', avatar: "https://img2.baidu.com/it/u=441072932,880591356&fm=26&fmt=auto&gp=0.jpg", createDate: new Date(), message: '春眠不觉晓，处处闻啼鸟。', url: 'https://vd3.bdstatic.com/mda-mgp4rpu14uanfd27/sc/cae_h264/1627097538537122138/mda-mgp4rpu14uanfd27.mp4?v_from_s=hkapp-haokan-nanjing&auth_key=1627124754-0-0-9b815f8a01b0278d8db0aad02a771d0f&bcevod_channel=searchbox_feed&pd=1&pt=3&abtest=3000165_2' }
-    ];
-    this.setData({
-      index: this.data.index + 1,
-      data: this.data.data.concat(data)
-    })
+  // 加载首页 feed 示例数据（与轮播无关）
+  loadData: function () {},
+
+  // 从 open-api 加载首页轮播图
+  loadBanners: function () {
+    const that = this;
+    fetch({
+      url: `${app.globalData.baseApiUrl}/wx/home/banners`,
+      method: 'GET',
+      data: {}
+    }).then((res) => {
+      const list = (res.data || []).map((item, index) => {
+        return {
+          id: item.banner_id || item.id || index,
+          image: item.image_url,
+          title: item.title,
+          description: item.description,
+        };
+      });
+      that.setData({
+        banners: list
+      });
+    }).catch((error) => {
+      console.error('加载轮播图失败:', error);
+    });
   },
 
   onTriggleScan: function() {
     const that = this;
-    console.log('开始扫码');
     
     wx.scanCode({
       onlyFromCamera: true,

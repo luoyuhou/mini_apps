@@ -55,7 +55,7 @@
                     <view wx:for="{{goods}}" wx:key="goods_id" class="goods-item">
                         <view>
                             <image 
-                                src="../../static/img/image.png" 
+                                src="{{item.versions[0].image_url || '../../static/img/image.png'}}" 
                                 class="goods-item-image" 
                                 mode="aspectFill"
                             />
